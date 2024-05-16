@@ -7,6 +7,7 @@ use App\Models\Classe;
 use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TeacherController extends Controller
 {
@@ -56,12 +57,10 @@ class TeacherController extends Controller
         $teacher->name =$request->input('name');
         $teacher->last_name = $request->input('last_name');
         $teacher->teacher_birthdate = $request ->input('teacher_birthdate');
-       $teacher->teacher_phone = $request -> input('teacher_phone');
-        $teacher->subject_id = $request->subject_id;
-        $teacher->classe_id = $request->classe_id;
-
+        $teacher->teacher_phone = $request ->input('teacher_phone');
+        $teacher->subject_id = $request->input('subject_id');
+        $teacher->classe_id = $request->input('classe_id');
        $teacher->save();
-
         return redirect('/teacher')->with('success', 'Data saved');    }
 
     /**

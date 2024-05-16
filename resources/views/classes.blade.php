@@ -1,6 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- Modal --}}
+    <div class="modal fade" id="modal-classe" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                        <div class="card-header pb-0 text-left">
+                            <h3 class="font-weight-bolder text-info text-gradient">Add New Class</h3>
+                        </div>
+                        <form action="{{ action('Dashboard\ClassesController@store') }}" method="POST">
+                            @csrf
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" placeholder="Class Name" name="name">
+                                                <span class="text-danger">@error('name'){{ $message }}@enderror</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="teacher_id">Teacher</label>
+                                                <select class="form-control" id="teacher_id" name="teacher_id">
+                                                    @foreach($teachers as $teacher)
+                                                        <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <span class="text-danger">@error('teacher_id'){{ $message }}@enderror</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="grade_id">Grade</label>
+                                                <select class="form-control" id="grade_id" name="grade_id">
+                                                    @foreach($grades as $grade)
+                                                        <option value="{{ $grade->id }}">{{ $grade->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <span class="text-danger">@error('grade_id'){{ $message }}@enderror</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-round bg-gradient-info btn-lg mt-4 mb-0">ADD</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End of Modal  --}}
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="container-full">
@@ -28,13 +84,31 @@
                                         <tr>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Grade</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teachers</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Action
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($classes as $class)
+                                        @foreach($classes as $classe)
                                             <tr>
-                                                <td class="text-center">{{ $class->name }}</td>
-                                                <td class="text-center">{{ $class->grade->name }}</td>
+                                                <td class="text-center">{{ $classe->name }}</td>
+                                                <td class="text-center">{{ $classe->grade->name }}</td>
+                                                <td class="text-center">
+                                                    @foreach ($classe->teacher as $teacher)
+                                                        {{ $teacher->name }}
+                                                        <br>
+                                                    @endforeach
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                                                        <i class="fas fa-user-edit text-secondary"></i>
+                                                    </a>
+                                                    <span>
+                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                        </span>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

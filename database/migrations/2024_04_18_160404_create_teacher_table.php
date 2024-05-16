@@ -19,9 +19,9 @@ class CreateTeacherTable extends Migration
             $table->string('last_name');
             $table->date('teacher_birthdate');
             $table->unsignedBigInteger('subject_id');
-            $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->foreign('subject_id')->references('id')->on('subject');
             $table->unsignedBigInteger('classe_id');
-            $table->foreign('classe_id')->references('id')->on('classes');
+            $table->foreign('classe_id')->references('id')->on('classe');
             $table->string('teacher_phone');
             $table->timestamps();
         });

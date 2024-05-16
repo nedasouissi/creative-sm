@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModuleTable extends Migration
+class CreateHomeworkTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateModuleTable extends Migration
      */
     public function up()
     {
-        Schema::create('module', function (Blueprint $table) {
+        Schema::create('homework', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->float('coefficient');
-            $table->unsignedBigInteger('grade_id');
-            $table->foreign('grade_id')->references('id')->on('grade');
+            $table->string('title');
+            $table->text('content');
+            $table->date('deadline');
+            $table->unsignedBigInteger('classe_id');
+            $table->foreign('classe_id')->references('id')->on('classes');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateModuleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('module');
+        Schema::dropIfExists('homework');
     }
 }

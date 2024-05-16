@@ -3,7 +3,7 @@
 @section('content')
     {{-- modal start here  --}}
 
-    <div class="modal fade" id="modal-teacher" tabindex="-1" role="dialog" aria-labelledby="modal-form"aria-hidden="true">
+    <div class="modal fade" id="modal-teacher" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body p-0">
@@ -21,7 +21,7 @@
                                             <!-- Father's Information -->
                                             <div class="form-group">
                                                 <label for=""> Name</label>
-                                                <input type="text" class="form-control" placeholder=""name="name">
+                                                <input type="text" class="form-control" placeholder="" name="name">
                                                 <span class="text-danger">@error('name'){{$message}}@enderror</span>
                                             </div>
                                             <div class="form-group">
@@ -30,8 +30,8 @@
                                                 <span class="text-danger">@error('last_name'){{ $message }}@enderror</span>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Subjects</label>
-                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                <label for="exampleFormControlSelect1">Subject</label>
+                                                <select class="form-control" id="subject_id" name="subject_id">
                                                     @foreach($subjects as $subject)
                                                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                                     @endforeach
@@ -54,7 +54,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">classes</label>
-                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                <select class="form-control" id="classe_id" name="classe_id">
                                                     @foreach($classes as $classe)
                                                         <option value="{{ $classe->id }}">{{ $classe->name }}</option>
                                                     @endforeach
@@ -100,8 +100,6 @@
                                                 <div>
                                                     <h5 class="mb-0">All Teachers</h5>
                                                 </div>
-
-
                                                 <a href="#" class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#modal-teacher" type="button">+&nbsp; New Teacher</a>
                                             </div>
                                         </div>
@@ -123,16 +121,41 @@
                                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                             Phone
                                                         </th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                            Subject
+                                                        </th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                            Classes
+                                                        </th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                            Action
+                                                        </th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($teachers as $teacher)
+                                                    @foreach($teachers as $Teacher)
                                                         <tr>
-                                                            <td class="text-center">{{ $teacher->name }}</td>
-                                                            <td class="text-center">{{ $teacher->last_name }}</td>
-                                                            <td class="text-center">{{ $teacher->teacher_birthdate }}</td>
-                                                            <td class="text-center">{{ $teacher->teacher_phone }}</td>
-
+                                                            <td class="text-center">{{ $Teacher->name }}</td>
+                                                            <td class="text-center">{{ $Teacher->last_name }}</td>
+                                                            <td class="text-center">{{ $Teacher->teacher_birthdate }}</td>
+                                                            <td class="text-center">{{ $Teacher->teacher_phone }}</td>
+                                                            <td class="text-center">
+                                                                {{ optional($Teacher->subject)->name }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @foreach ($Teacher->classes as $Classe)
+                                                                    {{ $Classe->name }}
+                                                                    <br>
+                                                                @endforeach
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                                                                    <i class="fas fa-user-edit text-secondary"></i>
+                                                                </a>
+                                                                <span>
+                                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                                                 </span>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>

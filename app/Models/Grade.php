@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Grade extends Model
 {
+    protected $primaryKey = 'id';
     protected $table = 'grade';
-    protected $fillable = [ 'name'];
+    protected $fillable = [ 'name','classe_id'];
 
-    public function Classe (){
-        return $this->hasMany(Classe::class);
+    public function classe (){
+        return $this->hasMany(Classe::class ,'grade_id');
     }
 }

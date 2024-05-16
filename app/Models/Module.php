@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
+    protected $primaryKey = 'id';
     protected $table = 'module';
-    protected $fillable = ['name', 'coefficient', 'grade_id'];
+    protected $fillable = ['name', 'coefficient', 'grade_id','subject_id'];
 
-    public function grade(){
+    public function grades(){
         return   $this->belongsTo(Grade::class , 'grade_id');
     }
 

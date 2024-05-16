@@ -6,15 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
+    protected $primaryKey = 'id';
     protected $table = 'teacher';
-    protected $fillable = ['name', 'last_name', 'teacher_phone', 'teacher_birthdate'];
+    protected $fillable = ['name', 'last_name', 'teacher_phone', 'teacher_birthdate', 'subject_id','classe_id'];
 
-    public function subjects()
+    public function subject()
     {
-        return $this->hasMany(Subject::class, 'teacher_id');
+        return $this->belongsTo(Subject::class, 'subject_id');
     }
-    public function classe()
+
+    public function classes()
     {
-        return $this->belongsTo(Classe::class,'classe_id');
+        return $this->hasMany(Classe::class, 'teacher_id');
     }
+
 }

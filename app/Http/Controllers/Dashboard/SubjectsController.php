@@ -12,8 +12,11 @@ class SubjectsController extends Controller
 {
     public function index()
     {
-        $subjects = Subject::with('module', 'teachers')->get();
-        return view('subject', compact('subjects'));
+        $subjects = Subject::all();
+        $modules = Module::all();
+        $teachers = Teacher::all();
+        return view('subjects', compact('subjects', 'modules', 'teachers'));
+
     }
 
     /**
@@ -24,16 +27,7 @@ class SubjectsController extends Controller
      */
     public function create( Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'module_id' => 'required|exists:modules,id',
-            'teacher_id' => 'required|exists:teachers,id',
-        ]);
-
-        Subject::create($request->all());
-
-        return redirect()->route('subjects.index')
-            ->with('success', 'Subject created successfully.');
+        //
     }
 
     /**
@@ -43,11 +37,25 @@ class SubjectsController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
 
-    public function store(Request $request)
 
+        public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+
+            'name' => ['required','string','max:255'],
+            'module_id' => ['required'],
+            'teacher_id' => ['required'],
+        ]);
+        $subject = new Subject();
+        $subject->name = $request->input('name');
+        $subject->module_id = $request->input('module_id');
+        $subject->teacher_id = $request->input('teacher_id');
+
+        $subject->save();
+
+        return redirect('/subjects')->with('success', 'Data saved');
     }
+
     /**
      * Display the specified resource.
      *

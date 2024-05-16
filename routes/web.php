@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\ParentController;
 
 
 /*
@@ -33,7 +32,11 @@ Route::group(['namespace'=>'Dashboard'], function (){
 Route::resource('/parent','ParentsController');
 Route::resource('/student','StudentController');
 Route::resource('/teacher','TeacherController');
-
+Route::resource('/modules','ModulesController');
+Route::resource('/subjects','SubjectsController');
+Route::resource('/grades','GradesController');
+Route::resource('/classes','ClassesController');
+Route::resource('homework','HomeworkController');
 
 //Teachers Routes
  //   Route::get('/teachers-enrolled', 'TeacherController@index')->name('teacher.index');
@@ -45,19 +48,19 @@ Route::resource('/teacher','TeacherController');
     Route::get('/information', 'InformationsController@index')->name('info.index');
 
 // Homework routes
-    Route::get('/homework', 'HomeworkController@index')->name('homework.index');
+  //  Route::get('/homework', 'HomeworkController@index')->name('homework.index');
 
 // Modules routes
-    Route::get('/modules', 'ModulesController@index')->name('modules.index');
+  //  Route::get('/modules', 'ModulesController@index')->name('modules.index');
 
 //Subjects routes
-    Route::get('/subjects', 'SubjectsController@index')->name('subjects.index');
+   // Route::get('/subjects', 'SubjectsController@index')->name('subjects.index');
 
 //Classes routes
-    Route::get('/classes', 'ClassesController@index')->name('classes.index');
+   // Route::get('/classes', 'ClassesController@index')->name('classes.index');
 
 // Grades routes
-    Route::get('/grades', 'GradesController@index')->name('grades.index');
+   // Route::get('/grades', 'GradesController@index')->name('grades.index');
 
 //Marks routes
     Route::get('/marks', 'MarksController@index')->name('marks.index');
