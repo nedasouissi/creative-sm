@@ -17,8 +17,8 @@ class Classe extends Model
     {
         return $this->hasMany(Teacher::class, 'classe_id');
     }
-    public function homework()
+    public function homeworks()
     {
-        return $this->hasMany(Homework::class, 'classe_id');
+        return $this->belongsToMany(Homework::class, 'homework_classe', 'classe_id', 'homework_id');
     }
 }

@@ -12,94 +12,54 @@ class SubjectsController extends Controller
 {
     public function index()
     {
-        $subjects = Subject::all();
+        $subjects = Subject::with(['module', 'teachers'])->get();
         $modules = Module::all();
         $teachers = Teacher::all();
         return view('subjects', compact('subjects', 'modules', 'teachers'));
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function create( Request $request)
+    public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
-     */
-
-
-        public function store(Request $request)
-    {
-        $this->validate($request,[
-
-            'name' => ['required','string','max:255'],
-            'module_id' => ['required'],
-            'teacher_id' => ['required'],
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'module_id' => 'required|exists:module,id',
+            'teacher_id' => 'required|exists:teacher,id',
         ]);
-        $subject = new Subject();
-        $subject->name = $request->input('name');
-        $subject->module_id = $request->input('module_id');
-        $subject->teacher_id = $request->input('teacher_id');
 
-        $subject->save();
+        Subject::create($request->only('name', 'module_id', 'teacher_id'));
 
-        return redirect('/subjects')->with('success', 'Data saved');
+        return redirect()->back()->with('success', 'Subject added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'module_id' => 'required|exists:module,id',
+            'teacher_id' => 'required|exists:teacher,id',
+        ]);
+
+        $subject = Subject::findOrFail($id);
+        $subject->update($request->only('name', 'module_id', 'teacher_id'));
+
+        return redirect()->back()->with('success', 'Subject updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function show($id)
+    {
+        $subject = Subject::with(['module', 'teachers'])->findOrFail($id);
+        return response()->json($subject);
+    }
+
     public function destroy($id)
     {
-        //
+        $subject = Subject::find($id);
+
+        if ($subject) {
+            $subject->delete();
+            return redirect()->back()->with('success', 'Subject deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Subject not found.');
     }
-
-
 }

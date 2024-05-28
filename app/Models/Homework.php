@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Homework extends Model
 {
     protected $primaryKey = 'id';
-    protected $fillable = ['title','content','deadline','classe_id'];
+    protected $table = 'homework';
+    protected $fillable = ['title','description','deadline'];
 
     public function classes()
     {
-        return $this->belongsToMany(Classe::class);
+        return $this->belongsToMany(Classe::class, 'homework_classe', 'homework_id', 'classe_id');
     }
+
+
 
 }

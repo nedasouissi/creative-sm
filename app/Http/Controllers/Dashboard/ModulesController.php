@@ -10,35 +10,58 @@ use Illuminate\Http\Request;
 
 class ModulesController extends Controller
 {
-    public function index(){
-        {
-            $modules = Module::with('subjects', 'grades')->get();
-            $subjects = Subject::all();
-            $grades = Grade::all();
-            return view('modules', compact('modules', 'subjects', 'grades'));
-        }
+    public function index()
+    {
+        $modules = Module::with(['grade', 'subjects'])->get();
+        $grades = Grade::all();
+        $subjects = Subject::all();
+        return view('modules', compact('modules', 'grades', 'subjects'));
     }
+
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'coefficient' => ['required', 'numeric'],
-            'grade_id' => ['required'],
-            'subject_id' => ['required'],
+            'name' => 'required|string|max:255',
+            'coefficient' => 'required|numeric',
+            'grade_id' => 'required|exists:grade,id',
+            'subject_id' => 'required|exists:subject,id',
         ]);
 
-        $module = new Module();
-        $module->name = $request->input('name');
-        $module->coefficient = $request->input('coefficient');
-        $module->grade_id = $request->input('grade_id');
-        $module->subject_id = $request->input('subject_id');
+        Module::create($request->only('name', 'coefficient', 'grade_id', 'subject_id'));
 
-        $module->save();
-
-        return redirect('/modules')->with('success', 'Data saved');
+        return redirect()->back()->with('success', 'Module added successfully.');
     }
 
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'coefficient' => 'required|numeric',
+            'grade_id' => 'required|exists:grade,id',
+            'subject_id' => 'required|exists:subject,id',
+        ]);
 
+        $module = Module::findOrFail($id);
+        $module->update($request->only('name', 'coefficient', 'grade_id', 'subject_id'));
 
+        return redirect()->back()->with('success', 'Module updated successfully.');
+    }
 
+    public function show($id)
+    {
+        $module = Module::with(['grade', 'subjects'])->findOrFail($id);
+        return response()->json($module);
+    }
+
+    public function destroy($id)
+    {
+        $module = Module::find($id);
+
+        if ($module) {
+            $module->delete();
+            return redirect()->back()->with('success', 'Module deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Module not found.');
+    }
 }

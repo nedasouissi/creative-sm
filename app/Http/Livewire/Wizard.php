@@ -64,7 +64,7 @@ class Wizard extends Component
                 'student_phone' => ['required', 'integer'],
                 'student_grade' => ['required', 'string', 'max:255'],
                 'birthdate' => ['required', 'date', 'before_or_equal:2013-12-31'],
-                'avatar' => ['required', 'image', 'max:1024'],
+                'avatar' => ['nullable','image','mimes:jpeg,png,jpg,gif|max:2048'],
             ]);
                   // upload and store the avatar
         $this->avatar = $this->avatar->store('avatars','public');
@@ -108,7 +108,7 @@ class Wizard extends Component
 
             $parent->sendEmailVerificationNotification();
 
-            dd('after',$parent->sendEmailVerificationNotification());
+
             $this->clearForm();
         }
 

@@ -11,33 +11,14 @@ use Illuminate\Validation\Rule;
 
 class ParentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
+
     public function index()
     {
         $StudentParents = StudentParent::with('students')->get();
         return view('parent', compact('StudentParents'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
-     */
     public function store(Request $request)
     {
         $this->validate($request,[
@@ -69,7 +50,7 @@ class ParentsController extends Controller
         $parent->mother_last_name = $request->input('mother_last_name');
         $parent->mother_phone = $request->input('mother_phone');
         $parent->mother_job = $request->input('mother_job');
-       $parent->parent_email = $request->input('parent_email');
+        $parent->parent_email = $request->input('parent_email');
         $parent->status = 0;
         $parent->save();
 
@@ -89,48 +70,83 @@ class ParentsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function toggleStatus(Request $request, $id)
     {
-        //
+        $parent = StudentParent::findOrFail($id);
+        $parent->status = $request->status;
+        $parent->save();
+
+        return response()->json(['success' => true]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'father_name' => 'required|string|max:255',
+            'father_last_name' => 'required|string|max:255',
+            'father_phone' => 'required|numeric',
+            'father_job' => 'required|string|max:255',
+            'parent_email' => 'required|email',
+
+            'mother_name' => 'required|string|max:255',
+            'mother_last_name' => 'required|string|max:255',
+            'mother_phone' => 'required|numeric',
+            'mother_job' => 'required|string|max:255',
+
+            'student_name' => 'required|string|max:255',
+            'student_last_name' => 'required|string|max:255',
+            'student_phone' => 'required|numeric',
+            'student_grade' => 'required|string|max:255',
+            'birthdate' => 'required|date',
+           // 'avatar' => 'nullable|image'
+        ]);
+
+        $parent = StudentParent::findOrFail($id);
+        $parent->father_name = $request->father_name;
+        $parent->father_last_name = $request->father_last_name;
+        $parent->father_phone = $request->father_phone;
+        $parent->father_job = $request->father_job;
+        $parent->parent_email = $request->parent_email;
+
+        $parent->mother_name = $request->mother_name;
+        $parent->mother_last_name = $request->mother_last_name;
+        $parent->mother_phone = $request->mother_phone;
+        $parent->mother_job = $request->mother_job;
+
+        $parent->student_name = $request->student_name;
+        $parent->student_last_name = $request->student_last_name;
+        $parent->student_phone = $request->student_phone;
+        $parent->student_grade = $request->student_grade;
+        $parent->birthdate = $request->birthdate;
+
+        if ($request->hasFile('avatar')) {
+            $parent->avatar = $request->file('avatar')->store('avatars', 'public');
+        }
+
+        $parent->save();
+
+        return response()->json(['success' => true]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function show($id)
+    {
+        $parent = StudentParent::findOrFail($id);
+        return response()->json($parent);
+    }
     public function destroy($id)
     {
-        //
+        $parent = StudentParent::find($id);
+
+        if ($parent) {
+            $parent->delete(); 
+            return redirect()->back()->with('success', 'Parent deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Parent not found.');
     }
 }

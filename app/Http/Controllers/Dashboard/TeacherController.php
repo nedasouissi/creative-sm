@@ -11,100 +11,71 @@ use Illuminate\Support\Facades\Log;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
-    public function index(){
+    public function index()
+    {
+        $teachers = Teacher::with('subject', 'classes')->get();
         $subjects = Subject::all();
         $classes = Classe::all();
-        $teachers = Teacher::all();
-
         return view('teachers', compact('teachers', 'subjects', 'classes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function toggleStatus(Request $request, $id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+        $teacher->status = $request->status;
+        $teacher->save();
+
+        return response()->json(['success' => true]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
-     */
     public function store(Request $request)
-
     {
-        $this->validate($request,[
-
-            'name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
-            'last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
-            'teacher_birthdate' => ['required', 'date', 'before_or_equal:2001-12-31'],
-            'teacher_phone' => ['required', 'integer'],
-            'subject_id' => ['required'],
-            'classe_id' => ['required'],
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'teacher_phone' => 'required|numeric',
+            'teacher_birthdate' => 'required|date|before_or_equal:2000-12-31',
+            'subject_id' => 'required|exists:subject,id',
+            'classe_id' => 'required|exists:classe,id',
         ]);
 
-        $teacher = new Teacher();
-        $teacher->name =$request->input('name');
-        $teacher->last_name = $request->input('last_name');
-        $teacher->teacher_birthdate = $request ->input('teacher_birthdate');
-        $teacher->teacher_phone = $request ->input('teacher_phone');
-        $teacher->subject_id = $request->input('subject_id');
-        $teacher->classe_id = $request->input('classe_id');
-       $teacher->save();
-        return redirect('/teacher')->with('success', 'Data saved');    }
+        Teacher::create($request->only('name', 'last_name', 'teacher_phone', 'teacher_birthdate', 'subject_id', 'classe_id'));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->back()->with('success', 'Teacher added successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'teacher_phone' => 'required|numeric',
+            'teacher_birthdate' => 'required|date|before_or_equal:2001-12-31',
+            'subject_id' => 'required|exists:subject,id',
+            'classe_id' => 'required|exists:classe,id',
+        ]);
+
+        $teacher = Teacher::findOrFail($id);
+        $teacher->update($request->only('name', 'last_name', 'teacher_phone', 'teacher_birthdate', 'subject_id', 'classe_id'));
+
+        return redirect()->back()->with('success', 'Teacher updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function show($id)
+    {
+        $teacher = Teacher::with('subject', 'classes')->findOrFail($id);
+        return response()->json($teacher);
+    }
+
     public function destroy($id)
     {
-        //
+        $teacher = Teacher::find($id);
+
+        if ($teacher) {
+            $teacher->delete();
+            return redirect()->back()->with('success', 'Teacher deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Teacher not found.');
     }
 }

@@ -1,6 +1,6 @@
  <div xmlns:wire="http://www.w3.org/1999/xhtml" xmlns:wire="http://www.w3.org/1999/xhtml"
      xmlns:wire="http://www.w3.org/1999/xhtml" xmlns:wire="http://www.w3.org/1999/xhtml">
-     <form wire:submit.prevent="register" >
+     <form wire:submit.prevent="register" enctype="multipart/form-data" >
         {{--step one--}}
          @if ($currentstep == 1)
          <div class="step-one">

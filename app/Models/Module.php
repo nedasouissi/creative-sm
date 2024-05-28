@@ -8,10 +8,11 @@ class Module extends Model
 {
     protected $primaryKey = 'id';
     protected $table = 'module';
-    protected $fillable = ['name', 'coefficient', 'grade_id','subject_id'];
+    protected $fillable = ['name', 'coefficient', 'grade_id', 'subject_id'];
 
-    public function grades(){
-        return   $this->belongsTo(Grade::class , 'grade_id');
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class, 'grade_id');
     }
 
     public function subjects()

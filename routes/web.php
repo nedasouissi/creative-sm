@@ -36,37 +36,29 @@ Route::resource('/modules','ModulesController');
 Route::resource('/subjects','SubjectsController');
 Route::resource('/grades','GradesController');
 Route::resource('/classes','ClassesController');
-Route::resource('homework','HomeworkController');
-
+Route::resource('/homework','HomeworkController');
+Route::resource('/profile','ProfileController');
 //Teachers Routes
- //   Route::get('/teachers-enrolled', 'TeacherController@index')->name('teacher.index');
-    //Route::POST('/teachers/store', 'teacherController@store')->name('teacher.store');
-
+    Route::post('/teacher/{id}/toggle-status', 'TeacherController@toggleStatus');
+//students routes
+    Route::post('student/{id}/update', 'Dashboard\StudentController@update')->name('student.update');
+    Route::post('parent/{id}/toggle-status', 'Dashboard\ParentsController@toggleStatus')->name('parent.toggle-status');
+    Route::get('parent/{id}', 'Dashboard\ParentsController@show')->name('parent.show');
 //Parents Routes
+Route::post('/parent/{StudentParent}/toggle-status', 'ParentsController@toggleStatus');
 
 //Info routes
     Route::get('/information', 'InformationsController@index')->name('info.index');
-
-// Homework routes
-  //  Route::get('/homework', 'HomeworkController@index')->name('homework.index');
-
-// Modules routes
-  //  Route::get('/modules', 'ModulesController@index')->name('modules.index');
-
-//Subjects routes
-   // Route::get('/subjects', 'SubjectsController@index')->name('subjects.index');
-
-//Classes routes
-   // Route::get('/classes', 'ClassesController@index')->name('classes.index');
-
-// Grades routes
-   // Route::get('/grades', 'GradesController@index')->name('grades.index');
 
 //Marks routes
     Route::get('/marks', 'MarksController@index')->name('marks.index');
 
 // Teachers notes routes
     Route::get('/teachers-notes', 'TeachersnotesController@index')->name('teachers-notes.index');
+
+ // Homework routes
+
+
 });
 
 

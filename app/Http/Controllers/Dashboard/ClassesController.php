@@ -12,7 +12,7 @@ class ClassesController extends Controller
 {
     public function index()
     {
-        $classes = Classe::all();
+        $classes = Classe::with('Grade', 'teacher')->get();
         $grades = Grade::all();
         $teachers = Teacher::all();
         return view('classes', compact('classes', 'grades', 'teachers'));
@@ -20,18 +20,45 @@ class ClassesController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name' => ['required', 'string', 'regex:/^[a-zA-Z0-9\s]+$/', 'max:255'],
-            'grade_id' => ['required'],
-            'teacher_id' => ['required'],
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'grade_id' => 'required|exists:grade,id',
+            'teacher_id' => 'required|exists:teacher,id',
         ]);
-        $classe = new Classe();
-        $classe->name =$request->input('name');
-        $classe->grade_id = $request->input('grade_id');
-        $classe->teacher_id = $request->input('teacher_id');
 
-        $classe->save();
+        Classe::create($request->only('name', 'grade_id', 'teacher_id'));
 
-        return redirect('/classes')->with('success', 'Data saved');    }
+        return redirect()->back()->with('success', 'Class added successfully.');
+    }
 
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'grade_id' => 'required|exists:grade,id',
+            'teacher_id' => 'required|exists:teacher,id',
+        ]);
+
+        $classe = Classe::findOrFail($id);
+        $classe->update($request->only('name', 'grade_id', 'teacher_id'));
+
+        return redirect()->back()->with('success', 'Class updated successfully.');
+    }
+
+    public function show($id)
+    {
+        $classe = Classe::with('Grade', 'teacher')->findOrFail($id);
+        return response()->json($classe);
+    }
+    public function destroy($id)
+    {
+        $classe = Classe::find($id);
+
+        if ($classe) {
+            $classe->delete();
+            return redirect()->back()->with('success', 'Class deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Class not found.');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Student;
@@ -10,6 +11,9 @@ use App\Models\Student;
 class StudentParent extends Authenticatable implements MustVerifyEmail
 {
     use notifiable;
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     protected $table="student_parent";
     //
     protected $fillable = [
@@ -83,7 +87,7 @@ class StudentParent extends Authenticatable implements MustVerifyEmail
 
     public function getMotherPhoneAttribute($value)
     {
-        return $value; // No special processing for phone number
+        return $value;
     }
 
     public function setMotherPhoneAttribute($value)
@@ -93,7 +97,7 @@ class StudentParent extends Authenticatable implements MustVerifyEmail
 
     public function getMotherJobAttribute($value)
     {
-        return $value; // No special processing for job
+        return $value;
     }
 
     public function setMotherJobAttribute($value)
@@ -126,7 +130,7 @@ class StudentParent extends Authenticatable implements MustVerifyEmail
     //relation
     public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Student::class, 'student_parent_id');
     }
 
     protected $casts = [

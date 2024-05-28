@@ -11,22 +11,53 @@ class GradesController extends Controller
 {
     public function index()
     {
-        $grades = Grade::all();
+        $grades = Grade::with('classe')->get();
         $classes = Classe::all();
-        return view('grades', compact('grades', 'classes'));    }
+        return view('grades', compact('grades', 'classes'));
+
+    }
 
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name' => ['required','string','max:255'],
-            'classe_id' => ['required'],
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'classe_id' => 'required|exists:classe,id',
         ]);
 
-        $grade = new Grade;
-        $grade->name = $request->input('name');
-        $grade->classe_id = $request->input('classe_id');
-       $grade->save();
+        Grade::create($request->only('name', 'classe_id'));
 
-        return redirect('/grades')->with('success', 'Data saved');
+        return redirect()->route('grades.index')->with('success', 'Grade added successfully.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'classe_id' => 'required|exists:classe,id',
+        ]);
+
+        $grade = Grade::findOrFail($id);
+        $grade->update($request->only('name', 'classe_id'));
+
+        return redirect()->route('grades.index')->with('success', 'Grade updated successfully.');
+    }
+
+    public function show($id)
+    {
+        $grade = Grade::with('classe')->findOrFail($id);
+        return response()->json($grade);
+    }
+
+
+    public function destroy($id)
+    {
+        $grade = Grade::find($id);
+
+        if ($grade) {
+            $grade->delete();
+            return redirect()->back()->with('success', 'Grade deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Grade not found.');
     }
 }

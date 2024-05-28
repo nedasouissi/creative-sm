@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
@@ -9,31 +8,59 @@ use Illuminate\Http\Request;
 
 class HomeworkController extends Controller
 {
-    public function index(){
-        $classes = Classe::all();
-        $homework = Homework::all();
-        return view('homework', compact('homework',  'classes'));
-
-    }
-    public function store(Request $request)
-
+    public function index()
     {
-        $this->validate($request,[
+        $homework = Homework::with('classes')->get();
+        $classes = Classe::all();
+        return view('homework', compact('homework', 'classes'));
+    }
 
-            'title' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
-            'content' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
-            'deadline' => ['required', 'date'],
-            'classe_id' => ['required'],
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'deadline' => 'required|date',
+            'classes' => 'required|array',
         ]);
 
-        $homework = new Homework();
-        $homework->title =$request->input('title');
-        $homework->content = $request->input('content');
-        $homework->deadline = $request ->input('deadline');
+        $homework = Homework::create($request->only('title', 'description', 'deadline'));
+        $homework->classes()->attach($request->input('classes'));
 
-        $homework->classe_id = $request->input('classe_id');
-        $homework->save();
-        return redirect('/homework')->with('success', 'Data saved');    }
+        return redirect()->back()->with('success', 'Homework added successfully.');
+    }
 
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'deadline' => 'required|date',
+            'classes' => 'required|array',
+        ]);
 
+        $homework = Homework::findOrFail($id);
+        $homework->update($request->only('title', 'description', 'deadline'));
+        $homework->classes()->sync($request->input('classes'));
+
+        return redirect()->back()->with('success', 'Homework updated successfully.');
+    }
+
+    public function show($id)
+    {
+        $homework = Homework::with('classes')->findOrFail($id);
+        return response()->json($homework);
+    }
+
+    public function destroy($id)
+    {
+        $homework = Homework::find($id);
+
+        if ($homework) {
+            $homework->delete();
+            return redirect()->back()->with('success', 'Homework deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Homework not found.');
+    }
 }

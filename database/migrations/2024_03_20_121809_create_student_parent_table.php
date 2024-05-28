@@ -25,7 +25,7 @@ class CreateStudentParentTable extends Migration
             $table->string('mother_last_name')->nullable();
             $table->integer('mother_phone')->nullable();
             $table->string('mother_job')->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
