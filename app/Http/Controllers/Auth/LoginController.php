@@ -35,17 +35,23 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function authenticate(Request $request){
-        dd($request->all());
+
+    public function index(Request $request)
+    {
+        return view('espace_intranet.login');
+    }
+    public function authenticate(Request $request)
+    {
+        // dd($request->all());
         $field = $request->input('login_field');
         $password = $request->input('password');
 
         //check if the login field is an email or a phone number
-    $credentials = [
-        'password' => $password,
-        filter_var($field, FILTER_VALIDATE_EMAIL)?
-            'parent_email':(is_numeric($field)? 'father_phone' : 'mother_phone') =>$field,
-    ];
+        $credentials = [
+            'password' => $password,
+            filter_var($field, FILTER_VALIDATE_EMAIL) ?
+                'parent_email' : (is_numeric($field) ? 'father_phone' : 'mother_phone') => $field,
+        ];
         if (Auth::attempt($credentials)) {
             // Authentication passed
             return redirect()->intended(route('home'));

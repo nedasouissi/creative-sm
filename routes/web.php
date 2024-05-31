@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,45 +21,43 @@ Route::get('/', function () {
 });
 
 
-Auth::routes(['verify'=>true]);
+Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')-> middleware('verified');
+// Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
-Route::view('/register','register')->name('register');
-Route::view('/login','login')->name('login');
+Route::view('/register', 'register')->name('register');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 
-Route::group(['namespace'=>'Dashboard'], function (){
-Route::resource('/parent','ParentsController');
-Route::resource('/student','StudentController');
-Route::resource('/teacher','TeacherController');
-Route::resource('/modules','ModulesController');
-Route::resource('/subjects','SubjectsController');
-Route::resource('/grades','GradesController');
-Route::resource('/classes','ClassesController');
-Route::resource('/homework','HomeworkController');
-Route::resource('/profile','ProfileController');
-//Teachers Routes
+Route::group(['namespace' => 'Dashboard'], function () {
+    Route::resource('/parent', 'ParentsController');
+    Route::resource('/student', 'StudentController');
+    Route::resource('/teacher', 'TeacherController');
+    Route::resource('/modules', 'ModulesController');
+    Route::resource('/subjects', 'SubjectsController');
+    Route::resource('/grades', 'GradesController');
+    Route::resource('/classes', 'ClassesController');
+    Route::resource('/homework', 'HomeworkController');
+    Route::resource('/profile', 'ProfileController');
+    //Teachers Routes
     Route::post('/teacher/{id}/toggle-status', 'TeacherController@toggleStatus');
-//students routes
+    //students routes
     Route::post('student/{id}/update', 'Dashboard\StudentController@update')->name('student.update');
     Route::post('parent/{id}/toggle-status', 'Dashboard\ParentsController@toggleStatus')->name('parent.toggle-status');
     Route::get('parent/{id}', 'Dashboard\ParentsController@show')->name('parent.show');
-//Parents Routes
-Route::post('/parent/{StudentParent}/toggle-status', 'ParentsController@toggleStatus');
+    //Parents Routes
+    Route::post('/parent/{StudentParent}/toggle-status', 'ParentsController@toggleStatus');
 
-//Info routes
+    //Info routes
     Route::get('/information', 'InformationsController@index')->name('info.index');
 
-//Marks routes
+    //Marks routes
     Route::get('/marks', 'MarksController@index')->name('marks.index');
 
-// Teachers notes routes
+    // Teachers notes routes
     Route::get('/teachers-notes', 'TeachersnotesController@index')->name('teachers-notes.index');
 
- // Homework routes
+    // Homework routes
 
 
 });
-
-
