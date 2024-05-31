@@ -15,6 +15,8 @@ class CreateStudentParentTable extends Migration
     {
         Schema::create('student_parent', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('father_name')->nullable();
             $table->string('father_last_name')->nullable();
             $table->integer('father_phone')->nullable();
@@ -26,6 +28,7 @@ class CreateStudentParentTable extends Migration
             $table->integer('mother_phone')->nullable();
             $table->string('mother_job')->nullable();
             $table->boolean('status')->default(true);
+            $table->softDeletes();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });

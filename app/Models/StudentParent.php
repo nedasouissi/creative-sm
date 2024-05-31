@@ -16,7 +16,7 @@ class StudentParent extends Authenticatable implements MustVerifyEmail
     protected $dates = ['deleted_at'];
     protected $table="student_parent";
     //
-    protected $fillable = [
+    protected $fillable = ['user_id',
         'father_name', 'father_last_name', 'father_phone', 'father_job','status','parent_email',
         'mother_name', 'mother_last_name', 'mother_phone', 'mother_job','password'
     ];
@@ -131,6 +131,11 @@ class StudentParent extends Authenticatable implements MustVerifyEmail
     public function students()
     {
         return $this->hasMany(Student::class, 'student_parent_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     protected $casts = [

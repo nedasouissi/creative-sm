@@ -15,6 +15,9 @@ class CreateTeacherTable extends Migration
     {
         Schema::create('teacher', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->string('name');
             $table->string('last_name');
             $table->date('teacher_birthdate');
@@ -23,6 +26,7 @@ class CreateTeacherTable extends Migration
             $table->unsignedBigInteger('classe_id');
             $table->foreign('classe_id')->references('id')->on('classe');
             $table->string('teacher_phone');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

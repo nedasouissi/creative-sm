@@ -22,6 +22,7 @@ class CreateStudentTable extends Migration
             $table->date('birthdate')->nullable();
             $table->string('avatar')->nullable();
             $table->unsignedBigInteger('student_parent_id');
+            $table->softDeletes();
             $table->foreign('student_parent_id')->references('id')->on('student_parent');
             $table->timestamps();
         });
