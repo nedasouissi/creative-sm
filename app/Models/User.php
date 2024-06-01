@@ -12,7 +12,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'last_name','email', 'password','role',
+        'name', 'cin', 'last_name', 'email', 'password', 'role',
     ];
 
     protected $hidden = [
@@ -23,13 +23,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function teacher()
-    {
-        return $this->hasOne(Teacher::class);
-    }
+    // public function teacher()
+    // {
+    //     return $this->hasOne(Teacher::class);
+    // }
 
-    public function studentParent()
-    {
-        return $this->hasOne(StudentParent::class);
-    }
+    // public function studentParent()
+    // {
+    //     return $this->hasOne(StudentParent::class);
+    // }
 }

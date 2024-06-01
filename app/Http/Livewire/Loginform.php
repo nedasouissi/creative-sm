@@ -7,10 +7,12 @@ use Livewire\Component;
 
 class Loginform extends Component
 {
-    public $email , $password;
+    public $email, $password;
 
     public function login()
     {
+        dd('$credentials');
+
         $credentials = [
             filter_var($this->email, FILTER_VALIDATE_EMAIL) ?
                 'parent_email' : (is_numeric($this->email) ? 'father_phone' : 'mother_phone') => $this->email,

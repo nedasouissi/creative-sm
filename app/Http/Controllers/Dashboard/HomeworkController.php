@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
@@ -12,7 +13,7 @@ class HomeworkController extends Controller
     {
         $homework = Homework::with('classes')->get();
         $classes = Classe::all();
-        return view('homework', compact('homework', 'classes'));
+        return view('espace_intranet.homework', compact('homework', 'classes'));
     }
 
     public function store(Request $request)

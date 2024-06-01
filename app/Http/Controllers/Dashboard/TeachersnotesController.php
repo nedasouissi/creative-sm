@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class TeachersnotesController extends Controller
 {
-    public function index(){
-        return view('teachersnotes');
+    public function index()
+    {
+        return view('espace_intranet.teachersnotes');
     }
 }

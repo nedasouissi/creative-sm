@@ -16,7 +16,7 @@ class TeacherController extends Controller
         $teachers = Teacher::with('subject', 'classes')->get();
         $subjects = Subject::all();
         $classes = Classe::all();
-        return view('teachers', compact('teachers', 'subjects', 'classes'));
+        return view('espace_intranet.teachers', compact('teachers', 'subjects', 'classes'));
     }
 
     public function toggleStatus(Request $request, $id)

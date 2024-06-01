@@ -2,26 +2,20 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Classe;
-use App\Models\Module;
-use App\Models\Student;
-use App\Models\StudentParent;
-use App\Models\Subject;
-use App\Models\Teacher;
-use Illuminate\Http\Request;
-use illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index(){
-        $teacherCount = Teacher::count ();
-        $studentCount = Student::count();
-        $parentCount = StudentParent::count();
-        $modulesCount = Module::count();
-        $classesCount = Classe::count();
-        $subjectsCount = Subject::count();
+    public function index()
+    {
+        // $teacherCount = Teacher::count ();
+        $teacherCount = 0;
+        $studentCount = 0;
+        $parentCount = 0;
+        $modulesCount = 0;
+        $classesCount = 0;
+        $subjectsCount = 0;
         //compact : create an array of values
-        return view('dashboard' , compact('teacherCount','studentCount','parentCount','modulesCount','subjectsCount','classesCount'));
-
+        return view('espace_intranet.dashboard', compact('teacherCount', 'studentCount', 'parentCount', 'modulesCount', 'subjectsCount', 'classesCount'));
     }
 }

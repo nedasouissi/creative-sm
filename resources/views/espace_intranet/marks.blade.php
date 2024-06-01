@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('espace_intranet.layouts.app')
 
-@section('content')
+@section('intranet_content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="container-full">
@@ -18,6 +18,4 @@
 
                 </div>
                 <br>
-
-
-@endsection
+            @endsection

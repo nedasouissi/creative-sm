@@ -15,7 +15,7 @@ class ClassesController extends Controller
         $classes = Classe::with('Grade', 'teacher')->get();
         $grades = Grade::all();
         $teachers = Teacher::all();
-        return view('classes', compact('classes', 'grades', 'teachers'));
+        return view('espace_intranet.classes', compact('classes', 'grades', 'teachers'));
     }
 
     public function store(Request $request)

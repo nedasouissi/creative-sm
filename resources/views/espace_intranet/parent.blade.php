@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('espace_intranet.layouts.app')
 
-@section('content')
+@section('intranet_content')
     {{-- modal start here  --}}
     <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -20,51 +20,96 @@
                                             <!-- Father's Information -->
                                             <div class="form-group">
                                                 <label for="">Father Name</label>
-                                                <input type="text" class="form-control" placeholder="" name="father_name" id="father-name">
-                                                <span class="text-danger">@error('father_name'){{$message}}@enderror</span>
+                                                <input type="text" class="form-control" placeholder="" name="father_name"
+                                                    id="father-name">
+                                                <span class="text-danger">
+                                                    @error('father_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Father Last name</label>
-                                                <input type="text" class="form-control" placeholder="" name="father_last_name" id="father-last-name" >
-                                                <span class="text-danger">@error('father_last_name'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="father_last_name" id="father-last-name">
+                                                <span class="text-danger">
+                                                    @error('father_last_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Father Job</label>
-                                                <input type="text" class="form-control" placeholder="" name="father_job" id="father-job">
-                                                <span class="text-danger">@error('father_job'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder="" name="father_job"
+                                                    id="father-job">
+                                                <span class="text-danger">
+                                                    @error('father_job')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Father Phone Number</label>
-                                                <input type="number" class="form-control" placeholder="" name="father_phone" id="father-phone">
-                                                <span class="text-danger">@error('father_phone'){{ $message }}@enderror</span>
+                                                <input type="number" class="form-control" placeholder=""
+                                                    name="father_phone" id="father-phone">
+                                                <span class="text-danger">
+                                                    @error('father_phone')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Parent Email</label>
-                                                <input type="email" class="form-control" placeholder="" name="parent_email" id="parent-email">
-                                                <span class="text-danger">@error('parent_email'){{ $message }}@enderror</span>
+                                                <input type="email" class="form-control" placeholder=""
+                                                    name="parent_email" id="parent-email">
+                                                <span class="text-danger">
+                                                    @error('parent_email')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <!-- Mother's Information -->
                                             <div class="form-group">
                                                 <label for="">Mother Name</label>
-                                                <input type="text" class="form-control" placeholder="" name="mother_name" id="mother-name">
-                                                <span class="text-danger">@error('mother_name'){{$message}}@enderror</span>
+                                                <input type="text" class="form-control" placeholder="" name="mother_name"
+                                                    id="mother-name">
+                                                <span class="text-danger">
+                                                    @error('mother_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Mother Last name</label>
-                                                <input type="text" class="form-control" placeholder="" name="mother_last_name" id="mother-last-name">
-                                                <span class="text-danger">@error('mother_last_name'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="mother_last_name" id="mother-last-name">
+                                                <span class="text-danger">
+                                                    @error('mother_last_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Mother Job</label>
-                                                <input type="text" class="form-control" placeholder="" name="mother_job" id="mother-job">
-                                                <span class="text-danger">@error('mother_job'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder="" name="mother_job"
+                                                    id="mother-job">
+                                                <span class="text-danger">
+                                                    @error('mother_job')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Mother Phone Number</label>
-                                                <input type="number" class="form-control" placeholder="" name="mother_phone" id="mother-phone">
-                                                <span class="text-danger">@error('mother_phone'){{ $message }}@enderror</span>
+                                                <input type="number" class="form-control" placeholder=""
+                                                    name="mother_phone" id="mother-phone">
+                                                <span class="text-danger">
+                                                    @error('mother_phone')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -73,18 +118,33 @@
                                             <!-- Student's Information -->
                                             <div class="form-group">
                                                 <label for="">Student Name</label>
-                                                <input type="text" class="form-control" placeholder="" name="student_name" id="student-name">
-                                                <span class="text-danger">@error('student_name'){{$message}}@enderror</span>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="student_name" id="student-name">
+                                                <span class="text-danger">
+                                                    @error('student_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Student Last name</label>
-                                                <input type="text" class="form-control" placeholder="" name="student_last_name" id="student-last-name">
-                                                <span class="text-danger">@error('student_last_name'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="student_last_name" id="student-last-name">
+                                                <span class="text-danger">
+                                                    @error('student_last_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Student Phone Number</label>
-                                                <input type="number" class="form-control" placeholder="" name="student_phone" id="student-phone">
-                                                <span class="text-danger">@error('student_phone'){{ $message }}@enderror</span>
+                                                <input type="number" class="form-control" placeholder=""
+                                                    name="student_phone" id="student-phone">
+                                                <span class="text-danger">
+                                                    @error('student_phone')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -96,23 +156,38 @@
                                                     <option value="eight">8th grade</option>
                                                     <option value="nine">9th grade</option>
                                                 </select>
-                                                <span class="text-danger">@error('student_grade'){{ $message }}@enderror</span>
+                                                <span class="text-danger">
+                                                    @error('student_grade')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Student Birthdate</label>
-                                                <input type="date" class="form-control" placeholder="" name="birthdate" id="student-birthdate">
-                                                <span class="text-danger">@error('birthdate'){{ $message }}@enderror</span>
+                                                <input type="date" class="form-control" placeholder=""
+                                                    name="birthdate" id="student-birthdate">
+                                                <span class="text-danger">
+                                                    @error('birthdate')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="avatar">Avatar</label>
-                                                <input type="file" class="form-control" id="avatar" name="avatar" id="student-avatar">
-                                                <span class="text-danger">@error('avatar'){{ $message }}@enderror</span>
+                                                <input type="file" class="form-control" id="avatar" name="avatar"
+                                                    id="student-avatar">
+                                                <span class="text-danger">
+                                                    @error('avatar')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-round bg-gradient-info btn-lg mt-4 mb-0">SAVE</button>
+                                        <button type="submit"
+                                            class="btn btn-round bg-gradient-info btn-lg mt-4 mb-0">SAVE</button>
                                     </div>
                                 </div>
                             </div>
@@ -143,92 +218,130 @@
                                                 <div>
                                                     <h5 class="mb-0">All Parents</h5>
                                                 </div>
-                                                <button class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#modal-form" type="button">+&nbsp; New Parent</button>
+                                                <button class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-form" type="button">+&nbsp; New
+                                                    Parent</button>
                                             </div>
                                         </div>
                                         <div class="card-body px-0 pt-0 pb-2">
                                             <div class="table-responsive p-0">
                                                 <table class="table align-items-center mb-0">
                                                     <thead>
-                                                    <tr>
-                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                            Name
-                                                        </th>
-                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                            Last Name
-                                                        </th>
-                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                            Phone
-                                                        </th>
-                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                            Email
-                                                        </th>
-                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                            Child
-                                                        </th>
+                                                        <tr>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                Name
+                                                            </th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                Last Name
+                                                            </th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                Phone
+                                                            </th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                Email
+                                                            </th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                Child
+                                                            </th>
 
-                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                            Action
-                                                        </th>
-                                                    </tr>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                Action
+                                                            </th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach ($StudentParents as $StudentParent)
-                                                        <tr class="parent-row {{ $StudentParent->status ? '' : 'table-inactive' }}" data-id="{{ $StudentParent->id }}">
-                                                            <td class="text-center">{{ $StudentParent->father_name }}</td>
-                                                            <td class="text-center">{{ $StudentParent->father_last_name }}</td>
-                                                            <td class="text-center">{{ $StudentParent->father_phone }}</td>
-                                                            <td class="text-center">{{ $StudentParent->parent_email }}</td>
-                                                            <td class="text-center">
-                                                                @foreach ($StudentParent->students as $student)
-                                                                    {{ $student->student_name }} {{ $student->student_last_name }}
-                                                                    <br>
-                                                                @endforeach
-                                                            </td>
-                                                            <td class="text-center">
-                                                                 <span class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" data-id="{{ $StudentParent->id }}" {{ $StudentParent->status ? 'checked' : '' }}>
-                                                                </span>
+                                                        @foreach ($StudentParents as $StudentParent)
+                                                            <tr class="parent-row {{ $StudentParent->status ? '' : 'table-inactive' }}"
+                                                                data-id="{{ $StudentParent->id }}">
+                                                                <td class="text-center">{{ $StudentParent->father_name }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $StudentParent->father_last_name }}</td>
+                                                                <td class="text-center">{{ $StudentParent->father_phone }}
+                                                                </td>
+                                                                <td class="text-center">{{ $StudentParent->parent_email }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @foreach ($StudentParent->students as $student)
+                                                                        {{ $student->student_name }}
+                                                                        {{ $student->student_last_name }}
+                                                                        <br>
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <span class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            data-id="{{ $StudentParent->id }}"
+                                                                            {{ $StudentParent->status ? 'checked' : '' }}>
+                                                                    </span>
 
-                                                                <a href="#" class="mx-3" data-bs-toggle="modal" data-bs-target="#modal-form" onclick="editParent({{ $StudentParent }})" data-bs-original-title="Edit user">
-                                                                    <i class="fas fa-user-edit text-secondary"></i>
-                                                                </a>
-                                                                <span>
-                                                                <i class="cursor-pointer fas fa-trash text-secondary" data-bs-toggle="tooltip" data-bs-original-title="Delete user"></i>
-                                                            </span>
+                                                                    <a href="#" class="mx-3"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#modal-form"
+                                                                        onclick="editParent({{ $StudentParent }})"
+                                                                        data-bs-original-title="Edit user">
+                                                                        <i class="fas fa-user-edit text-secondary"></i>
+                                                                    </a>
+                                                                    <span>
+                                                                        <i class="cursor-pointer fas fa-trash text-secondary"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-original-title="Delete user"></i>
+                                                                    </span>
 
-                                                        </tr>
-                                                    @endforeach
-                                                    @foreach ($StudentParents as $StudentParent)
-                                                        <tr class="parent-row {{ $StudentParent->status ? '' : 'table-inactive' }}" data-id="{{ $StudentParent->id }}">
-                                                            <td class="text-center">{{ $StudentParent->mother_name }}</td>
-                                                            <td class="text-center">{{ $StudentParent->mother_last_name }}</td>
-                                                            <td class="text-center">{{ $StudentParent->mother_phone }}</td>
-                                                            <td class="text-center">{{ $StudentParent->parent_email }}</td>
-                                                            <td class="text-center">
-                                                                @foreach ($StudentParent->students as $student)
-                                                                    {{ $student->student_name }} {{ $student->student_last_name }}
-                                                                    <br>
-                                                                @endforeach
-                                                            </td>
-                                                            <td class="text-center">
-                                                                 <span class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" data-id="{{ $StudentParent->id }}" {{ $StudentParent->status ? 'checked' : '' }}>
-                                                                </span>
+                                                            </tr>
+                                                        @endforeach
+                                                        @foreach ($StudentParents as $StudentParent)
+                                                            <tr class="parent-row {{ $StudentParent->status ? '' : 'table-inactive' }}"
+                                                                data-id="{{ $StudentParent->id }}">
+                                                                <td class="text-center">{{ $StudentParent->mother_name }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $StudentParent->mother_last_name }}</td>
+                                                                <td class="text-center">{{ $StudentParent->mother_phone }}
+                                                                </td>
+                                                                <td class="text-center">{{ $StudentParent->parent_email }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @foreach ($StudentParent->students as $student)
+                                                                        {{ $student->student_name }}
+                                                                        {{ $student->student_last_name }}
+                                                                        <br>
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <span class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            data-id="{{ $StudentParent->id }}"
+                                                                            {{ $StudentParent->status ? 'checked' : '' }}>
+                                                                    </span>
 
-                                                                <a href="#" class="mx-3" data-bs-toggle="modal" data-bs-target="#modal-form" onclick="editParent({{ $StudentParent }})" data-bs-original-title="Edit user">
-                                                                    <i class="fas fa-user-edit text-secondary"></i>
-                                                                </a>
-                                                                <span onclick="deleteParent({{ $StudentParent->id }})">
-                    <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                </span>
-                                                                <form id="delete-parent-form-{{ $StudentParent->id }}" action="{{ route('parent.destroy', $StudentParent->id) }}" method="POST" style="display: none;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                </form>
+                                                                    <a href="#" class="mx-3"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#modal-form"
+                                                                        onclick="editParent({{ $StudentParent }})"
+                                                                        data-bs-original-title="Edit user">
+                                                                        <i class="fas fa-user-edit text-secondary"></i>
+                                                                    </a>
+                                                                    <span
+                                                                        onclick="deleteParent({{ $StudentParent->id }})">
+                                                                        <i
+                                                                            class="cursor-pointer fas fa-trash text-secondary"></i>
+                                                                    </span>
+                                                                    <form id="delete-parent-form-{{ $StudentParent->id }}"
+                                                                        action="{{ route('parent.destroy', $StudentParent->id) }}"
+                                                                        method="POST" style="display: none;">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                    </form>
 
-                                                        </tr>
-                                                    @endforeach
+                                                            </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -259,7 +372,9 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     },
-                    body: JSON.stringify({ status }),
+                    body: JSON.stringify({
+                        status
+                    }),
                 }).then(response => response.json()).then(data => {
                     if (data.success) {
                         if (status) {
@@ -277,12 +392,12 @@
         });
     </script>
     <script>
-
         function deleteParent(id) {
             if (confirm('Are you sure you want to delete this parent?')) {
                 document.getElementById('delete-parent-form-' + id).submit();
             }
         }
+
         function editParent(StudentParent) {
             document.getElementById('modal-form').reset(); // Reset the form
             document.getElementById('parent-id').value = StudentParent.id;
@@ -316,12 +431,12 @@
             }
 
             fetch(url, {
-                method: formData.get('_method'),
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-            })
+                    method: formData.get('_method'),
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -342,7 +457,4 @@
                 });
         });
     </script>
-
 @endsection
-
-

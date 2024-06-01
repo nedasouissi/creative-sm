@@ -15,7 +15,7 @@ class SubjectsController extends Controller
         $subjects = Subject::with(['module', 'teachers'])->get();
         $modules = Module::all();
         $teachers = Teacher::all();
-        return view('subjects', compact('subjects', 'modules', 'teachers'));
+        return view('espace_intranet.subjects', compact('subjects', 'modules', 'teachers'));
     }
 
     public function store(Request $request)

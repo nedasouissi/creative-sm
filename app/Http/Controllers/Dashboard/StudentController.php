@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
@@ -6,13 +7,14 @@ use App\Models\Student;
 use App\Models\StudentParent;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+
 class StudentController extends Controller
 {
     public function index()
     {
         $students = Student::with('studentParent')->get();
         $parents = StudentParent::all();
-        return view('students', compact('students','parents'));
+        return view('espace_intranet.students', compact('students', 'parents'));
     }
 
     public function store(Request $request)
@@ -32,7 +34,7 @@ class StudentController extends Controller
             'student_phone' => 'required|numeric',
             'student_grade' => 'required|string|max:255',
             'birthdate' => 'required|date|before_or_equal:2013-12-31',
-              'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $parent = StudentParent::create($request->only([

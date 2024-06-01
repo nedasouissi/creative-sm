@@ -15,7 +15,7 @@ class ModulesController extends Controller
         $modules = Module::with(['grade', 'subjects'])->get();
         $grades = Grade::all();
         $subjects = Subject::all();
-        return view('modules', compact('modules', 'grades', 'subjects'));
+        return view('espace_intranet.modules', compact('modules', 'grades', 'subjects'));
     }
 
     public function store(Request $request)

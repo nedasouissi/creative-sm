@@ -15,32 +15,32 @@ class ParentsController extends Controller
     public function index()
     {
         $StudentParents = StudentParent::with('students')->get();
-        return view('parent', compact('StudentParents'));
+        return view('espace_intranet.parent', compact('StudentParents'));
     }
 
 
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'father_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
-            'father_last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/','max:255'],
+            'father_last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
             'father_phone' => ['required', 'integer'],
             'father_job' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
             'mother_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
-            'mother_last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/','max:255'],
+            'mother_last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
             'mother_phone' => ['required', 'integer'],
             'mother_job' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
             'parent_email' => ['required', 'email', Rule::unique('student_parent', 'parent_email')],
-          //  'password' => ['required', 'string', 'min:8', 'confirmed'],
+            //  'password' => ['required', 'string', 'min:8', 'confirmed'],
             'student_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
             'student_last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
             'student_phone' => ['required', 'integer'],
             'student_grade' => ['required', 'string', 'max:255'],
             'birthdate' => ['required', 'date', 'before_or_equal:2013-12-31'],
-          //  'avatar' => ['required', 'image', 'max:1024'],
+            //  'avatar' => ['required', 'image', 'max:1024'],
         ]);
 
-        $parent= new StudentParent();
+        $parent = new StudentParent();
         $student = new Student;
         $parent->father_name = $request->input('father_name');
         $parent->father_last_name = $request->input('father_last_name');
@@ -60,14 +60,12 @@ class ParentsController extends Controller
         $student->student_grade = $request->input('student_grade');
         $student->birthdate = $request->input('birthdate');
         $student->student_parent_id = $parent->id;
-       // if ($request->hasFile('avatar')) {
+        // if ($request->hasFile('avatar')) {
         //   $avatarPath = $request->file('avatar')->store('avatars');
-         //   $student->avatar = $avatarPath;
+        //   $student->avatar = $avatarPath;
         // }
         $student->save();
         return redirect('/parent')->with('success', 'Data saved');
-
-
     }
 
     public function toggleStatus(Request $request, $id)
@@ -103,7 +101,7 @@ class ParentsController extends Controller
             'student_phone' => 'required|numeric',
             'student_grade' => 'required|string|max:255',
             'birthdate' => 'required|date',
-           // 'avatar' => 'nullable|image'
+            // 'avatar' => 'nullable|image'
         ]);
 
         $parent = StudentParent::findOrFail($id);
@@ -143,7 +141,7 @@ class ParentsController extends Controller
         $parent = StudentParent::find($id);
 
         if ($parent) {
-            $parent->delete(); 
+            $parent->delete();
             return redirect()->back()->with('success', 'Parent deleted successfully.');
         }
 

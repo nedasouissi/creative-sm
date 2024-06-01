@@ -13,8 +13,7 @@ class GradesController extends Controller
     {
         $grades = Grade::with('classe')->get();
         $classes = Classe::all();
-        return view('grades', compact('grades', 'classes'));
-
+        return view('espace_intranet.grades', compact('grades', 'classes'));
     }
 
     public function store(Request $request)

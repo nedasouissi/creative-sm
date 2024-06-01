@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -35,36 +36,45 @@ class LoginController extends Controller
      *
      * @return void
      */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
 
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         return view('espace_intranet.login');
     }
+
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     */
     public function authenticate(Request $request)
     {
-        // dd($request->all());
-        $field = $request->input('login_field');
-        $password = $request->input('password');
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+        ]);
+        $credentials = $request->only('email', 'password');
+        // Debugging output
+        Log::info('Authentication attempt:', $credentials);
 
-        //check if the login field is an email or a phone number
-        $credentials = [
-            'password' => $password,
-            filter_var($field, FILTER_VALIDATE_EMAIL) ?
-                'parent_email' : (is_numeric($field) ? 'father_phone' : 'mother_phone') => $field,
-        ];
         if (Auth::attempt($credentials)) {
             // Authentication passed
-            return redirect()->intended(route('home'));
+            Log::info('Authentication successful');
+            return redirect()->view('index');
         } else {
             // Authentication failed
-            return back()->withErrors(['login_field' => 'Invalid credentials']);
+            Log::info('Authentication failed');
+            return back()->withErrors(['email' => 'Invalid credentials']);
         }
-    }
-
-
-
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
     }
 }

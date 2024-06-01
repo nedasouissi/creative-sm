@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('espace_intranet.layouts.app')
 
-@section('content')
+@section('intranet_content')
     <!-- Modal -->
     <div class="modal fade" id="modal-classe" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -18,28 +18,41 @@
                                     <div class="form-group">
                                         <label for="name">Name</label>
                                         <input type="text" class="form-control" name="name" id="name">
-                                        <span class="text-danger">@error('name'){{$message}}@enderror</span>
+                                        <span class="text-danger">
+                                            @error('name')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     <div class="form-group">
                                         <label for="grade_id">Grade</label>
                                         <select class="form-control" id="grade_id" name="grade_id">
-                                            @foreach($grades as $grade)
+                                            @foreach ($grades as $grade)
                                                 <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                             @endforeach
                                         </select>
-                                        <span class="text-danger">@error('grade_id'){{$message}}@enderror</span>
+                                        <span class="text-danger">
+                                            @error('grade_id')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     <div class="form-group">
                                         <label for="teacher_id">Teacher</label>
                                         <select class="form-control" id="teacher_id" name="teacher_id">
-                                            @foreach($teachers as $teacher)
+                                            @foreach ($teachers as $teacher)
                                                 <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                                             @endforeach
                                         </select>
-                                        <span class="text-danger">@error('teacher_id'){{$message}}@enderror</span>
+                                        <span class="text-danger">
+                                            @error('teacher_id')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-round bg-gradient-info btn-lg mt-4 mb-0">Save</button>
+                                        <button type="submit"
+                                            class="btn btn-round bg-gradient-info btn-lg mt-4 mb-0">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +72,7 @@
                 <div class="row">
                     <div class="col-12">
                         <h1 class="text-center mb-20 font-size-20 ">
-                           Classes List
+                            Classes List
                         </h1>
                         <div class="card mb-4 mx-4">
                             <div class="card-header pb-0">
@@ -68,47 +81,59 @@
                                         <h5 class="mb-0">All Classes</h5>
                                     </div>
 
-                                    <a href="#" class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#modal-classe" type="button">+&nbsp; New Class</a>
+                                    <a href="#" class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal"
+                                        data-bs-target="#modal-classe" type="button">+&nbsp; New Class</a>
                                 </div>
                             </div>
                             <div class="card-body px-0 pt-0 pb-2">
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0">
                                         <thead>
-                                        <tr>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Grade</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teachers</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Action
-                                            </th>
-                                        </tr>
+                                            <tr>
+                                                <th
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    Name</th>
+                                                <th
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    Grade</th>
+                                                <th
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    Teachers</th>
+                                                <th
+                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    Action
+                                                </th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($classes as $classe)
-                                            <tr>
-                                                <td class="text-center">{{ $classe->name }}</td>
-                                                <td class="text-center">{{ $classe->grade->name }}</td>
-                                                <td class="text-center">
-                                                    @foreach ($classe->teacher as $teacher)
-                                                        {{ $teacher->name }}
-                                                        <br>
-                                                    @endforeach
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="#" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit classe" onclick="openEditClasseModal({{ $classe->id }})">
-                                                        <i class="fas fa-user-edit text-secondary"></i>
-                                                    </a>
-                                                    <span onclick="deleteClass({{ $classe->id }})">
-                    <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                </span>
-                                                    <form id="delete-class-form-{{ $classe->id }}" action="{{ route('classes.destroy', $classe->id) }}" method="POST" style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                            @foreach ($classes as $classe)
+                                                <tr>
+                                                    <td class="text-center">{{ $classe->name }}</td>
+                                                    <td class="text-center">{{ $classe->grade->name }}</td>
+                                                    <td class="text-center">
+                                                        @foreach ($classe->teacher as $teacher)
+                                                            {{ $teacher->name }}
+                                                            <br>
+                                                        @endforeach
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="#" class="mx-3" data-bs-toggle="tooltip"
+                                                            data-bs-original-title="Edit classe"
+                                                            onclick="openEditClasseModal({{ $classe->id }})">
+                                                            <i class="fas fa-user-edit text-secondary"></i>
+                                                        </a>
+                                                        <span onclick="deleteClass({{ $classe->id }})">
+                                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                                        </span>
+                                                        <form id="delete-class-form-{{ $classe->id }}"
+                                                            action="{{ route('classes.destroy', $classe->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -165,4 +190,4 @@
                         $('#teacher_id').select2();
                     });
                 </script>
-@endsection
+            @endsection
