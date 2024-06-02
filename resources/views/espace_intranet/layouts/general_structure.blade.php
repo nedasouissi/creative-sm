@@ -185,7 +185,7 @@
 
 <body
     class="g-sidenav-show  bg-gray-100 {{ \Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '') }} ">
-
+    @yield('auth')
     @yield('intranet_appcontent')
     {{-- @if (session()->has('success'))
         <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show"

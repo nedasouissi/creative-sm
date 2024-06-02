@@ -35,8 +35,9 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function create(array $data)
+    protected function create_teacher(array $data)
     {
+        // dd($data);
         return User::create([
             'name' => $data['name'],
             'last_name' => $data['last_name'],
@@ -47,12 +48,32 @@ class RegisterController extends Controller
             'birthdate' => $data['birthdate'],
         ]);
     }
-
+    protected function create_parent(array $data)
+    {
+        // dd($data);
+        return User::create([
+            'name' => $data['name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'role' => $data['role'],
+            'cin' => $data['cin'],
+            'birthdate' => $data['birthdate'],
+        ]);
+    }
     public function registerTeacher(Request $request)
     {
         $this->validator($request->all())->validate();
 
-        $user = $this->create($request->all());
+        $user = $this->create_teacher($request->all());
+
+        return redirect()->route('login')->with('success', 'Teacher registered successfully. Please login.');
+    }
+    public function registerParent(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $user = $this->create_Parent($request->all());
 
         return redirect()->route('login')->with('success', 'Teacher registered successfully. Please login.');
     }

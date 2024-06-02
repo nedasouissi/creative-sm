@@ -22,7 +22,7 @@
                                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">Parents
                                                             Enrolled </p>
                                                         <h5 class="font-weight-bolder mb-0">
-                                                            {{ $parentCount }}
+                                                            {{-- {{ $parentCount }} --}}
 
                                                         </h5>
                                                     </div>
@@ -47,7 +47,8 @@
                                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">Students
                                                             Enrolled</p>
                                                         <h5 class="font-weight-bolder mb-0">
-                                                            {{ $studentCount }} </h5>
+                                                            {{-- {{ $studentCount }}  --}}
+                                                        </h5>
                                                     </div>
                                                 </div>
                                                 <div class="col-4 text-end">
@@ -69,7 +70,9 @@
                                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">Teachers
                                                         </p>
                                                         <h5 class="font-weight-bolder mb-0">
-                                                            {{ $teacherCount }}
+                                                            {{-- {{
+                                                             $teacherCount
+                                                            }} --}}
 
                                                         </h5>
                                                     </div>
@@ -99,7 +102,7 @@
                                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">Total
                                                             Modules </p>
                                                         <h5 class="font-weight-bolder mb-0">
-                                                            {{ $modulesCount }}
+                                                            {{-- {{ $modulesCount }} --}}
 
                                                         </h5>
                                                     </div>
@@ -124,7 +127,7 @@
                                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">Total
                                                             Subjects</p>
                                                         <h5 class="font-weight-bolder mb-0">
-                                                            {{ $subjectsCount }} </h5>
+                                                            {{-- {{ $subjectsCount }} </h5> --}}
                                                     </div>
                                                 </div>
                                                 <div class="col-4 text-end">
@@ -146,7 +149,7 @@
                                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">Total
                                                             Classes</p>
                                                         <h5 class="font-weight-bolder mb-0">
-                                                            {{ $classesCount }}
+                                                            {{-- {{ $classesCount }} --}}
 
                                                         </h5>
                                                     </div>

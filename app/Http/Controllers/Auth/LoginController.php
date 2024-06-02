@@ -70,7 +70,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Authentication passed
             Log::info('Authentication successful');
-            return redirect()->view('index');
+            return redirect()->view('espace_intranet.dashboard');
         } else {
             // Authentication failed
             Log::info('Authentication failed');

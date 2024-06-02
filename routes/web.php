@@ -36,13 +36,15 @@ Route::get('/', function () {
 
 // Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/registerteacher', [RegisterController::class, 'registerteacher'])->name('register.teacher');
+// Route::get('/home', 'HomeController@index')->name('home');;
+Route::get('/home', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/register', [RegisterController::class, 'index'])->name('register')->middleware('authusr');
+Route::post('/registerteacher', [RegisterController::class, 'registerTeacher'])->name('register.teacher');
+Route::post('/registerparent', [RegisterController::class, 'registerParent'])->name('register.parent');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+Route::get('/login_auth', [LoginController::class, 'authenticate'])->name('authenticate');
+Route::get('/signout', [LoginController::class, 'signout'])->name('signout');
 
 //parent routes
 Route::get('/parents', [ParentsController::class, 'index'])->name('parents.index');

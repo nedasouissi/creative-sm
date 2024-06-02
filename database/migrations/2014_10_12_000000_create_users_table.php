@@ -17,17 +17,15 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('last_name');
-            $table->string('cin');
-            $table->boolean('validate')->default(false);
-
-
-            $table->string('email')->unique();
-            $table->string('role')->default('default_user');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->integer('cin')->unique();
+            $table->string('email')->unique();
+            $table->enum('role', ['admin', 'teacher', 'parent']);
+            // $table->enum('status', ['active', 'inactive']);
+            $table->boolean('is_active')->default(false);
+            $table->integer('access_level')->default(0);
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

@@ -22,18 +22,20 @@
                             <input type="text" class="form-control" placeholder="Type here...">
                         </div>
                     </div>
-                    <ul class="navbar-nav justify-content-end">
-                        <li class="nav-item d-flex align-items-center" style="margin-left: 15px;">
-                            <a href="{{ url('/profile') }}" class="nav-link text-body p-0">
-                                <i class="fa fa-user me-sm-1"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item d-flex align-items-center" style="margin-left: 15px;">
-                            <a href="{{ url('/login') }}" class="nav-link text-body font-weight-bold px-0">
-                                <span class="d-sm-inline d-none">Sign Out</span>
-                            </a>
-                        </li>
-                    </ul>
+                    @auth
+                        <ul class="navbar-nav justify-content-end">
+                            <li class="nav-item d-flex align-items-center" style="margin-left: 15px;">
+                                <a href="{{ url('/profile') }}" class="nav-link text-body p-0">
+                                    <i class="fa fa-user me-sm-1"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item d-flex align-items-center" style="margin-left: 15px;">
+                                <a href="{{ route('signout') }}" class="nav-link text-body font-weight-bold px-0">
+                                    <span class="d-sm-inline d-none">Sign Out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    @endauth
                 </div>
             </div>
         </nav>
