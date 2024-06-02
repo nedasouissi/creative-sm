@@ -24,9 +24,16 @@ class CreateParentsTable extends Migration
             $table->string('father_phone');
             $table->string('mother_job');
             $table->string('mother_phone');
-            $table->integer('father_cin');
-            $table->integer('mother_cin');
+            $table->string('student_name');
+            $table->string('student_last_name');
+            $table->string('student_phone');
+            $table->date('student_birthdate');
+            $table->string('student_grade')->nullable();
+            $table->string('student_avatar')->nullable();
+            $table->string('password');
+            $table->string('email')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dashboard\ClassesController;
-use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\MainController;
 use App\Http\Controllers\Dashboard\GradesController;
 use App\Http\Controllers\Dashboard\HomeworkController;
 use App\Http\Controllers\Dashboard\InformationsController;
@@ -37,14 +37,15 @@ Route::get('/', function () {
 // Auth::routes(['verify' => true]);
 
 // Route::get('/home', 'HomeController@index')->name('home');;
-Route::get('/home', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/register', [RegisterController::class, 'index'])->name('register')->middleware('authusr');
+Route::get('/home', [MainController::class, 'home'])->name('home')->middleware('auth');
+Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/registerteacher', [RegisterController::class, 'registerTeacher'])->name('register.teacher');
 Route::post('/registerparent', [RegisterController::class, 'registerParent'])->name('register.parent');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::get('/login_auth', [LoginController::class, 'authenticate'])->name('authenticate');
-Route::get('/signout', [LoginController::class, 'signout'])->name('signout');
+Route::post('/login_auth', [LoginController::class, 'authenticate'])->name('login.authenticate');
+Route::get('/signout', [LoginController::class, 'logout'])->name('logout');
 
 //parent routes
 Route::get('/parents', [ParentsController::class, 'index'])->name('parents.index');

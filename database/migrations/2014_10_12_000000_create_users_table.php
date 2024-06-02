@@ -18,7 +18,6 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('last_name');
             $table->string('password');
-            $table->integer('cin')->unique();
             $table->string('email')->unique();
             $table->enum('role', ['admin', 'teacher', 'parent']);
             // $table->enum('status', ['active', 'inactive']);

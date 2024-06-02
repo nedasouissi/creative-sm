@@ -1,25 +1,6 @@
-<!--
-=========================================================
-* Soft UI Dashboard - v1.0.3
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 
-@if (\Request::is('rtl'))
-    <html dir="rtl" lang="ar">
-@else
-    <html lang="en">
-@endif
+
 
 <head>
     <meta charset="utf-8" />
@@ -92,99 +73,22 @@
     <link href="https://demos.creative-tim.com/argon-design-system-pro/assets/css/nucleo-icons.css" rel="stylesheet">
     <script async="" src="https://s.pinimg.com/ct/lib/main.6ae4a9fc.js"></script>
     <script type="text/javascript" async="" src="https://s.pinimg.com/ct/core.js"></script>
-    <script type="text/javascript" async="" src="https://static.hotjar.com/c/hotjar-99526.js?sv=7"></script>
     <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
     <script type="text/javascript" async=""
         src="https://www.google-analytics.com/gtm/js?id=GTM-K9BGS8K&amp;cid=1113738810.1638876382&amp;aip=true"></script>
-    <script src="https://connect.facebook.net/signals/config/111649226022273?v=2.9.48&amp;r=stable" async=""></script>
-    <script async="" src="//connect.facebook.net/en_US/fbevents.js"></script>
-    <script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NKDMSK6"></script>
-    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
-    <!-- Anti-flicker snippet (recommended)  -->
-    <style>
-        .async-hide {
-            opacity: 0 !important
-        }
-    </style>
-    <script>
-        (function(a, s, y, n, c, h, i, d, e) {
-            s.className += ' ' + y;
-            h.start = 1 * new Date;
-            h.end = i = function() {
-                s.className = s.className.replace(RegExp(' ?' + y), '')
-            };
-            (a[n] = a[n] || []).hide = h;
-            setTimeout(function() {
-                i();
-                h.end = null
-            }, c);
-            h.timeout = c;
-        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000, {
-            'GTM-K9BGS8K': true
-        });
-    </script>
-    <!-- Analytics-Optimize Snippet -->
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-46172202-22', 'auto', {
-            allowLinker: true
-        });
-        ga('set', 'anonymizeIp', true);
-        ga('require', 'GTM-K9BGS8K');
-        ga('require', 'displayfeatures');
-        ga('require', 'linker');
-        ga('linker:autoLink', ["2checkout.com", "avangate.com"]);
-    </script>
-    <!-- end Analytics-Optimize Snippet -->
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');
-    </script>
     <!-- End Google Tag Manager -->
     <!-- This is for docs typography and layout -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <link href="../../assets/docs-soft.css" rel="stylesheet">
     <script async="" src="https://script.hotjar.com/modules.54959b9c945092ba123f.js" charset="utf-8"></script>
-    <style type="text/css">
-        iframe#_hjRemoteVarsFrame {
-            display: none !important;
-            width: 1px !important;
-            height: 1px !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-    </style>
+
     <meta http-equiv="origin-trial"
         content="A13s4hjGQNypqXJtC3txOObvdElWKqJttxI7WhcRiEX0+Y28BmRR2ZTW8rSV659YQd1xb9tpLof5Eehz3SMUXgwAAACHeyJvcmlnaW4iOiJodHRwczovL3d3dy5waW50ZXJlc3QuY29tOjQ0MyIsImZlYXR1cmUiOiJDb252ZXJzaW9uTWVhc3VyZW1lbnQiLCJleHBpcnkiOjE2MzQwODMxOTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9">
 </head>
 
-<body
-    class="g-sidenav-show  bg-gray-100 {{ \Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '') }} ">
+<body class="g-sidenav-show  bg-gray-100 ">
 
     <section class="min-vh-100 mb-8">
         <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
@@ -193,9 +97,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-5 text-center mx-auto">
-                        <h1 class="text-white mb-2 mt-5">Welcome!</h1>
-                        <p class="text-lead text-white">Use these awesome forms to login or create new account in your
-                            project for free.</p>
+                        <h1 class="text-white mb-2 mt-5">Register</h1>
                     </div>
                 </div>
             </div>
@@ -221,7 +123,7 @@
                                 </ul>
 
                             </div>
-                            <h5>Register with</h5>
+
                         </div>
                         {{-- teacher register --}}
                         <div class="tab-content" id="myTabContent">
@@ -243,15 +145,6 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="cin"
-                                                placeholder="CIN" aria-label="CIN" aria-describedby="cin-addon"
-                                                required>
-                                            @error('cin')
-                                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div class="mb-3">
                                             <input type="text" class="form-control" name="last_name"
                                                 placeholder="Last Name" aria-label="Last Name"
                                                 aria-describedby="last_name-addon" required>
@@ -259,7 +152,6 @@
                                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                             @enderror
                                         </div>
-
                                         <div class="mb-3">
                                             <input type="date" class="form-control" name="birthdate"
                                                 placeholder="Birthdate" aria-label="Birthdate"
@@ -268,7 +160,12 @@
                                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                             @enderror
                                         </div>
-
+                                        <div class="mb-3">
+                                            <input type="file" class="form-control-file" name="avatar" aria-label="avatar" aria-describedby="student_avatar-addon">
+                                            @error('avatar')
+                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                            @enderror
+                                        </div>
                                         <div class="mb-3">
                                             <input type="email" class="form-control" name="email"
                                                 placeholder="Email" aria-label="Email" aria-describedby="email-addon"
@@ -300,11 +197,12 @@
                                             <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign
                                                 up</button>
                                         </div>
-                                        <p class="text-sm mt-3 mb-0">Already have an account? <a
+                                        <p class="text-center mt-3 mb-0">Already have an account? <a
                                                 href="{{ route('login') }}" class="text-dark font-weight-bolder">Sign
                                                 in</a></p>
                                     </form>
                                 </div>
+
                             </div>
                             {{-- parent register --}}
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -336,9 +234,9 @@
                                             </div>
                                             <!--form panels-->
                                             <div class="row">
-                                                <div class="col-12 col-lg-8 m-auto">
+                                                <div class="col-12  m-auto">
                                                     <form action="{{ route('register.parent') }}" method="POST"
-                                                        class="multisteps-form__form" style="height: 463px;">
+                                                        class="multisteps-form__form">
                                                         @csrf
                                                         <!--single form panel-->
                                                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active"
@@ -354,127 +252,63 @@
                                                             <div class="multisteps-form__content">
                                                                 <div class="row mt-3">
                                                                     {{-- parentinfo content --}}
+                                                                    <input type="hidden" name="role" value="parent">
                                                                     <div class="col-md-6">
                                                                         <!-- Father's Information -->
                                                                         <div class="form-group">
-                                                                            <label for="">Father Name</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="father_name">
-                                                                            <span class="text-danger">
-                                                                                @error('father_name')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="text" class="form-control" name="father_name" placeholder="Father name" aria-label="father_name" aria-describedby="name-addon" required>
+                                                                            @error('father_name')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Father Last
-                                                                                name</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="father_last_name">
-                                                                            <span class="text-danger">
-                                                                                @error('father_last_name')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="text" class="form-control" name="father_last_name" placeholder="Father Last name" aria-label="father_last_name" aria-describedby="name-addon" required>
+                                                                            @error('father_last_name')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Father Job</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="father_job">
-                                                                            <span class="text-danger">
-                                                                                @error('father_job')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="text" class="form-control" name="father_job" placeholder="Father Job" aria-label="father_job" aria-describedby="job-addon" required>
+                                                                            @error('father_job')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Father Phone
-                                                                                Number</label>
-                                                                            <input type="number" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="father_phone">
-                                                                            <span class="text-danger">
-                                                                                @error('father_phone')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="number" class="form-control" name="father_phone" placeholder="Father Phone Number" aria-label="father_phone" aria-describedby="phone-addon" required>
+                                                                            @error('father_phone')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <!-- Mother's Information -->
                                                                         <div class="form-group">
-                                                                            <label for="">Mother Name</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="mother_name">
-                                                                            <span class="text-danger">
-                                                                                @error('mother_name')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="text" class="form-control" name="mother_name" placeholder="Mother Name" aria-label="mother_name" aria-describedby="name-addon" required>
+                                                                            @error('mother_name')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Mother Last
-                                                                                name</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="mother_last_name">
-                                                                            <span class="text-danger">
-                                                                                @error('mother_last_name')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="text" class="form-control" name="mother_last_name" placeholder="Mother Last name" aria-label="mother_last_name" aria-describedby="name-addon" required>
+                                                                            @error('mother_last_name')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Mother Job</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="mother_job">
-                                                                            <span class="text-danger">
-                                                                                @error('mother_job')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="text" class="form-control" name="mother_job" placeholder="Mother Job" aria-label="mother_job" aria-describedby="job-addon" required>
+                                                                            @error('mother_job')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Mother Phone
-                                                                                Number</label>
-                                                                            <input type="number" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="mother_phone">
-                                                                            <span class="text-danger">
-                                                                                @error('mother_phone')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="dropdown">
-                                                                            <button
-                                                                                class="btn btn-secondary dropdown-toggle"
-                                                                                type="button"
-                                                                                id="dropdownMenuButton1"
-                                                                                data-bs-toggle="dropdown"
-                                                                                aria-expanded="false">
-                                                                                Number of children
-                                                                            </button>
-                                                                            <ul class="dropdown-menu"
-                                                                                aria-labelledby="dropdownMenuButton1">
-                                                                                <li><a class="dropdown-item"
-                                                                                        href="#">1</a></li>
-                                                                                <li><a class="dropdown-item"
-                                                                                        href="#">2
-                                                                                    </a></li>
-                                                                                <li><a class="dropdown-item"
-                                                                                        href="#">3</a></li>
-                                                                            </ul>
+                                                                            <input type="number" class="form-control" name="mother_phone" placeholder="Mother Phone Number" aria-label="mother_phone" aria-describedby="phone-addon" required>
+                                                                            @error('mother_phone')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="button-row d-flex mt-4">
                                                                     <button
                                                                         class="btn bg-gradient-dark ms-auto mb-0 js-btn-next"
@@ -494,95 +328,56 @@
                                                             <div class="multisteps-form__content">
                                                                 <div class="row mt-4">
                                                                     {{-- student info content --}}
-
                                                                     <div class="col-md-6">
                                                                         <!-- Student's Information -->
                                                                         <div class="form-group">
-                                                                            <label for="">Student Name</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="student_name">
-                                                                            <span class="text-danger">
-                                                                                @error('student_name')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="text" class="form-control" name="student_name" placeholder="Student Name" aria-label="student_name" aria-describedby="name-addon" required>
+                                                                            @error('student_name')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Student Last
-                                                                                name</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="student_last_name">
-                                                                            <span class="text-danger">
-                                                                                @error('student_last_name')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="text" class="form-control" name="student_last_name" placeholder="Student Last Name" aria-label="student_last_name" aria-describedby="name-addon" required>
+                                                                            @error('student_last_name')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
-
                                                                         <div class="form-group">
-                                                                            <label for="">Student Phone
-                                                                                Number</label>
-                                                                            <input type="number" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="student_phone">
-                                                                            <span class="text-danger">
-                                                                                @error('student_phone')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="number" class="form-control" name="student_phone" placeholder="Student Phone Number" aria-label="student_phone" aria-describedby="phone-addon" required>
+                                                                            @error('student_phone')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label for="">Student Grade</label>
-                                                                            <select class="form-control"
-                                                                                wire:model="student_grade">
-                                                                                <option value="" selected>Select
-                                                                                    grade</option>
-                                                                                <option value="seven">7th grade
-                                                                                </option>
-                                                                                <option value="eight">8th grade
-                                                                                </option>
-                                                                                <option value="nine">9th grade
-                                                                                </option>
+                                                                            <select class="form-control" name="student_grade" aria-label="student_grade" aria-describedby="grade-addon" required>
+                                                                                <option value="" selected>Select Grade</option>
+                                                                                <option value="seven">7th grade</option>
+                                                                                <option value="eight">8th grade</option>
+                                                                                <option value="nine">9th grade</option>
                                                                             </select>
-                                                                            <span class="text-danger">
-                                                                                @error('student grade')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            @error('student_grade')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Student
-                                                                                Birthdate</label>
-                                                                            <input type="date" class="form-control"
-                                                                                placeholder="" wire:model="birthdate">
-                                                                            <span class="text-danger">
-                                                                                @error('birthdate')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="date" class="form-control" name="student_birthdate" aria-label="student_birthdate" aria-describedby="student_birthdate-addon" required>
+                                                                            @error('student_birthdate')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
-
-
-
                                                                     </div>
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label for="avatar"> Avatar</label>
-                                                                            <input type="file"
-                                                                                class="form-control-file"
-                                                                                id="avatar" wire:model="avatar">
-                                                                            <span class="text-danger">
-                                                                                @error('avatar')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="file" class="form-control-file" name="student_avatar" aria-label="student_avatar" aria-describedby="student_avatar-addon">
+                                                                            @error('student_avatar')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="button-row d-flex mt-4">
                                                                     <button
                                                                         class="btn bg-gradient-light mb-0 js-btn-prev"
@@ -608,42 +403,26 @@
                                                                     <div class="col-md-12">
                                                                         <!-- auth -->
                                                                         <div class="form-group">
-                                                                            <label for="">Parent Email</label>
-                                                                            <input type="email" class="form-control"
-                                                                                placeholder=""
-                                                                                wire:model="parent_email">
-                                                                            <span class="text-danger">
-                                                                                @error('parent_email')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="email" class="form-control" name="email" placeholder="Parent Email" aria-label="email" aria-describedby="email-addon" required>
+                                                                            @error('email')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="">Password</label>
-                                                                            <input type="password"
-                                                                                class="form-control" placeholder=""
-                                                                                wire:model="password">
-                                                                            <span class="text-danger">
-                                                                                @error('password')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="password" class="form-control" name="password" placeholder="Password" aria-label="password" aria-describedby="password-addon" required>
+                                                                            @error('password')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="passwordConfirmation">Confirm
-                                                                                Password</label>
-                                                                            <input type="password"
-                                                                                class="form-control" placeholder=""
-                                                                                wire:model="passwordConfirmation">
-                                                                            <span class="text-danger">
-                                                                                @error('passwordConfirmation')
-                                                                                    {{ $message }}
-                                                                                @enderror
-                                                                            </span>
+                                                                            <input type="password" class="form-control" name="passwordConfirmation" placeholder="Confirm Password" aria-label="passwordConfirmation" aria-describedby="password-confirm-addon" required>
+                                                                            @error('passwordConfirmation')
+                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
-
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="row">
                                                                     <div class="button-row d-flex mt-4 col-12">
                                                                         <button
@@ -652,7 +431,7 @@
                                                                             title="Prev">Prev</button>
                                                                         <button
                                                                             class="btn bg-gradient-dark ms-auto mb-0"
-                                                                            type="button"
+                                                                            type="submit"
                                                                             title="Send">Send</button>
                                                                     </div>
                                                                 </div>
@@ -689,8 +468,7 @@
     <script src="{{ asset('back_office_theme/assets/js/plugins/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('back_office_theme/assets/js/plugins/chartjs.min.js') }}"></script>
     <script src="{{ asset('back_office_theme/assets/js/plugins/multistep-form.js') }}"></script>
-    @stack('rtl')
-    {{-- @stack('dashboard') --}}
+
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {

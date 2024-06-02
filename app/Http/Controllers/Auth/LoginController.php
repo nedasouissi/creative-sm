@@ -48,7 +48,7 @@ class LoginController extends Controller
      */
     public function index(Request $request)
     {
-        return view('espace_intranet.login');
+        return view('espace_intranet.auth.login');
     }
 
     /**
@@ -63,18 +63,26 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:8',
         ]);
+
         $credentials = $request->only('email', 'password');
-        // Debugging output
-        Log::info('Authentication attempt:', $credentials);
 
         if (Auth::attempt($credentials)) {
-            // Authentication passed
             Log::info('Authentication successful');
-            return redirect()->view('espace_intranet.dashboard');
+            return redirect()->intended($this->redirectPath());
         } else {
-            // Authentication failed
             Log::info('Authentication failed');
             return back()->withErrors(['email' => 'Invalid credentials']);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

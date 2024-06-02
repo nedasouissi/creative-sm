@@ -77,99 +77,23 @@
     <link href="https://demos.creative-tim.com/argon-design-system-pro/assets/css/nucleo-icons.css" rel="stylesheet">
     <script async="" src="https://s.pinimg.com/ct/lib/main.6ae4a9fc.js"></script>
     <script type="text/javascript" async="" src="https://s.pinimg.com/ct/core.js"></script>
-    <script type="text/javascript" async="" src="https://static.hotjar.com/c/hotjar-99526.js?sv=7"></script>
     <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
     <script type="text/javascript" async=""
         src="https://www.google-analytics.com/gtm/js?id=GTM-K9BGS8K&amp;cid=1113738810.1638876382&amp;aip=true"></script>
-    <script src="https://connect.facebook.net/signals/config/111649226022273?v=2.9.48&amp;r=stable" async=""></script>
-    <script async="" src="//connect.facebook.net/en_US/fbevents.js"></script>
-    <script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NKDMSK6"></script>
-    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
-    <!-- Anti-flicker snippet (recommended)  -->
-    <style>
-        .async-hide {
-            opacity: 0 !important
-        }
-    </style>
-    <script>
-        (function(a, s, y, n, c, h, i, d, e) {
-            s.className += ' ' + y;
-            h.start = 1 * new Date;
-            h.end = i = function() {
-                s.className = s.className.replace(RegExp(' ?' + y), '')
-            };
-            (a[n] = a[n] || []).hide = h;
-            setTimeout(function() {
-                i();
-                h.end = null
-            }, c);
-            h.timeout = c;
-        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000, {
-            'GTM-K9BGS8K': true
-        });
-    </script>
-    <!-- Analytics-Optimize Snippet -->
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-46172202-22', 'auto', {
-            allowLinker: true
-        });
-        ga('set', 'anonymizeIp', true);
-        ga('require', 'GTM-K9BGS8K');
-        ga('require', 'displayfeatures');
-        ga('require', 'linker');
-        ga('linker:autoLink', ["2checkout.com", "avangate.com"]);
-    </script>
-    <!-- end Analytics-Optimize Snippet -->
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');
-    </script>
     <!-- End Google Tag Manager -->
     <!-- This is for docs typography and layout -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <link href="../../assets/docs-soft.css" rel="stylesheet">
     <script async="" src="https://script.hotjar.com/modules.54959b9c945092ba123f.js" charset="utf-8"></script>
-    <style type="text/css">
-        iframe#_hjRemoteVarsFrame {
-            display: none !important;
-            width: 1px !important;
-            height: 1px !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-    </style>
+
     <meta http-equiv="origin-trial"
         content="A13s4hjGQNypqXJtC3txOObvdElWKqJttxI7WhcRiEX0+Y28BmRR2ZTW8rSV659YQd1xb9tpLof5Eehz3SMUXgwAAACHeyJvcmlnaW4iOiJodHRwczovL3d3dy5waW50ZXJlc3QuY29tOjQ0MyIsImZlYXR1cmUiOiJDb252ZXJzaW9uTWVhc3VyZW1lbnQiLCJleHBpcnkiOjE2MzQwODMxOTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9">
 </head>
 
 <body
-    class="g-sidenav-show  bg-gray-100 {{ \Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '') }} ">
+    class="g-sidenav-show  bg-gray-100 ">
 
     <main class="main-content  mt-0">
         <section>
@@ -183,7 +107,7 @@
                                     <p class="mb-0">Enter your email and password to sign in</p>
                                 </div>
                                 <div class="card-body">
-                                    <form action="{{ route('authenticate') }}" role="form" method="POST">
+                                    <form action="{{ route('login.authenticate') }}" role="form" method="POST">
                                         @csrf
                                         <label>Email</label>
                                         <div class="mb-3">
