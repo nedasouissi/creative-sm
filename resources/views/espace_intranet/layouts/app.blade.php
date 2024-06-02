@@ -1,6 +1,9 @@
 @extends('espace_intranet.layouts.general_structure')
 
 @section('intranet_appcontent')
+    @php
+        // dd($user)
+    @endphp
     @include('espace_intranet.sidebar')
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
@@ -23,14 +26,7 @@
                         </div>
                     </div>
                     <ul class="navbar-nav  justify-content-end">
-                        @auth
-                            <li class="nav-item d-flex align-items-center">
-                                <a href="{{ route('logout') }}" class="nav-link text-body font-weight-bold px-0">
-                                    <i class="fa fa-user me-sm-1"></i>
-                                    <span class="d-sm-inline d-none">Sign Out</span>
-                                </a>
-                            </li>
-                        @endauth
+
 
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
@@ -57,7 +53,7 @@
                                     <a class="dropdown-item border-radius-md" href="javascript:;">
                                         <div class="d-flex py-1">
                                             <div class="my-auto">
-                                                <img src="../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                                                <img src="{{ asset('back_office_theme/assets/img/team-2.jpg') }}" class="avatar avatar-sm  me-3 ">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="text-sm font-weight-normal mb-1">
@@ -75,7 +71,7 @@
                                     <a class="dropdown-item border-radius-md" href="javascript:;">
                                         <div class="d-flex py-1">
                                             <div class="my-auto">
-                                                <img src="../assets/img/small-logos/logo-spotify.svg"
+                                                <img src="{{ asset('back_office_theme/assets/img/small-logos/logo-spotify.svg') }}"
                                                     class="avatar avatar-sm bg-gradient-dark  me-3 ">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
@@ -140,4 +136,43 @@
             </div>
         </div>
     </main>
+    <div class="fixed-plugin">
+        <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+            <i class="fa fa-cog py-2"> </i>
+        </a>
+        <div class="card shadow-lg ">
+            <div class="card-header pb-0 pt-3 ">
+                <div class="float-start">
+                    <h5 class="mt-3 mb-0">Profile</h5>
+                </div>
+                <div class="float-end mt-4">
+                    <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+                <!-- End Toggle Button -->
+            </div>
+            <hr class="horizontal dark my-1">
+            @auth
+
+                <div class="float-start d-flex">
+                    <div>
+                        <img src="{{ asset('back_office_theme/assets/img/team-2.jpg') }}" class="avatar avatar-sm me-3" alt="user1">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
+                        <p class="text-xs text-secondary mb-0">{{ $user->email }}</p>
+                    </div>
+                </div>
+
+
+                <div class="float-start">
+                    <a href="{{ route('logout') }}" class="nav-link text-body font-weight-bold px-0">
+                        <i class="fa fa-sign-out"></i>
+                        <span class="d-sm-inline d-none">Logout</span>
+                    </a>
+                </div>
+            @endauth
+        </div>
+    </div>
 @endsection

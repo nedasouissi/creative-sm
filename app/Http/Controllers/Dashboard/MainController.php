@@ -9,10 +9,9 @@ class MainController extends Controller
 
     public function home()
     {
-           // $teacherCount = Teacher::count ();
+        $user = auth()->user();
 
-           //compact : create an array of values
-           return view('espace_intranet.home');
+        return view('espace_intranet.home', compact('user'));
     }
 
     public function dashboard()
