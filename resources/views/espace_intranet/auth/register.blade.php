@@ -131,7 +131,7 @@
                                 aria-labelledby="home-tab">
                                 <div class="card-body">
                                     <form action="{{ route('register.teacher') }}" method="POST"
-                                        role="form text-left">
+                                        role="form text-left" action="/upload" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="role" value="teacher">
 
@@ -161,9 +161,10 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <input type="file" class="form-control-file" name="avatar" aria-label="avatar" aria-describedby="student_avatar-addon">
+                                            <input type="file" class="form-control-file" name="avatar"
+                                                aria-label="avatar" aria-describedby="avatar-addon">
                                             @error('avatar')
-                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
@@ -236,7 +237,7 @@
                                             <div class="row">
                                                 <div class="col-12  m-auto">
                                                     <form action="{{ route('register.parent') }}" method="POST"
-                                                        class="multisteps-form__form">
+                                                        class="multisteps-form__form" action="/upload" enctype="multipart/form-data">
                                                         @csrf
                                                         <!--single form panel-->
                                                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active"
@@ -252,58 +253,101 @@
                                                             <div class="multisteps-form__content">
                                                                 <div class="row mt-3">
                                                                     {{-- parentinfo content --}}
-                                                                    <input type="hidden" name="role" value="parent">
+                                                                    <input type="hidden" name="role"
+                                                                        value="parent">
                                                                     <div class="col-md-6">
                                                                         <!-- Father's Information -->
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" name="father_name" placeholder="Father name" aria-label="father_name" aria-describedby="name-addon" required>
+                                                                            <input type="text" class="form-control"
+                                                                                name="father_name"
+                                                                                placeholder="Father name"
+                                                                                aria-label="father_name"
+                                                                                aria-describedby="name-addon" required>
                                                                             @error('father_name')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" name="father_last_name" placeholder="Father Last name" aria-label="father_last_name" aria-describedby="name-addon" required>
+                                                                            <input type="text" class="form-control"
+                                                                                name="father_last_name"
+                                                                                placeholder="Father Last name"
+                                                                                aria-label="father_last_name"
+                                                                                aria-describedby="name-addon" required>
                                                                             @error('father_last_name')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" name="father_job" placeholder="Father Job" aria-label="father_job" aria-describedby="job-addon" required>
+                                                                            <input type="text" class="form-control"
+                                                                                name="father_job"
+                                                                                placeholder="Father Job"
+                                                                                aria-label="father_job"
+                                                                                aria-describedby="job-addon" required>
                                                                             @error('father_job')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="number" class="form-control" name="father_phone" placeholder="Father Phone Number" aria-label="father_phone" aria-describedby="phone-addon" required>
+                                                                            <input type="number" class="form-control"
+                                                                                name="father_phone"
+                                                                                placeholder="Father Phone Number"
+                                                                                aria-label="father_phone"
+                                                                                aria-describedby="phone-addon"
+                                                                                required>
                                                                             @error('father_phone')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <!-- Mother's Information -->
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" name="mother_name" placeholder="Mother Name" aria-label="mother_name" aria-describedby="name-addon" required>
+                                                                            <input type="text" class="form-control"
+                                                                                name="mother_name"
+                                                                                placeholder="Mother Name"
+                                                                                aria-label="mother_name"
+                                                                                aria-describedby="name-addon" required>
                                                                             @error('mother_name')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" name="mother_last_name" placeholder="Mother Last name" aria-label="mother_last_name" aria-describedby="name-addon" required>
+                                                                            <input type="text" class="form-control"
+                                                                                name="mother_last_name"
+                                                                                placeholder="Mother Last name"
+                                                                                aria-label="mother_last_name"
+                                                                                aria-describedby="name-addon" required>
                                                                             @error('mother_last_name')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" name="mother_job" placeholder="Mother Job" aria-label="mother_job" aria-describedby="job-addon" required>
+                                                                            <input type="text" class="form-control"
+                                                                                name="mother_job"
+                                                                                placeholder="Mother Job"
+                                                                                aria-label="mother_job"
+                                                                                aria-describedby="job-addon" required>
                                                                             @error('mother_job')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="number" class="form-control" name="mother_phone" placeholder="Mother Phone Number" aria-label="mother_phone" aria-describedby="phone-addon" required>
+                                                                            <input type="number" class="form-control"
+                                                                                name="mother_phone"
+                                                                                placeholder="Mother Phone Number"
+                                                                                aria-label="mother_phone"
+                                                                                aria-describedby="phone-addon"
+                                                                                required>
                                                                             @error('mother_phone')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                     </div>
@@ -331,48 +375,83 @@
                                                                     <div class="col-md-6">
                                                                         <!-- Student's Information -->
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" name="student_name" placeholder="Student Name" aria-label="student_name" aria-describedby="name-addon" required>
+                                                                            <input type="text" class="form-control"
+                                                                                name="student_name"
+                                                                                placeholder="Student Name"
+                                                                                aria-label="student_name"
+                                                                                aria-describedby="name-addon" required>
                                                                             @error('student_name')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="text" class="form-control" name="student_last_name" placeholder="Student Last Name" aria-label="student_last_name" aria-describedby="name-addon" required>
+                                                                            <input type="text" class="form-control"
+                                                                                name="student_last_name"
+                                                                                placeholder="Student Last Name"
+                                                                                aria-label="student_last_name"
+                                                                                aria-describedby="name-addon" required>
                                                                             @error('student_last_name')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="number" class="form-control" name="student_phone" placeholder="Student Phone Number" aria-label="student_phone" aria-describedby="phone-addon" required>
+                                                                            <input type="number" class="form-control"
+                                                                                name="student_phone"
+                                                                                placeholder="Student Phone Number"
+                                                                                aria-label="student_phone"
+                                                                                aria-describedby="phone-addon"
+                                                                                required>
                                                                             @error('student_phone')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <select class="form-control" name="student_grade" aria-label="student_grade" aria-describedby="grade-addon" required>
-                                                                                <option value="" selected>Select Grade</option>
-                                                                                <option value="seven">7th grade</option>
-                                                                                <option value="eight">8th grade</option>
-                                                                                <option value="nine">9th grade</option>
+                                                                            <select class="form-control"
+                                                                                name="student_grade"
+                                                                                aria-label="student_grade"
+                                                                                aria-describedby="grade-addon"
+                                                                                required>
+                                                                                <option value="" selected>Select
+                                                                                    Grade</option>
+                                                                                <option value="seven">7th grade
+                                                                                </option>
+                                                                                <option value="eight">8th grade
+                                                                                </option>
+                                                                                <option value="nine">9th grade
+                                                                                </option>
                                                                             </select>
                                                                             @error('student_grade')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="date" class="form-control" name="student_birthdate" aria-label="student_birthdate" aria-describedby="student_birthdate-addon" required>
+                                                                            <input type="date" class="form-control"
+                                                                                name="student_birthdate"
+                                                                                aria-label="student_birthdate"
+                                                                                aria-describedby="student_birthdate-addon"
+                                                                                required>
                                                                             @error('student_birthdate')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <input type="file" class="form-control-file" name="student_avatar" aria-label="student_avatar" aria-describedby="student_avatar-addon">
+                                                                            <input type="file"
+                                                                                class="form-control-file"
+                                                                                name="student_avatar"
+                                                                                aria-label="student_avatar"
+                                                                                aria-describedby="student_avatar-addon">
                                                                             @error('student_avatar')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                     </div>
@@ -403,21 +482,40 @@
                                                                     <div class="col-md-12">
                                                                         <!-- auth -->
                                                                         <div class="form-group">
-                                                                            <input type="email" class="form-control" name="email" placeholder="Parent Email" aria-label="email" aria-describedby="email-addon" required>
+                                                                            <input type="email" class="form-control"
+                                                                                name="email"
+                                                                                placeholder="Parent Email"
+                                                                                aria-label="email"
+                                                                                aria-describedby="email-addon"
+                                                                                required>
                                                                             @error('email')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="password" class="form-control" name="password" placeholder="Password" aria-label="password" aria-describedby="password-addon" required>
+                                                                            <input type="password"
+                                                                                class="form-control" name="password"
+                                                                                placeholder="Password"
+                                                                                aria-label="password"
+                                                                                aria-describedby="password-addon"
+                                                                                required>
                                                                             @error('password')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <input type="password" class="form-control" name="passwordConfirmation" placeholder="Confirm Password" aria-label="passwordConfirmation" aria-describedby="password-confirm-addon" required>
+                                                                            <input type="password"
+                                                                                class="form-control"
+                                                                                name="passwordConfirmation"
+                                                                                placeholder="Confirm Password"
+                                                                                aria-label="passwordConfirmation"
+                                                                                aria-describedby="password-confirm-addon"
+                                                                                required>
                                                                             @error('passwordConfirmation')
-                                                                            <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                                                                                <p class="text-danger text-xs mt-2">
+                                                                                    {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
                                                                     </div>

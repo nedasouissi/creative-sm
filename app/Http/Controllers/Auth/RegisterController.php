@@ -9,6 +9,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -47,16 +48,36 @@ class RegisterController extends Controller
     }
     protected function create_teacher(array $data)
     {
-        // dd($data);
+        // Handle the file upload
+        $filePath = '';
+        if (isset($data['avatar'])) {
+            $file = $data['avatar'];
+            try {
+                // Store the file and get the path
+                $filePath = $file->store('avatars', 'public');
+                dd($filePath);
+
+            } catch (\Exception $e) {
+                // Handle exception during file upload
+                return redirect()->back()->with('error', 'Failed to upload avatar: ' . $e->getMessage())->withInput();
+            }
+
+        } else {
+            dd('aa', $data['avatar']);
+            // Handle the case where the file is not present or invalid (if needed)
+            $filePath = null;
+        }
+        // dd($filePath);
+        // Create and return the user record
         return User::create([
             'name' => $data['name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'avatar' => $data['avatar'],
+            'avatar' => $filePath, // Ensure the file path is stored
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
-            'is_active' => false,
-            'birthdate' => $data['birthdate'], // Remove unnecessary validation rules
+            'is_active' => false, // Default to inactive; activation logic should be handled separately
+            'birthdate' => $data['birthdate'],
         ]);
     }
     protected function parent_validator(array $data)
@@ -103,7 +124,24 @@ class RegisterController extends Controller
     }
     protected function create_parent(array $data, $user_id)
     {
-        // dd($data,$user_id);
+        Log::info($data);
+        // Handle the file upload
+        $filePath = '';
+        if (isset($data['student_avatar'])) {
+            $file = $data['student_avatar'];
+            try {
+                // Store the file and get the path
+                $filePath = $file->store('avatars', 'public');
+            } catch (\Exception $e) {
+                // Handle exception during file upload
+                return redirect()->back()->with('error', 'Failed to upload avatar: ' . $e->getMessage())->withInput();
+            }
+
+        } else {
+
+            // Handle the case where the file is not present or invalid (if needed)
+            $filePath = null;
+        }
         return ParentModel::create([
             'user_id' => $user_id, // Assign the user ID
             'father_name' => $data['father_name'],
@@ -119,7 +157,7 @@ class RegisterController extends Controller
             'student_phone' => $data['student_phone'],
             'student_grade' => $data['student_grade'],
             'student_birthdate' => $data['student_birthdate'],
-            'student_avatar' => $data['student_avatar'],
+            'student_avatar' => $filePath,
             'email' => $data['email'],
             'password' => $data['password'],
             'is_active' => false,
@@ -127,11 +165,26 @@ class RegisterController extends Controller
     }
     protected function create_parent_user(array $data)
     {
+        $filePath = '';
+        if (isset($data['student_avatar'])) {
+            $file = $data['student_avatar'];
+            try {
+                // Store the file and get the path
+                $filePath = $file->store('avatars', 'public');
+            } catch (\Exception $e) {
+                // Handle exception during file upload
+                return redirect()->back()->with('error', 'Failed to upload avatar: ' . $e->getMessage())->withInput();
+            }
+
+        } else {
+            // Handle the case where the file is not present or invalid (if needed)
+            $filePath = null;
+        }
         return User::create([
             'name' => $data['student_name'],
             'last_name' => $data['student_last_name'],
             'email' => $data['email'],
-            'avatar' => $data['student_avatar'],
+            'avatar' => $filePath,
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
             'birthdate' => ['required', 'date'],

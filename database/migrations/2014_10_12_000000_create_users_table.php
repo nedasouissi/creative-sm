@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('password');
             $table->string('email')->unique();
+            $table->string('avatar')->nullable();
             $table->enum('role', ['admin', 'teacher', 'parent']);
-            // $table->enum('status', ['active', 'inactive']);
             $table->boolean('is_active')->default(false);
             $table->integer('access_level')->default(0);
             $table->softDeletes();
