@@ -53,6 +53,19 @@
                                                     @enderror
                                                 </span>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="class_id">Classe</label>
+                                                <select class="form-control" id="class_id" name="class_id">
+                                                    @foreach ($classes as $classe)
+                                                        <option value="{{ $classe->id }}">{{ $classe->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <span class="text-danger">
+                                                    @error('class_id')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="text-center">

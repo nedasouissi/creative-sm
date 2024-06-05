@@ -26,6 +26,8 @@
                                                     @enderror
                                                 </span>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="coefficient">Coefficient</label>
                                                 <input type="number" class="form-control" name="coefficient"
@@ -37,47 +39,25 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="subject_id">Subject</label>
-                                                <select class="form-control" id="subject_id" name="subject_id">
-                                                    @foreach ($subjects as $subject)
-                                                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <span class="text-danger">
-                                                    @error('subject_id')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="grade_id">Grade</label>
-                                                <select class="form-control" id="grade_id" name="grade_id">
-                                                    @foreach ($grades as $grade)
-                                                        <option value="{{ $grade->id }}">{{ $grade->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <span class="text-danger">
-                                                    @error('grade_id')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </span>
-                                            </div>
 
-                                        </div>
                                     </div>
-                                    <div class="text-center">
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="text-center my-5">
                                         <button type="submit"
                                             class="btn btn-round bg-gradient-info btn-lg mt-4 mb-0">Save</button>
                                     </div>
                                 </div>
+
                             </div>
-                        </form>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <div class="content-wrapper">
@@ -111,12 +91,7 @@
                                                             <th
                                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                 Coefficient</th>
-                                                            <th
-                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                Grade</th>
-                                                            <th
-                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                Subject</th>
+
                                                             <th
                                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                 Action</th>
@@ -127,10 +102,7 @@
                                                             <tr>
                                                                 <td class="text-center">{{ $module->name }}</td>
                                                                 <td class="text-center">{{ $module->coefficient }}</td>
-                                                                <td class="text-center">{{ $module->grade->name }}</td>
-                                                                <td class="text-center">
-                                                                    {{ $module->subjects->pluck('name')->implode(', ') }}
-                                                                </td>
+
                                                                 <td class="text-center">
                                                                     <a href="#" class="mx-3"
                                                                         data-bs-toggle="tooltip"

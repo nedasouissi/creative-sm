@@ -25,6 +25,9 @@
                                         </span>
                                     </div>
                                     <div class="form-group">
+                                        {{-- $table->string('name');
+                                        $table->foreignId('grade_id')->constrained()->onDelete('cascade');
+                                        $table->foreignId('user_id')->constrained()->onDelete('cascade'); --}}
                                         <label for="grade_id">Grade</label>
                                         <select class="form-control" id="grade_id" name="grade_id">
                                             @foreach ($grades as $grade)
@@ -37,15 +40,20 @@
                                             @enderror
                                         </span>
                                     </div>
+                                    @php
+                                        // dd($teachers);
+                                    @endphp
                                     <div class="form-group">
-                                        <label for="teacher_id">Teacher</label>
-                                        <select class="form-control" id="teacher_id" name="teacher_id">
+                                        <label for="user_id">Teacher</label>
+                                        <select class="form-control" id="user_id" name="user_id">
+
+
                                             @foreach ($teachers as $teacher)
                                                 <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                                             @endforeach
                                         </select>
                                         <span class="text-danger">
-                                            @error('teacher_id')
+                                            @error('user_id')
                                                 {{ $message }}
                                             @enderror
                                         </span>
@@ -110,12 +118,13 @@
                                                 <tr>
                                                     <td class="text-center">{{ $classe->name }}</td>
                                                     <td class="text-center">{{ $classe->grade->name }}</td>
-                                                    <td class="text-center">
-                                                        @foreach ($classe->teacher as $teacher)
+                                                    <td class="text-center">{{ $classe->user->name }}</td>
+                                                    {{-- <td class="text-center">
+                                                        @foreach ($classe->user as $teacher)
                                                             {{ $teacher->name }}
                                                             <br>
                                                         @endforeach
-                                                    </td>
+                                                    </td> --}}
                                                     <td class="text-center">
                                                         <a href="#" class="mx-3" data-bs-toggle="tooltip"
                                                             data-bs-original-title="Edit classe"

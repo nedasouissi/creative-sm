@@ -5,8 +5,8 @@
 
             <a href="index.html" class="logo d-flex align-items-center me-auto">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
-                <!-- <img src="{{ asset('public_theme/assets/img/logo.png') }}" alt=""> -->
-                <h1 class="sitename">Arsha</h1>
+                <img src="{{ asset('back_office_theme/assets/img/logo-ctw.png') }}" alt="">
+                <h1 class="sitename">Creative SM</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">
@@ -14,10 +14,7 @@
                     <li><a href="#hero" class="">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li class="dropdown"><a href="#"><span>Dropdown</span> <i
+                    {{-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i
                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
                             <li><a href="#">Dropdown 1</a></li>
@@ -35,13 +32,13 @@
                             <li><a href="#">Dropdown 3</a></li>
                             <li><a href="#">Dropdown 4</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <a class="btn-getstarted" href="{{ route('login') }}">Get Started</a>
+            <a class="btn-getstarted" href="{{ route('login') }}">Sign In</a>
 
         </div>
     </header>

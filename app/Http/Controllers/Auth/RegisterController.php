@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\ParentModel;
+use App\Models\Student;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -55,15 +55,12 @@ class RegisterController extends Controller
             try {
                 // Store the file and get the path
                 $filePath = $file->store('avatars', 'public');
-                dd($filePath);
-
             } catch (\Exception $e) {
                 // Handle exception during file upload
                 return redirect()->back()->with('error', 'Failed to upload avatar: ' . $e->getMessage())->withInput();
             }
-
         } else {
-            dd('aa', $data['avatar']);
+
             // Handle the case where the file is not present or invalid (if needed)
             $filePath = null;
         }
@@ -136,13 +133,12 @@ class RegisterController extends Controller
                 // Handle exception during file upload
                 return redirect()->back()->with('error', 'Failed to upload avatar: ' . $e->getMessage())->withInput();
             }
-
         } else {
 
             // Handle the case where the file is not present or invalid (if needed)
             $filePath = null;
         }
-        return ParentModel::create([
+        return Student::create([
             'user_id' => $user_id, // Assign the user ID
             'father_name' => $data['father_name'],
             'father_last_name' => $data['father_last_name'],
@@ -175,7 +171,6 @@ class RegisterController extends Controller
                 // Handle exception during file upload
                 return redirect()->back()->with('error', 'Failed to upload avatar: ' . $e->getMessage())->withInput();
             }
-
         } else {
             // Handle the case where the file is not present or invalid (if needed)
             $filePath = null;

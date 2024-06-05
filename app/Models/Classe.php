@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Classe extends Model
 {
     protected $primaryKey = 'id';
-    protected $table = 'classe';
-    protected $fillable = ['name', 'teacher_id','grade_id'];
+    protected $table = 'classes';
+    protected $fillable = ['name', 'user_id', 'grade_id'];
 
-    public function Grade(){
-        return $this->belongsTo(Grade::class,'grade_id');
-    }
-    public function teacher()
+    public function Grade()
     {
-        return $this->hasMany(Teacher::class, 'classe_id');
+        return $this->belongsTo(Grade::class, 'grade_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function homeworks()
     {

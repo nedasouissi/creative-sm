@@ -17,8 +17,8 @@ class CreateSubjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('class_id')->constrained()->onDelete('cascade');
-            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            // $table->foreignId('Module_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('Module_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

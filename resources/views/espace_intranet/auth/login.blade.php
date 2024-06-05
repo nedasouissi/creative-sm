@@ -92,16 +92,15 @@
         content="A13s4hjGQNypqXJtC3txOObvdElWKqJttxI7WhcRiEX0+Y28BmRR2ZTW8rSV659YQd1xb9tpLof5Eehz3SMUXgwAAACHeyJvcmlnaW4iOiJodHRwczovL3d3dy5waW50ZXJlc3QuY29tOjQ0MyIsImZlYXR1cmUiOiJDb252ZXJzaW9uTWVhc3VyZW1lbnQiLCJleHBpcnkiOjE2MzQwODMxOTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9">
 </head>
 
-<body
-    class="g-sidenav-show  bg-gray-100 ">
+<body class="g-sidenav-show  bg-gray-100 ">
 
     <main class="main-content  mt-0">
         <section>
             <div class="page-header min-vh-75">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
-                            <div class="card card-plain mt-8">
+                        <div class="col-xl-4 col-lg-4 col-md-5 d-flex flex-column mx-auto">
+                            <div class="card card-plain mt-7">
                                 <div class="card-header pb-0 text-left bg-transparent">
                                     <h3 class="font-weight-bolder text-info text-gradient">Welcome back</h3>
                                     <p class="mb-0">Enter your email and password to sign in</p>
@@ -148,7 +147,7 @@
                         <div class="col-md-6">
                             <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
                                 <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
-                                    style="background-image:url('{{ asset('back_office_theme/assets/img/curved-images/curved6.jpg') }}">
+                                    style="background-image:url('{{ asset('public_theme/assets/img/logimg.jpg') }}">
                                 </div>
                             </div>
                         </div>

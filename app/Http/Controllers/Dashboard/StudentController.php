@@ -5,16 +5,22 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\StudentParent;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::with('studentParent')->get();
-        $parents = StudentParent::all();
-        return view('espace_intranet.students', compact('students', 'parents'));
+        $user = User::with('students')->find(Auth::id());
+        $studentData = null;
+
+        if ($user->role == 'parent') {
+            $studentData = \App\Models\Student::where('user_id', $user->id)->first();
+        }
+        return view('espace_intranet.layouts.app', compact('studentData'));
     }
 
     public function store(Request $request)
@@ -37,7 +43,7 @@ class StudentController extends Controller
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $parent = StudentParent::create($request->only([
+        $parent = Student::create($request->only([
             'father_name', 'father_last_name', 'father_phone', 'father_job',
             'mother_name', 'mother_last_name', 'mother_phone', 'mother_job',
             'parent_email'
@@ -108,7 +114,7 @@ class StudentController extends Controller
 
     public function destroy($id)
     {
-        $parent = StudentParent::find($id);
+        $parent = Student::find($id);
 
         if ($parent) {
             $parent->delete();

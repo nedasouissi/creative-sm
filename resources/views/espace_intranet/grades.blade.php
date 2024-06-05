@@ -24,19 +24,7 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="classe_id">Classe</label>
-                                        <select class="form-control" id="classe_id" name="classe_id">
-                                            @foreach ($classes as $classe)
-                                                <option value="{{ $classe->id }}">{{ $classe->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <span class="text-danger">
-                                            @error('classe_id')
-                                                {{ $message }}
-                                            @enderror
-                                        </span>
-                                    </div>
+
                                     <div class="text-center">
                                         <button type="submit"
                                             class="btn btn-round bg-gradient-info btn-lg mt-4 mb-0">Save</button>
@@ -82,9 +70,7 @@
                                                 <th
                                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     Name</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Class</th>
+
                                                 <th
                                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     Action
@@ -95,12 +81,7 @@
                                             @foreach ($grades as $grade)
                                                 <tr>
                                                     <td class="text-center">{{ $grade->name }}</td>
-                                                    <td class="text-center">
-                                                        @foreach ($grade->classe as $classe)
-                                                            {{ $classe->name }}
-                                                            <br>
-                                                        @endforeach
-                                                    </td>
+
                                                     <td class="text-center">
                                                         <a href="#" class="mx-3" data-bs-toggle="tooltip"
                                                             data-bs-original-title="Edit user"

@@ -2,8 +2,206 @@
 
 @section('intranet_appcontent')
     @php
-        // dd($user)
+        $user = Auth::user();
     @endphp
+    {{-- modal start here  --}}
+    <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                        <div class="card-header pb-0 text-left">
+                            <h3 class="font-weight-bolder text-info text-gradient" id="modal-title">Add New Student</h3>
+                        </div>
+                        <form id="student-form" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="hidden" id="student-id" name="id">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Father's Information -->
+                                            <div class="form-group">
+                                                <label for="">Father Name</label>
+                                                <input type="text" class="form-control" placeholder="" name="father_name"
+                                                    id="father-name">
+                                                <span class="text-danger">
+                                                    @error('father_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Father Last name</label>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="father_last_name" id="father-last-name">
+                                                <span class="text-danger">
+                                                    @error('father_last_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Father Job</label>
+                                                <input type="text" class="form-control" placeholder="" name="father_job"
+                                                    id="father-job">
+                                                <span class="text-danger">
+                                                    @error('father_job')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Father Phone Number</label>
+                                                <input type="number" class="form-control" placeholder=""
+                                                    name="father_phone" id="father-phone">
+                                                <span class="text-danger">
+                                                    @error('father_phone')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Parent Email</label>
+                                                <input type="email" class="form-control" placeholder=""
+                                                    name="parent_email" id="parent-email">
+                                                <span class="text-danger">
+                                                    @error('parent_email')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- Mother's Information -->
+                                            <div class="form-group">
+                                                <label for="">Mother Name</label>
+                                                <input type="text" class="form-control" placeholder="" name="mother_name"
+                                                    id="mother-name">
+                                                <span class="text-danger">
+                                                    @error('mother_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Mother Last name</label>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="mother_last_name" id="mother-last-name">
+                                                <span class="text-danger">
+                                                    @error('mother_last_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Mother Job</label>
+                                                <input type="text" class="form-control" placeholder="" name="mother_job"
+                                                    id="mother-job">
+                                                <span class="text-danger">
+                                                    @error('mother_job')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Mother Phone Number</label>
+                                                <input type="number" class="form-control" placeholder=""
+                                                    name="mother_phone" id="mother-phone">
+                                                <span class="text-danger">
+                                                    @error('mother_phone')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Student's Information -->
+                                            <div class="form-group">
+                                                <label for="">Student Name</label>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="student_name" id="student-name">
+                                                <span class="text-danger">
+                                                    @error('student_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Student Last name</label>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="student_last_name" id="student-last-name">
+                                                <span class="text-danger">
+                                                    @error('student_last_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Student Phone Number</label>
+                                                <input type="number" class="form-control" placeholder=""
+                                                    name="student_phone" id="student-phone">
+                                                <span class="text-danger">
+                                                    @error('student_phone')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Student Grade</label>
+                                                <select class="form-control" name="student_grade" id="student-grade">
+                                                    <option value="" selected>Select grade</option>
+                                                    <option value="seven">7th grade</option>
+                                                    <option value="eight">8th grade</option>
+                                                    <option value="nine">9th grade</option>
+                                                </select>
+                                                <span class="text-danger">
+                                                    @error('student_grade')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Student Birthdate</label>
+                                                <input type="date" class="form-control" placeholder=""
+                                                    name="birthdate" id="student-birthdate">
+                                                <span class="text-danger">
+                                                    @error('birthdate')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="avatar">Avatar</label>
+                                                <input type="file" class="form-control" id="avatar" name="avatar"
+                                                    id="student-avatar">
+                                                <span class="text-danger">
+                                                    @error('avatar')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit"
+                                            class="btn btn-round bg-gradient-info btn-lg mt-4 mb-0">SAVE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- modal end here  --}}
+
     @include('espace_intranet.sidebar')
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
@@ -13,7 +211,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm text-dark active text-capitalize" aria-current="page">
-                            <h6 class="font-weight-bolder mb-0 text-capitalize">{{ str_replace('-', ' ', Request::path()) }}
+                            <h6 class="font-weight-bolder mb-0 text-capitalize">
+                                {{ str_replace('-', ' ', Request::path()) }}
                             </h6>
                         </li>
                     </ol>
@@ -21,7 +220,8 @@
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         <div class="input-group">
-                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                            <span class="input-group-text text-body"><i class="fas fa-search"
+                                    aria-hidden="true"></i></span>
                             <input type="text" class="form-control" placeholder="Type here...">
                         </div>
                     </div>
@@ -39,7 +239,7 @@
                         </li>
                         <li class="nav-item px-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0">
-                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                                <i class="fa fa-user fixed-plugin-button-nav cursor-pointer"></i>
                             </a>
                         </li>
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
@@ -95,7 +295,8 @@
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink">
                                                     <title>credit-card</title>
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <g stroke="none" stroke-width="1" fill="none"
+                                                        fill-rule="evenodd">
                                                         <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
                                                             fill-rule="nonzero">
                                                             <g transform="translate(1716.000000, 291.000000)">
@@ -139,7 +340,7 @@
     </main>
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-            <i class="fa fa-cog py-2"> </i>
+            <i class="fa fa-user py-2"> </i>
         </a>
         <div class="card shadow-lg ">
             <div class="card-header pb-0 pt-3 ">
@@ -157,17 +358,95 @@
             @auth
 
                 <div class="float-start d-flex">
-                    @php
-                    //  @dd($user);
-                    @endphp
-                    
+
+
                     <div>
-                        <img src="{{ Storage::url($user->avatar) }}" class="avatar avatar-sm me-3" alt="user1">
+                        <img src="{{ Storage::url(@$user->avatar) }}" class="avatar avatar-sm me-3" alt="user1">
                     </div>
                     <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
-                        <p class="text-xs text-secondary mb-0">{{ $user->email }}</p>
+                        <h6 class="mb-0 text-sm">{{ @$user->name }}</h6>
                     </div>
+                </div>
+                <div>
+                    @php
+                        $user = Auth::user();
+                    @endphp
+
+                    @if (@$user->role == 'teacher')
+                        @php
+                            $teacherData = \App\Models\User::find(@$user->id);
+                        @endphp
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8 d-flex align-items-center">
+                                    <h6 class="mb-0">Profile Information</h6>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <a href="javascript:;">
+                                        <i class="fas fa-user-edit text-secondary text-sm" data-bs-placement="top"
+                                            title="Edit Profile"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark"> Full
+                                    Name:</strong>
+                                &nbsp; {{ $teacherData->name }} {{ $teacherData->last_name }}</li>
+                            <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Email:</strong>
+                                &nbsp; {{ $teacherData->email }}</li>
+                            <!-- Add more teacher details as needed -->
+                        </div>
+                    @elseif (@$user->role == 'parent')
+                        @php
+                            $studentData = \App\Models\Student::where('user_id', @$user->id)->first();
+                        @endphp
+                        @if (@$studentData)
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8 d-flex align-items-center">
+                                        <h6 class="mb-0">Profile Information</h6>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <a href="javascript:;">
+                                            <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="modal"
+                                                data-bs-target="#modal-form" onclick="editParent({{ @$Student }})"
+                                                data-bs-placement="top" title="Edit Profile"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark"> Father
+                                        Name:</strong>
+                                    &nbsp; {{ $studentData->father_name }} {{ $studentData->father_last_name }}</li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark"> Father
+                                        Job:</strong>
+                                    &nbsp; {{ $studentData->father_job }} </li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark"> Father
+                                        Phone:</strong>
+                                    &nbsp; {{ @$studentData->father_phone }} </li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark"> Mother
+                                        Name:</strong>
+                                    &nbsp; {{ @$studentData->mother_name }} {{ @$studentData->mother_last_name }}</li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark"> Mother
+                                        Job:</strong>
+                                    &nbsp; {{ $studentData->mother_job }} </li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark"> Mother
+                                        Phone:</strong>
+                                    &nbsp; {{ $studentData->mother_phone }} </li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Parent
+                                        Email:</strong>
+                                    &nbsp; {{ $studentData->email }}</li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Student
+                                        Grade:</strong>
+                                    &nbsp; {{ $studentData->student_grade }}</li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark"> Student
+                                        Phone:</strong>
+                                    &nbsp; {{ $studentData->student_phone }} </li>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Student
+                                        Birthdate:</strong>
+                                    &nbsp; {{ $studentData->student_birthdate }} </li>
+                            </div>
+                        @endif
+                    @endif
                 </div>
 
 
@@ -180,4 +459,64 @@
             @endauth
         </div>
     </div>
+    <script>
+        function editParent(Student) {
+            document.getElementById('modal-form').reset(); // Reset the form
+            document.getElementById('parent-id').value = StudentParent.id;
+            document.getElementById('parent-method').value = 'PATCH';
+            document.getElementById('father_name').value = StudentParent.father_name;
+            document.getElementById('father_last_name').value = StudentParent.father_last_name;
+            document.getElementById('father_job').value = StudentParent.father_job;
+            document.getElementById('father_phone').value = StudentParent.father_phone;
+            document.getElementById('parent_email').value = StudentParent.parent_email;
+            document.getElementById('mother_name').value = StudentParent.mother_name;
+            document.getElementById('mother_last_name').value = StudentParent.mother_last_name;
+            document.getElementById('mother_job').value = StudentParent.mother_job;
+            document.getElementById('mother_phone').value = StudentParent.mother_phone;
+            document.getElementById('student_name').value = StudentParent.student.student_name;
+            document.getElementById('student_last_name').value = StudentParent.student.student_last_name;
+            document.getElementById('student_phone').value = StudentParent.student.student_phone;
+            document.getElementById('student_grade').value = StudentParent.student.student_grade;
+            document.getElementById('birthdate').value = StudentParent.student.birthdate;
+        }
+
+        document.getElementById('parent-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const parentId = formData.get('id');
+
+            let url = form.action;
+            if (parentId) {
+                url = "/parent/" + parentId;
+            }
+
+            fetch(url, {
+                    method: formData.get('_method'),
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        alert('Parent data saved successfully');
+                        location.reload();
+                    } else {
+                        alert('Error saving parent data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error saving parent data');
+                });
+        });
+    </script>
 @endsection

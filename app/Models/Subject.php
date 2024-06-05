@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Subject extends Model
 {
     protected $primaryKey = 'id';
-    protected $table = 'subject';
-    protected $fillable = ['name', 'module_id', 'teacher_id'];
+    protected $table = 'subjects';
+    protected $fillable = ['name', 'module_id', 'user_id', 'class_id'];
 
-    public function module()
-    {
-        return $this->belongsTo(Module::class, 'module_id');
-    }
+    // public function module()
+    // {
+    //     return $this->belongsTo(Module::class, 'module_id');
+    // }
 
-    public function teachers()
-    {
-        return $this->hasMany(Teacher::class, 'subject_id');
-    }
+    // public function teachers()
+    // {
+    //     return $this->hasMany(Teacher::class, 'subject_id');
+    // }
 }

@@ -92,7 +92,7 @@
 
     <section class="min-vh-100 mb-8">
         <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
-            style="background-image: url('{{ asset('back_office_theme/assets/img/curved-images/curved14.jpg') }}">
+            style="background-image: url('{{ asset('public_theme/assets/img/registerimg.jpg') }}">
             <span class="mask bg-gradient-dark opacity-6"></span>
             <div class="container">
                 <div class="row justify-content-center">
@@ -209,10 +209,7 @@
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="row">
                                     <div class="col-12 text-center">
-                                        <h3 class="mt-5">Build Your Profile</h3>
-                                        <h5 class="text-secondary font-weight-normal">This information will let us know
-                                            more
-                                            about you.</h5>
+
                                         <div class="multisteps-form mb-5">
                                             <!--progress bar-->
                                             <div class="row">
@@ -237,19 +234,13 @@
                                             <div class="row">
                                                 <div class="col-12  m-auto">
                                                     <form action="{{ route('register.parent') }}" method="POST"
-                                                        class="multisteps-form__form" action="/upload" enctype="multipart/form-data">
+                                                        class="multisteps-form__form" action="/upload"
+                                                        enctype="multipart/form-data">
                                                         @csrf
                                                         <!--single form panel-->
                                                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active"
                                                             data-animation="FadeIn">
-                                                            <div class="row text-center">
-                                                                <div class="col-12 mx-auto">
-                                                                    <h5 class="font-weight-normal">parent information
-                                                                    </h5>
-                                                                    <p>parent text
-                                                                    </p>
-                                                                </div>
-                                                            </div>
+
                                                             <div class="multisteps-form__content">
                                                                 <div class="row mt-3">
                                                                     {{-- parentinfo content --}}
@@ -363,12 +354,7 @@
                                                         <!--single form panel-->
                                                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                                                             data-animation="FadeIn">
-                                                            <div class="row text-center">
-                                                                <div class="col-12 mx-auto">
-                                                                    <h5 class="font-weight-normal">student info</h5>
-                                                                    <p>student info text</p>
-                                                                </div>
-                                                            </div>
+
                                                             <div class="multisteps-form__content">
                                                                 <div class="row mt-4">
                                                                     {{-- student info content --}}
@@ -441,8 +427,6 @@
                                                                                     {{ $message }}</p>
                                                                             @enderror
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <input type="file"
                                                                                 class="form-control-file"
@@ -455,6 +439,7 @@
                                                                             @enderror
                                                                         </div>
                                                                     </div>
+
                                                                 </div>
 
                                                                 <div class="button-row d-flex mt-4">
@@ -470,12 +455,7 @@
                                                         <!--single form panel-->
                                                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white"
                                                             data-animation="FadeIn">
-                                                            <div class="row text-center">
-                                                                <div class="col-12 mx-auto">
-                                                                    <h5 class="font-weight-normal">credentials</h5>
-                                                                    <p>credentials text</p>
-                                                                </div>
-                                                            </div>
+
                                                             <div class="multisteps-form__content">
                                                                 <div class="row text-start">
                                                                     {{-- credentials --}}

@@ -12,10 +12,9 @@ class SubjectsController extends Controller
 {
     public function index()
     {
-        $subjects = Subject::with(['module', 'teachers'])->get();
+        $subjects = Subject::with(['module'])->get();
         $modules = Module::all();
-        $teachers = Teacher::all();
-        return view('espace_intranet.subjects', compact('subjects', 'modules', 'teachers'));
+        return view('espace_intranet.subjects', compact('subjects', 'modules'));
     }
 
     public function store(Request $request)
@@ -47,7 +46,7 @@ class SubjectsController extends Controller
 
     public function show($id)
     {
-        $subject = Subject::with(['module', 'teachers'])->findOrFail($id);
+        $subject = Subject::with(['module'])->findOrFail($id);
         return response()->json($subject);
     }
 
