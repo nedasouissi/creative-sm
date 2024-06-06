@@ -29,8 +29,11 @@ class RegisterController extends Controller
     public function registerTeacher(Request $request)
     {
 
-        $this->teacher_validator($request->all())->validate();
+        $validator = $this->teacher_validator($request->all());
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
         $user = $this->create_teacher($request->all());
 
         return redirect()->route('login')->with('success', 'Teacher registered successfully. Please login.');
@@ -102,8 +105,10 @@ class RegisterController extends Controller
     public function registerParent(Request $request)
     {
         // Validate the incoming data for parent registration
-        // $this->parent_validator($request->all())->validate();
-
+        $validator =   $this->parent_validator($request->all());
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
         // Create the parent user record
         $user = $this->create_parent_user($request->all());
 

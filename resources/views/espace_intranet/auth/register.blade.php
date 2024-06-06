@@ -89,7 +89,15 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100 ">
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <section class="min-vh-100 mb-8">
         <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
             style="background-image: url('{{ asset('public_theme/assets/img/registerimg.jpg') }}">
@@ -137,7 +145,7 @@
 
                                         <div class="mb-3">
                                             <input type="text" class="form-control" name="name"
-                                                placeholder="Name" aria-label="Name" aria-describedby="name-addon"
+                                                placeholder="Name" value="{{ old('name') }}" aria-label="Name" aria-describedby="name-addon"
                                                 required>
                                             @error('name')
                                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
@@ -146,7 +154,7 @@
 
                                         <div class="mb-3">
                                             <input type="text" class="form-control" name="last_name"
-                                                placeholder="Last Name" aria-label="Last Name"
+                                                placeholder="Last Name" value="{{ old('last_name') }}" aria-label="Last Name"
                                                 aria-describedby="last_name-addon" required>
                                             @error('last_name')
                                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
@@ -154,7 +162,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <input type="date" class="form-control" name="birthdate"
-                                                placeholder="Birthdate" aria-label="Birthdate"
+                                                placeholder="Birthdate"  value="{{ old('birthdate') }}"aria-label="Birthdate"
                                                 aria-describedby="birthdate-addon" required>
                                             @error('birthdate')
                                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
@@ -162,14 +170,14 @@
                                         </div>
                                         <div class="mb-3">
                                             <input type="file" class="form-control-file" name="avatar"
-                                                aria-label="avatar" aria-describedby="avatar-addon">
+                                                aria-label="avatar" value="{{ old('avatar') }}"aria-describedby="avatar-addon">
                                             @error('avatar')
                                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
                                             <input type="email" class="form-control" name="email"
-                                                placeholder="Email" aria-label="Email" aria-describedby="email-addon"
+                                                placeholder="Email"value="{{ old('email') }}" aria-label="Email" aria-describedby="email-addon"
                                                 required>
                                             @error('email')
                                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
@@ -178,7 +186,7 @@
 
                                         <div class="mb-3">
                                             <input type="password" class="form-control" name="password"
-                                                placeholder="Password" aria-label="Password"
+                                                placeholder="Password" value="{{ old('password') }}"aria-label="Password"
                                                 aria-describedby="password-addon" required>
                                             @error('password')
                                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
@@ -186,7 +194,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <input type="password" class="form-control" name="password_confirmation"
+                                            <input type="password" class="form-control" value="{{ old('password_confirmation') }}" name="password_confirmation"
                                                 placeholder="Confirm Password" aria-label="Password Confirmation"
                                                 aria-describedby="password_confirmation-addon" required>
                                             @error('password_confirmation')
@@ -253,6 +261,7 @@
                                                                                 name="father_name"
                                                                                 placeholder="Father name"
                                                                                 aria-label="father_name"
+                                                                                value="{{ old('father_name') }}"
                                                                                 aria-describedby="name-addon" required>
                                                                             @error('father_name')
                                                                                 <p class="text-danger text-xs mt-2">
@@ -264,6 +273,7 @@
                                                                                 name="father_last_name"
                                                                                 placeholder="Father Last name"
                                                                                 aria-label="father_last_name"
+                                                                                value="{{ old('father_last_name') }}"
                                                                                 aria-describedby="name-addon" required>
                                                                             @error('father_last_name')
                                                                                 <p class="text-danger text-xs mt-2">
@@ -275,6 +285,7 @@
                                                                                 name="father_job"
                                                                                 placeholder="Father Job"
                                                                                 aria-label="father_job"
+                                                                                value="{{ old('father_job') }}"
                                                                                 aria-describedby="job-addon" required>
                                                                             @error('father_job')
                                                                                 <p class="text-danger text-xs mt-2">
@@ -287,6 +298,7 @@
                                                                                 placeholder="Father Phone Number"
                                                                                 aria-label="father_phone"
                                                                                 aria-describedby="phone-addon"
+                                                                                value="{{ old('father_phone') }}"
                                                                                 required>
                                                                             @error('father_phone')
                                                                                 <p class="text-danger text-xs mt-2">
@@ -300,6 +312,7 @@
                                                                             <input type="text" class="form-control"
                                                                                 name="mother_name"
                                                                                 placeholder="Mother Name"
+                                                                                value="{{ old('mother_name') }}"
                                                                                 aria-label="mother_name"
                                                                                 aria-describedby="name-addon" required>
                                                                             @error('mother_name')
@@ -311,6 +324,7 @@
                                                                             <input type="text" class="form-control"
                                                                                 name="mother_last_name"
                                                                                 placeholder="Mother Last name"
+                                                                                value="{{ old('mother_last_name') }}"
                                                                                 aria-label="mother_last_name"
                                                                                 aria-describedby="name-addon" required>
                                                                             @error('mother_last_name')
@@ -323,6 +337,7 @@
                                                                                 name="mother_job"
                                                                                 placeholder="Mother Job"
                                                                                 aria-label="mother_job"
+                                                                                value="{{ old('mother_job') }}"
                                                                                 aria-describedby="job-addon" required>
                                                                             @error('mother_job')
                                                                                 <p class="text-danger text-xs mt-2">
@@ -335,6 +350,7 @@
                                                                                 placeholder="Mother Phone Number"
                                                                                 aria-label="mother_phone"
                                                                                 aria-describedby="phone-addon"
+                                                                                value="{{ old('mother_phone') }}"
                                                                                 required>
                                                                             @error('mother_phone')
                                                                                 <p class="text-danger text-xs mt-2">
@@ -376,6 +392,7 @@
                                                                                 name="student_last_name"
                                                                                 placeholder="Student Last Name"
                                                                                 aria-label="student_last_name"
+                                                                                value="{{ old('student_last_name') }}"
                                                                                 aria-describedby="name-addon" required>
                                                                             @error('student_last_name')
                                                                                 <p class="text-danger text-xs mt-2">
@@ -388,6 +405,8 @@
                                                                                 placeholder="Student Phone Number"
                                                                                 aria-label="student_phone"
                                                                                 aria-describedby="phone-addon"
+                                                                                value="{{ old('student_phone') }}"
+
                                                                                 required>
                                                                             @error('student_phone')
                                                                                 <p class="text-danger text-xs mt-2">
@@ -400,6 +419,8 @@
                                                                             <select class="form-control"
                                                                                 name="student_grade"
                                                                                 aria-label="student_grade"
+                                                                                value="{{ old('student_grade') }}"
+
                                                                                 aria-describedby="grade-addon"
                                                                                 required>
                                                                                 <option value="" selected>Select
@@ -419,6 +440,7 @@
                                                                         <div class="form-group">
                                                                             <input type="date" class="form-control"
                                                                                 name="student_birthdate"
+                                                                                value="{{ old('student_birthdate') }}"
                                                                                 aria-label="student_birthdate"
                                                                                 aria-describedby="student_birthdate-addon"
                                                                                 required>
@@ -431,6 +453,7 @@
                                                                             <input type="file"
                                                                                 class="form-control-file"
                                                                                 name="student_avatar"
+                                                                                value="{{ old('student_avatar') }}"
                                                                                 aria-label="student_avatar"
                                                                                 aria-describedby="student_avatar-addon">
                                                                             @error('student_avatar')
@@ -466,6 +489,7 @@
                                                                                 name="email"
                                                                                 placeholder="Parent Email"
                                                                                 aria-label="email"
+                                                                                value="{{ old('email') }}"
                                                                                 aria-describedby="email-addon"
                                                                                 required>
                                                                             @error('email')
@@ -476,6 +500,7 @@
                                                                         <div class="form-group">
                                                                             <input type="password"
                                                                                 class="form-control" name="password"
+                                                                                value="{{ old('password') }}"
                                                                                 placeholder="Password"
                                                                                 aria-label="password"
                                                                                 aria-describedby="password-addon"
@@ -488,12 +513,13 @@
                                                                         <div class="form-group">
                                                                             <input type="password"
                                                                                 class="form-control"
-                                                                                name="passwordConfirmation"
+                                                                                name="password_confirmation"
+                                                                                value="{{ old('password_confirmation') }}"
                                                                                 placeholder="Confirm Password"
-                                                                                aria-label="passwordConfirmation"
+                                                                                aria-label="password_confirmation"
                                                                                 aria-describedby="password-confirm-addon"
                                                                                 required>
-                                                                            @error('passwordConfirmation')
+                                                                            @error('password_confirmation')
                                                                                 <p class="text-danger text-xs mt-2">
                                                                                     {{ $message }}</p>
                                                                             @enderror
@@ -530,7 +556,7 @@
                 </div>
             </div>
         </div>
-        </div>
+
     </section>
     {{-- @if (session()->has('success'))
         <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show"

@@ -52,11 +52,11 @@ Route::put('/students/{student}', [StudentController::class, 'update'])->name('s
 Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
 
 //teacher routes
-Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.index');
-Route::post('/teachers', [TeacherController::class, 'store'])->name('teachers.store');
-Route::get('/teachers/{teacher}', [TeacherController::class, 'show'])->name('teachers.show');
-Route::put('/teachers/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
-Route::delete('/teachers/{teacher}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
+Route::get('/teachers', [TeacherController::class, 'index'])->name('teacher.index');
+Route::post('/teachers', [TeacherController::class, 'store'])->name('teacher.store');
+Route::get('/teachers/{teacher}', [TeacherController::class, 'show'])->name('teacher.show');
+Route::put('/teachers/{teacher}', [TeacherController::class, 'update'])->name('teacher.update');
+Route::delete('/teachers/{teacher}', [TeacherController::class, 'destroy'])->name('teacher.destroy');
 Route::post('/teacher/{teacher}/toggle-status', [TeacherController::class, 'toggleStatus'])->name('teacher.toggleStatus');
 
 //modules routes

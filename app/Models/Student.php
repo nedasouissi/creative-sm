@@ -28,4 +28,8 @@ class Student extends Model
         'student_birthdate',
         'student_avatar',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -17,7 +17,6 @@ class CreateClassesTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('grade_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

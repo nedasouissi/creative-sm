@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Classe;
 use App\Models\Subject;
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -13,7 +14,7 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $teachers = Teacher::with('subject', 'classes')->get();
+        $teachers = User::where('role','teacher')->get();
         $subjects = Subject::all();
         $classes = Classe::all();
         return view('espace_intranet.teachers', compact('teachers', 'subjects', 'classes'));

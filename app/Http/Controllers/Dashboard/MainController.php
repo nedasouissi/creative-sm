@@ -8,7 +8,6 @@ use App\Models\Grade;
 use App\Models\Homework;
 use App\Models\Module;
 use App\Models\Subject;
-use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,17 +19,15 @@ class MainController extends Controller
     {
         if (Auth::check()) {
             // Retrieve the authenticated user with the 'students' relationship
-            $user = User::with('students')->find(Auth::id());
-            $subjects = Subject::with(['module'])->get();
+            $user = User::with('user')->find(Auth::id());
+            $subjects = Subject::with('module')->get();
             $modules = Module::all();
-            // dd($user);
-            // Return the view with the user data
             return view('espace_intranet.home', compact('user'));
         }
     }
     public function dashboard()
     {
-        $user = User::with('students')->find(Auth::id());
+        $user = User::with('user')->find(Auth::id());
         // $teacherCount = Teacher::count ();
         $teacherCount = 0;
         $studentCount = 0;
@@ -44,7 +41,8 @@ class MainController extends Controller
     //subjects functions
     public function subjects_index()
     {
-        $subjects = Subject::with(['module'])->get();
+        $subjects = Subject::with(['module','teacher'])->get();
+        // dd($subjects);
         $teachers = User::where('role', 'teacher')->get();
         $classes = Classe::all();
         $modules = Module::all();
@@ -52,16 +50,23 @@ class MainController extends Controller
     }
     public function store_subjects(Request $request)
     {
+        // Validate the request data
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'module_id' => 'required',
-            'user_id' => 'required',
+            'teacher_id' => 'required', // Validate the teacher_id field
             'class_id' => 'required',
-
         ]);
-        dd();
-        Subject::create($request->only('name', 'module_id', 'user_id'));
 
+        // Create a new subject using the validated data
+        Subject::create([
+            'name' => $request->input('name'),
+            'module_id' => $request->input('module_id'),
+            'user_id' => $request->input('teacher_id'), // Use teacher_id instead of user_id
+            'class_id' => $request->input('class_id'),
+        ]);
+
+        // Redirect back with success message
         return redirect()->back()->with('success', 'Subject added successfully.');
     }
     public function update_subjects(Request $request, $id)
@@ -202,14 +207,20 @@ class MainController extends Controller
 
     public function store_classes(Request $request)
     {
+        // dd($request);
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'grade_id' => 'required',
-            'user_id' => 'required',
+            'teacher_ids' => 'required|array', // Ensure teacher_ids is an array
+            'teacher_ids.*' => 'exists:users,id', // Ensure each teacher ID exists in the users table
         ]);
         // dd($request);
-        Classe::create($request->only('name', 'grade_id', 'user_id'));
+        $class = Classe::create([
+            'name' => $request->input('name'),
+            'grade_id' => $request->input('grade_id'),
+        ]);
 
+        $class->teachers()->attach($request->input('teacher_ids'));
         return redirect()->back()->with('success', 'Class added successfully.');
     }
     public function update_classes(Request $request, $id)
@@ -245,8 +256,8 @@ class MainController extends Controller
     //homework functions
     public function homework_index()
     {
-        $homework = Homework::with('classes')->get();
-        $classes = Classe::all();
+        // $homework = Homework::with('classes')->get();
+        // $classes = Classe::all();
         return view('espace_intranet.homework', compact('homework', 'classes'));
     }
 

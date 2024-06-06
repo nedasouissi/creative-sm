@@ -25,11 +25,10 @@
                                         </span>
                                     </div>
                                     <div class="form-group">
-                                        {{-- $table->string('name');
-                                        $table->foreignId('grade_id')->constrained()->onDelete('cascade');
-                                        $table->foreignId('user_id')->constrained()->onDelete('cascade'); --}}
                                         <label for="grade_id">Grade</label>
-                                        <select class="form-control" id="grade_id" name="grade_id">
+
+                                        <select class="form-control" id="grade_id" name="grade_id" data-placeholder="Choose one thing">
+                                            <option></option>
                                             @foreach ($grades as $grade)
                                                 <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                             @endforeach
@@ -44,16 +43,14 @@
                                         // dd($teachers);
                                     @endphp
                                     <div class="form-group">
-                                        <label for="user_id">Teacher</label>
-                                        <select class="form-control" id="user_id" name="user_id">
-
-
+                                        <label for="teacher_ids">Teacher</label>
+                                        <select class="form-select" id="multiple-select-field" name="teacher_ids[]" data-placeholder="Choose anything" multiple>
                                             @foreach ($teachers as $teacher)
                                                 <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                                             @endforeach
                                         </select>
                                         <span class="text-danger">
-                                            @error('user_id')
+                                            @error('teacher_ids')
                                                 {{ $message }}
                                             @enderror
                                         </span>
@@ -71,7 +68,23 @@
         </div>
     </div>
     {{-- End of Modal  --}}
+    <!-- Styles -->
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <!-- Or for RTL support -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+    <script>
+        $('#multiple-select-field').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+        });
+    </script>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="container-full">
@@ -115,16 +128,16 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($classes as $classe)
+                                            {{-- @dd($classe->teachers); --}}
                                                 <tr>
                                                     <td class="text-center">{{ $classe->name }}</td>
                                                     <td class="text-center">{{ $classe->grade->name }}</td>
-                                                    <td class="text-center">{{ $classe->user->name }}</td>
-                                                    {{-- <td class="text-center">
-                                                        @foreach ($classe->user as $teacher)
+                                                    <td class="text-center">
+                                                        @foreach ($classe->teachers as $teacher)
                                                             {{ $teacher->name }}
                                                             <br>
                                                         @endforeach
-                                                    </td> --}}
+                                                    </td>
                                                     <td class="text-center">
                                                         <a href="#" class="mx-3" data-bs-toggle="tooltip"
                                                             data-bs-original-title="Edit classe"
@@ -194,9 +207,9 @@
                         });
                     }
 
-                    $(document).ready(function() {
-                        $('#grade_id').select2();
-                        $('#teacher_id').select2();
-                    });
+                    // $(document).ready(function() {
+                    //     $('#grade_id').select2();
+                    //     $('#multiple-select-field').select2();
+                    // });
                 </script>
             @endsection

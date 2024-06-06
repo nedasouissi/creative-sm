@@ -43,6 +43,7 @@
                                             <div class="form-group">
                                                 <label for="teacher_id">Teacher</label>
                                                 <select class="form-control" id="teacher_id" name="teacher_id">
+                                                    <option value="">Select Teacher</option> <!-- Empty state option -->
                                                     @foreach ($teachers as $teacher)
                                                         <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                                                     @endforeach
@@ -122,11 +123,12 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($subjects as $subject)
+                                                        {{-- @dd($subject); --}}
                                                             <tr>
                                                                 <td class="text-center">{{ $subject->name }}</td>
                                                                 <td class="text-center">{{ $subject->module->name }}</td>
                                                                 <td class="text-center">
-                                                                    {{ $subject->teachers->pluck('name')->implode(', ') }}
+                                                                    {{ $subject->teacher->name }}
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <a href="#" class="mx-3"
