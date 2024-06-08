@@ -22,12 +22,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('/generate-dummy-data', [RegisterController::class, 'createTeachers']);
+Route::get('/generate-dummy-data-2', [RegisterController::class, 'createStudents']);
 // Auth::routes(['verify' => true]);
 
 // Route::get('/home', 'HomeController@index')->name('home');;
 Route::get('/home', [MainController::class, 'home'])->name('home')->middleware('auth');
-Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard')->middleware('checkRole');
+Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard')->middleware('checkRoleAdmin');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/registerteacher', [RegisterController::class, 'registerTeacher'])->name('register.teacher');
 Route::post('/registerparent', [RegisterController::class, 'registerParent'])->name('register.parent');
@@ -45,11 +46,14 @@ Route::delete('/parents/{Student}', [ParentsController::class, 'destroy'])->name
 Route::post('/parent/{Student}/toggle-status', [ParentsController::class, 'toggleStatus'])->name('parent.toggleStatus');
 
 //student routes
-Route::get('/students', [StudentController::class, 'index'])->name('students.index');
-Route::post('/students', [StudentController::class, 'store'])->name('students.store');
-Route::get('/students/{student}', [StudentController::class, 'show'])->name('students.show');
-Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
-Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
+Route::get('/students_pending', [MainController::class, 'students_pending_index'])->name('students.pending');
+Route::get('/students_valid', [MainController::class, 'students_valid_index'])->name('students.active');
+Route::post('/activate-user',[MainController::class, 'activateUser'])->name('activateUser');
+
+// Route::post('/students', [MainController::class, 'store'])->name('students.store');
+// Route::get('/students/{student}', [MainController::class, 'show'])->name('students.show');
+// Route::put('/students/{student}', [MainController::class, 'update'])->name('students.update');
+// Route::delete('/students/{student}', [MainController::class, 'destroy'])->name('students.destroy');
 
 //teacher routes
 Route::get('/teachers', [TeacherController::class, 'index'])->name('teacher.index');
@@ -60,39 +64,39 @@ Route::delete('/teachers/{teacher}', [TeacherController::class, 'destroy'])->nam
 Route::post('/teacher/{teacher}/toggle-status', [TeacherController::class, 'toggleStatus'])->name('teacher.toggleStatus');
 
 //modules routes
-Route::get('/modules', [MainController::class, 'modules_index'])->name('modules.index');
-Route::post('/modules', [MainController::class, 'store_modules'])->name('modules.store');
-Route::get('/modules/{module}', [MainController::class, 'show_modules'])->name('modules.show');
-Route::put('/modules/{module}', [MainController::class, 'update_modules'])->name('modules.update');
-Route::delete('/modules/{module}', [MainController::class, 'destroy_modules'])->name('modules.destroy');
+Route::get('/modules', [MainController::class, 'modules_index'])->name('modules.index')->middleware('checkRoleAdmin');;
+Route::post('/modules', [MainController::class, 'store_modules'])->name('modules.store')->middleware('checkRoleAdmin');;
+Route::get('/modules/{module}', [MainController::class, 'show_modules'])->name('modules.show')->middleware('checkRoleAdmin');;
+Route::put('/modules/{module}', [MainController::class, 'update_modules'])->name('modules.update')->middleware('checkRoleAdmin');;
+Route::delete('/modules/{module}', [MainController::class, 'destroy_modules'])->name('modules.destroy')->middleware('checkRoleAdmin');;
 
 //subjects routes
-Route::get('/subjects', [MainController::class, 'subjects_index'])->name('subjects.index');
-Route::post('/store-subjects', [MainController::class, 'store_subjects'])->name('subjects.store');
-Route::get('/subjects/{subject}', [MainController::class, 'show_subjects'])->name('subjects.show');
-Route::put('/subjects/{subject}', [MainController::class, 'update_subjects'])->name('subjects.update');
-Route::delete('/subjects/{subject}', [MainController::class, 'destroy_subjects'])->name('subjects.destroy');
+Route::get('/subjects', [MainController::class, 'subjects_index'])->name('subjects.index')->middleware('checkRoleAdmin');;
+Route::post('/store-subjects', [MainController::class, 'store_subjects'])->name('subjects.store')->middleware('checkRoleAdmin');;
+Route::get('/subjects/{subject}', [MainController::class, 'show_subjects'])->name('subjects.show')->middleware('checkRoleAdmin');;
+Route::put('/subjects/{subject}', [MainController::class, 'update_subjects'])->name('subjects.update')->middleware('checkRoleAdmin');;
+Route::delete('/subjects/{subject}', [MainController::class, 'destroy_subjects'])->name('subjects.destroy')->middleware('checkRoleAdmin');;
 
 //grades routes
-Route::get('/grades', [MainController::class, 'grades_index'])->name('grades.index');
-Route::post('/grades', [MainController::class, 'store_grades'])->name('grades.store');
-Route::get('/grades/{grade}', [MainController::class, 'show_gardes'])->name('grades.show');
-Route::put('/grades/{grade}', [MainController::class, 'update_grades'])->name('grades.update');
-Route::delete('/grades/{grade}', [MainController::class, 'destroy_grades'])->name('grades.destroy');
+Route::get('/grades', [MainController::class, 'grades_index'])->name('grades.index')->middleware('checkRoleAdmin');;
+Route::post('/grades', [MainController::class, 'store_grades'])->name('grades.store')->middleware('checkRoleAdmin');;
+Route::get('/grades/{grade}', [MainController::class, 'show_gardes'])->name('grades.show')->middleware('checkRoleAdmin');;
+Route::put('/grades/{grade}', [MainController::class, 'update_grades'])->name('grades.update')->middleware('checkRoleAdmin');;
+Route::delete('/grades/{grade}', [MainController::class, 'destroy_grades'])->name('grades.destroy')->middleware('checkRoleAdmin');;
 
 //classes routes
-Route::get('/classes', [MainController::class, 'classes_index'])->name('classes.index');
-Route::post('/classes', [MainController::class, 'store_classes'])->name('classes.store');
-Route::get('/classes/{class}', [MainController::class, 'show_classes'])->name('classes.show');
-Route::put('/classes/{class}', [MainController::class, 'update_classes'])->name('classes.update');
-Route::delete('/classes/{class}', [MainController::class, 'destroy_classes'])->name('classes.destroy');
+Route::get('/classes', [MainController::class, 'classes_index'])->name('classes.index')->middleware('checkRoleAdmin');;
+Route::post('/classes', [MainController::class, 'store_classes'])->name('classes.store')->middleware('checkRoleAdmin');;
+Route::get('/classes/{class}', [MainController::class, 'show_classes'])->name('classes.show')->middleware('checkRoleAdmin');;
+Route::put('/classes/{class}', [MainController::class, 'update_classes'])->name('classes.update')->middleware('checkRoleAdmin');;
+Route::delete('/classes/{class}', [MainController::class, 'destroy_classes'])->name('classes.destroy')->middleware('checkRoleAdmin');;
 
 //homework routes
-Route::get('/homework', [MainController::class, 'homework_index'])->name('homework.index');
-Route::post('/homework', [MainController::class, 'store_homework'])->name('homework.store');
-Route::get('/homework/{homework}', [MainController::class, 'show_homework'])->name('homework.show');
-Route::put('/homework/{homework}', [MainController::class, 'update_homework'])->name('homework.update');
-Route::delete('/homework/{homework}', [MainController::class, 'destroy_homework'])->name('homework.destroy');
+Route::get('/homework', [MainController::class, 'homework_index'])->name('homework.index')->middleware('checkRoleTeacher');
+Route::post('/homework', [MainController::class, 'store_homework'])->name('homework.store')->middleware('checkRoleTeacher');;
+Route::get('/homework/{homework}', [MainController::class, 'show_homework'])->name('homework.show')->middleware('checkRoleTeacher');;
+Route::put('/homework/{homework}', [MainController::class, 'update_homework'])->name('homework.update')->middleware('checkRoleTeacher');;
+Route::delete('/homework/{homework}', [MainController::class, 'destroy_homework'])->name('homework.destroy')->middleware('checkRoleTeacher');;
 
 //Info routes
 Route::get('/information', [MainController::class, 'info_index'])->name('info.index');
