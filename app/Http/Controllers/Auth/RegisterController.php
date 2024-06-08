@@ -219,7 +219,7 @@ class RegisterController extends Controller
     {
         try {
             // Use a loop to create 10 teachers
-            for ($i = 600; $i < 710; $i++) {
+            for ($i = 2000; $i < 2050; $i++) {
                 // Create a new teacher using the factory
                 Log::info('Creating  user...');
                 $user = User::create([
@@ -227,7 +227,7 @@ class RegisterController extends Controller
                     'last_name' => $this->random_last(), // Example: Teacher 1, Teacher 2, ...
                     'email' => 'parent-' . ( $i) . '@gmail.com', // Example: teacher1@example.com, teacher2@example.com, ...
                     'password' => Hash::make('password'), // Set a default password for all teachers
-                    'role' => 'teacher', // Set the role to 'teacher'
+                    'role' => 'parent', // Set the role to 'teacher'
                     'birthdate' => now()->subYears(rand(22, 65))->subMonths(rand(0, 11))->subDays(rand(0, 30)), // Random birthdate between 22 and 65 years ago
                     'avatar' => 'avatars/JwEVj9NEYiSdcoZPE71QcN7QAIMZgNa3s69RV61x.jpg', // Optional avatar path
                     'is_active' => false, // Set all teachers as active
@@ -287,13 +287,5 @@ class RegisterController extends Controller
         }
 
     }
-    protected function createParentUser(array $data)
-    {
-        // Create and return the parent user record
-    }
 
-    protected function createParent(array $data, $userId)
-    {
-        // Create and return the parent record associated with the user ID
-    }
 }

@@ -4,20 +4,38 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classe;
+use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class TeacherController extends Controller
 {
     public function index()
     {
-        $teachers = User::where('role','teacher')->get();
+        $teachers = User::where('role', 'teacher')->get();
         $subjects = Subject::all();
         $classes = Classe::all();
-        return view('espace_intranet.teachers', compact('teachers', 'subjects', 'classes'));
+        $filteredsevenStudents = Student::with('user')
+            ->where('student_grade', 'seven')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
+        $filteredeightStudents = Student::with('user')
+            ->where('student_grade', 'eight')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
+        $filterednineStudents = Student::with('user')
+            ->where('student_grade', 'nine')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
+        return view('espace_intranet.teachers', compact('teachers', 'subjects', 'classes' ,'filteredsevenStudents','filteredeightStudents','filterednineStudents'));
     }
 
     public function toggleStatus(Request $request, $id)

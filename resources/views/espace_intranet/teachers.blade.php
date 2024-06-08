@@ -160,9 +160,9 @@
                                                                 <td class="text-center">
                                                                     {{ optional($teacher->subject)->name }}</td>
                                                                 <td class="text-center">
-                                                                    @foreach ($teacher->classes as $classe)
+                                                                    {{-- @foreach ($teacher->classes as $classe)
                                                                         {{ $classe->name }}<br>
-                                                                    @endforeach
+                                                                    @endforeach --}}
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <span class="form-check form-switch">

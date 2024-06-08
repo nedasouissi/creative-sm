@@ -14,7 +14,7 @@ class ParentsController extends Controller
 
     public function index()
     {
-        $StudentParents = StudentParent::with('students')->get();
+        $StudentParents = Student::with('students')->get();
         return view('espace_intranet.parent', compact('StudentParents'));
     }
 
@@ -31,7 +31,6 @@ class ParentsController extends Controller
             'mother_phone' => ['required', 'integer'],
             'mother_job' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
             'parent_email' => ['required', 'email', Rule::unique('student_parent', 'parent_email')],
-            //  'password' => ['required', 'string', 'min:8', 'confirmed'],
             'student_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
             'student_last_name' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
             'student_phone' => ['required', 'integer'],
@@ -40,7 +39,7 @@ class ParentsController extends Controller
             //  'avatar' => ['required', 'image', 'max:1024'],
         ]);
 
-        $parent = new StudentParent();
+        $parent = new Student();
         $student = new Student;
         $parent->father_name = $request->input('father_name');
         $parent->father_last_name = $request->input('father_last_name');
@@ -70,7 +69,7 @@ class ParentsController extends Controller
 
     public function toggleStatus(Request $request, $id)
     {
-        $parent = StudentParent::findOrFail($id);
+        $parent = Student::findOrFail($id);
         $parent->status = $request->status;
         $parent->save();
 
@@ -104,7 +103,7 @@ class ParentsController extends Controller
             // 'avatar' => 'nullable|image'
         ]);
 
-        $parent = StudentParent::findOrFail($id);
+        $parent = Student::findOrFail($id);
         $parent->father_name = $request->father_name;
         $parent->father_last_name = $request->father_last_name;
         $parent->father_phone = $request->father_phone;
@@ -133,12 +132,12 @@ class ParentsController extends Controller
 
     public function show($id)
     {
-        $parent = StudentParent::findOrFail($id);
+        $parent = Student::findOrFail($id);
         return response()->json($parent);
     }
     public function destroy($id)
     {
-        $parent = StudentParent::find($id);
+        $parent = Student::find($id);
 
         if ($parent) {
             $parent->delete();

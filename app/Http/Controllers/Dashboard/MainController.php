@@ -74,8 +74,6 @@ class MainController extends Controller
             $query->where('is_active', 0);
         })
         ->get();
-
-        // dd($filterednineStudents);
         return view('espace_intranet.students-pending-list', compact('filteredsevenStudents','filteredeightStudents','filterednineStudents'));
     }
     public function students_valid_index()
