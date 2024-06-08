@@ -44,15 +44,33 @@
                                         // dd($teachers);
                                     @endphp
                                     <div class="form-group">
-                                        <label for="teacher_ids">Teacher</label>
-                                        <select class="form-select" id="multiple-select-field" name="teacher_ids[]"
+                                        <label for="teacher_ids">Teachers</label>
+                                        <select class="form-select" id="multiple-select-field-1" name="teacher_ids[]"
                                             data-placeholder="Choose anything" multiple>
                                             @foreach ($teachers as $teacher)
-                                                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                                                <option value="{{ $teacher->id }}">
+                                                    {{ $teacher->name }}&nbsp;{{ $teacher->last_name }}</option>
                                             @endforeach
                                         </select>
                                         <span class="text-danger">
                                             @error('teacher_ids')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="student_ids">Students</label>
+                                        {{-- @dd($students); --}}
+                                        <select class="form-select" id="multiple-select-field-2" name="student_ids[]"
+                                            data-placeholder="Choose anything" multiple>
+                                            @foreach ($students as $student)
+                                                <option value="{{ $student->id }}">
+                                                    {{ $student->name }}&nbsp;{{ $student->last_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <span class="text-danger">
+                                            @error('student_ids')
                                                 {{ $message }}
                                             @enderror
                                         </span>
@@ -80,13 +98,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
     <script>
-        $('#multiple-select-field').select2({
+        $('#multiple-select-field-1').select2({
             theme: "bootstrap-5",
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
             closeOnSelect: false,
         });
     </script>
+    <script>
+        $('#multiple-select-field-2').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+        });
+    </script>
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <div class="container-full">
@@ -125,7 +152,7 @@
 
                                                 <th
                                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Action
+                                                    Students
                                                 </th>
                                             </tr>
                                         </thead>
@@ -141,6 +168,16 @@
                                                             data-bs-target="#modal-classe-{{ $classe->id }}"
                                                             onclick="openEditteachersModal({{ $classe->id }})"
                                                             type="button"><i class="fa fa-eye "></i> </a>
+
+                                                    </td>
+
+                                                    <td class="text-center">
+                                                        @if ($classe->students->count() > 0)
+                                                            <a href="#" data-bs-toggle="modal-{{ $classe->id }}"
+                                                                data-bs-target="#modal-classe-student-{{ $classe->id }}"
+                                                                onclick="openEditstudentsModal({{ $classe->id }})"
+                                                                type="button"><i class="fa fa-eye "></i> </a>
+                                                        @endif
 
                                                     </td>
                                                     <td class="text-center">
@@ -175,9 +212,40 @@
                                                                     <div class="modal-body">
                                                                         @foreach ($classe->teachers as $teacher)
                                                                             <ul id="teacherList-{{ $classe->id }}">
-                                                                                {{ $teacher->name }}
+                                                                                {{ $teacher->name }}&nbsp;{{ $teacher->last_name }}
+                                                                                <br>
+                                                                                {{ $teacher->email }}
                                                                             </ul>
                                                                         @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="modal-classe-student-{{ $classe->id }}"
+                                                    tabindex="-1" role="dialog" aria-labelledby="modal-form"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md"
+                                                        role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body p-0">
+                                                                <div class="card card-plain">
+                                                                    <div class="card-header pb-0 text-left">
+                                                                        <h3 class="font-weight-bolder text-info text-gradient"
+                                                                            id="classeModalLabel">Class Students</h3>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        @if ($classe->students->count() > 0)
+                                                                            {{-- @dd($classe->students); --}}
+                                                                            @foreach ($classe->students as $student)
+                                                                                <ul id="teacherList-{{ $classe->id }}">
+                                                                                    {{ $student->name }}&nbsp;{{ $student->last_name }}
+                                                                                    <br>
+                                                                                    {{ $student->email }}
+                                                                                </ul>
+                                                                            @endforeach
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -194,6 +262,10 @@
 
                                             }
 
+                                            function openEditstudentsModal(classId) {
+                                                $('#modal-classe-student-' + classId).modal('show');
+
+                                            }
 
                                             function deleteClass(id) {
                                                 if (confirm('Are you sure you want to delete this class?')) {

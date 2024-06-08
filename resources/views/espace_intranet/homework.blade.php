@@ -8,8 +8,14 @@
                 <div class="modal-body p-0">
                     <div class="card card-plain">
                         <div class="card-header pb-0 text-left">
-                            <h3 class="font-weight-bolder text-info text-gradient" id="homeworkModalLabel">Add New Homework
-                            </h3>
+                            @auth
+                                {{-- @dd($user); --}}
+                                @if ($user->role == 'teacher')
+                                    <h3 class="font-weight-bolder text-info text-gradient" id="homeworkModalLabel">Add New
+                                        Homework
+                                    </h3>
+                                @endif
+                            @endauth
                         </div>
                         <input type="hidden" id="homeworkId" name="id">
                         <form id="homeworkForm" method="POST" action="/store-homework" enctype="multipart/form-data">
@@ -69,15 +75,15 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="classe_ids">Classes</label>
-                                                <select class="form-select" id="multiple-select-field" name="classes_ids[]"
+                                                <label for="class_ids">Classes</label>
+                                                <select class="form-select" id="multiple-select-field" name="class_ids[]"
                                                     multiple>
                                                     @foreach ($classes as $classe)
                                                         <option value="{{ $classe->id }}">{{ $classe->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 <span class="text-danger">
-                                                    @error('classes_ids')
+                                                    @error('class_ids')
                                                         {{ $message }}
                                                     @enderror
                                                 </span>
@@ -157,48 +163,98 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($homework as $Homework)
-                                                            <tr>
-                                                                <td class="text-center">{{ $Homework->title }}</td>
-                                                                <td class="text-center">{{ $Homework->deadline }}</td>
-                                                                @if (auth()->user()->role == 'teacher')
-                                                                    <td class="text-center">
-                                                                        @foreach ($Homework->classes as $Classe)
-                                                                            {{ $Classe->name }}<br>
-                                                                        @endforeach
-                                                                    </td>
-                                                                @endif
-                                                                @if (auth()->user()->role == 'parent')
-                                                                    <td class="text-center">
-                                                                        {{ $Homework->user->role == 'teacher' ? $Homework->user->name : 'No Teacher Assigned' }}
-                                                                    </td>
-                                                                @endif
-                                                                <td class="text-center">
-                                                                    <a href="{{ route('homework.show', $Homework->id) }}">
-                                                                        <i class="fas fa-eye text-secondary"></i>
-                                                                    </a>
+                                                        @if (@$homework)
+                                                            @foreach ($homework as $Homework)
+                                                                <tr>
+                                                                    <td class="text-center">{{ $Homework->title }}</td>
+                                                                    <td class="text-center">{{ $Homework->deadline }}</td>
                                                                     @if (auth()->user()->role == 'teacher')
-                                                                        <a href="#" class="mx-3"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-original-title="Edit homework"
-                                                                            onclick="openEditModal({{ $Homework->id }})">
-                                                                            <i class="fas fa-user-edit text-secondary"></i>
-                                                                        </a>
-                                                                        <span
-                                                                            onclick="deleteHomework({{ $Homework->id }})">
-                                                                            <i class="fas fa-trash text-secondary"></i>
-                                                                        </span>
-                                                                        <form
-                                                                            id="delete-homework-form-{{ $Homework->id }}"
-                                                                            action="{{ route('homework.destroy', $Homework->id) }}"
-                                                                            method="POST" style="display: none;">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                        </form>
+                                                                        <td class="text-center">
+                                                                            @foreach ($Homework->classes as $Classe)
+                                                                                {{ $Classe->name }}<br>
+                                                                            @endforeach
+                                                                        </td>
                                                                     @endif
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
+                                                                    @if (auth()->user()->role == 'parent')
+                                                                        <td class="text-center">
+                                                                            {{ $Homework->user->role == 'teacher' ? $Homework->user->name : 'No Teacher Assigned' }}
+                                                                        </td>
+                                                                    @endif
+                                                                    <td class="text-center">
+                                                                        <a
+                                                                            href="{{ route('homework.show', $Homework->id) }}">
+                                                                            <i class="fas fa-eye text-secondary"></i>
+                                                                        </a>
+                                                                        @if (auth()->user()->role == 'teacher')
+                                                                            <a href="#" class="mx-3"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-original-title="Edit homework"
+                                                                                onclick="openEditModal({{ $Homework->id }})">
+                                                                                <i
+                                                                                    class="fas fa-user-edit text-secondary"></i>
+                                                                            </a>
+                                                                            <span
+                                                                                onclick="deleteHomework({{ $Homework->id }})">
+                                                                                <i class="fas fa-trash text-secondary"></i>
+                                                                            </span>
+                                                                            <form
+                                                                                id="delete-homework-form-{{ $Homework->id }}"
+                                                                                action="{{ route('homework.destroy', $Homework->id) }}"
+                                                                                method="POST" style="display: none;">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                            </form>
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
+                                                        @if (@$studentworks)
+                                                            @foreach ($studentworks as $Homework)
+                                                                <tr>
+                                                                    <td class="text-center">{{ $Homework->title }}</td>
+                                                                    <td class="text-center">{{ $Homework->deadline }}</td>
+                                                                    @if (auth()->user()->role == 'teacher')
+                                                                        <td class="text-center">
+                                                                            @foreach ($Homework->classes as $Classe)
+                                                                                {{ $Classe->name }}<br>
+                                                                            @endforeach
+                                                                        </td>
+                                                                    @endif
+                                                                    @if (auth()->user()->role == 'parent')
+                                                                        <td class="text-center">
+                                                                            {{ $Homework->user->role == 'teacher' ? $Homework->user->name : 'No Teacher Assigned' }}
+                                                                        </td>
+                                                                    @endif
+                                                                    <td class="text-center">
+                                                                        <a
+                                                                            href="{{ route('homework.show', $Homework->id) }}">
+                                                                            <i class="fas fa-eye text-secondary"></i>
+                                                                        </a>
+                                                                        @if (auth()->user()->role == 'teacher')
+                                                                            <a href="#" class="mx-3"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-original-title="Edit homework"
+                                                                                onclick="openEditModal({{ $Homework->id }})">
+                                                                                <i
+                                                                                    class="fas fa-user-edit text-secondary"></i>
+                                                                            </a>
+                                                                            <span
+                                                                                onclick="deleteHomework({{ $Homework->id }})">
+                                                                                <i class="fas fa-trash text-secondary"></i>
+                                                                            </span>
+                                                                            <form
+                                                                                id="delete-homework-form-{{ $Homework->id }}"
+                                                                                action="{{ route('homework.destroy', $Homework->id) }}"
+                                                                                method="POST" style="display: none;">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                            </form>
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -212,7 +268,21 @@
             </section>
         </div>
     </div>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <!-- Or for RTL support -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+    <script>
+        $('#multiple-select-field').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+        });
+    </script>
 
     <script>
         function deleteHomework(id) {
@@ -227,7 +297,7 @@
             $('#homeworkForm').trigger("reset");
             $('#homeworkId').val('');
             $('#homeworkForm').find('input[name="_method"]').remove();
-            $('#classe_id').val([]).trigger('change');
+            $('#class_ids').val([]).trigger('change');
             $('#modal-homework').modal('show');
         }
 

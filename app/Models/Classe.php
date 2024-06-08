@@ -18,9 +18,14 @@ class Classe extends Model
     // {
     //     return $this->belongsTo(User::class, 'user_id');
     // }
+
     public function teachers()
     {
         return $this->belongsToMany(User::class, 'class_teachers', 'class_id', 'teacher_id');
+    }
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'class_students', 'class_id', 'student_id');
     }
     public function homeworks()
     {

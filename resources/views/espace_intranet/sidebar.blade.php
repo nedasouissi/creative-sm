@@ -108,6 +108,7 @@
                         </a>
                     </li>
 
+
                     <li class="nav-item pb-2">
                         <a class="nav-link {{ Request::is('homework') ? 'active' : '' }}" href="{{ url('homework') }}">
                             <div
@@ -182,7 +183,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('parents*') ? 'active' : '' }}" href="{{ url('parent') }}">
+                        <a class="nav-link {{ Request::is('teachers') ? 'active' : '' }}"
+                            href="{{ route('teachers.pending') }}">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 
@@ -205,13 +207,13 @@
                                     </g>
                                 </svg>
                             </div>
-                            <span class="nav-link-text ms-1">Parents enrolled</span>
+                            <span class="nav-link-text ms-1">Teachers Pending</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('teacher') ? 'active' : '' }}"
-                            href="{{ url('students.active') }}">
+                            href="{{ route('teachers.active') }}">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1"
@@ -237,11 +239,10 @@
                                     </g>
                                 </svg>
                             </div>
-                            <span class="nav-link-text ms-1">Teachers</span>
+                            <span class="nav-link-text ms-1">Teachers Enrolled</span>
                         </a>
                     </li>
                 @endif
-
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Academic regulation</h6>
                 </li>
@@ -370,7 +371,7 @@
                         </a>
                     </li>
                 @endif
-                @if ($user->role == 'teacher')
+                @if ($user->role == 'teacher' || 'parent')
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('marks') ? 'active' : '' }}" href="{{ url('marks') }}">
                             <div

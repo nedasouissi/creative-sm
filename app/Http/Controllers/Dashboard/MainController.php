@@ -3,40 +3,47 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Information;
 use App\Models\Classe;
 use App\Models\Grade;
 use App\Models\Homework;
+use App\Models\Information;
 use App\Models\Module;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class MainController extends Controller
 {
-    // public function generate()
-    // {
-    //     // Generate and insert dummy data into the database
-    //     // Example: Insert dummy users
-    //     DB::table('users')->insert([
-    //         [
-    //             'name' => 'John Doe',
-    //             'email' => 'john@example.com',
-    //             'password' => Hash::make('password'),
-    //         ],
-    //         [
-    //             'name' => 'Jane Smith',
-    //             'email' => 'jane@example.com',
-    //             'password' => Hash::make('password'),
-    //         ],
-    //         // Add more dummy data as needed
-    //     ]);
+    public function teachers_pending_index()
+    {
+        // $teachers = User::where('role', 'teacher')->get();
+        $subjects = Subject::all();
+        $classes = Classe::all();
+        $teachers = User::where('role', 'teacher')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
+        return view('espace_intranet.teachers-pending-list', compact('teachers', 'subjects', 'classes'));
+    }
+    public function teachers_valid_index()
+    {
+        // $teachers = User::where('role', 'teacher')->get();
+        $subjects = Subject::all();
+        $classes = Classe::all();
+        $filteredsevenStudents = User::where('role', 'teacher')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 1);
+            })
 
-    //     return 'Dummy data generated successfully!';
-    // }
+            ->get();
+
+        return view('espace_intranet.teachers-valid-list', compact('teachers', 'subjects', 'classes'));
+    }
 
     public function activateUser(Request $request)
     {
@@ -59,47 +66,47 @@ class MainController extends Controller
     public function students_pending_index()
     {
         $filteredsevenStudents = Student::with('user')
-        ->where('student_grade', 'seven')
-        ->whereHas('user', function($query) {
-            $query->where('is_active', 0);
-        })
-        ->get();
+            ->where('student_grade', 'seven')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
         $filteredeightStudents = Student::with('user')
-        ->where('student_grade', 'eight')
-        ->whereHas('user', function($query) {
-            $query->where('is_active', 0);
-        })
-        ->get();
+            ->where('student_grade', 'eight')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
         $filterednineStudents = Student::with('user')
-        ->where('student_grade', 'nine')
-        ->whereHas('user', function($query) {
-            $query->where('is_active', 0);
-        })
-        ->get();
-        return view('espace_intranet.students-pending-list', compact('filteredsevenStudents','filteredeightStudents','filterednineStudents'));
+            ->where('student_grade', 'nine')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
+        return view('espace_intranet.students-pending-list', compact('filteredsevenStudents', 'filteredeightStudents', 'filterednineStudents'));
     }
     public function students_valid_index()
     {
         $filteredsevenStudents = Student::with('user')
-        ->where('student_grade', 'seven')
-        ->whereHas('user', function($query) {
-            $query->where('is_active', 1);
-        })
-        ->get();
+            ->where('student_grade', 'seven')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 1);
+            })
+            ->get();
         $filteredeightStudents = Student::with('user')
-        ->where('student_grade', 'eight')
-        ->whereHas('user', function($query) {
-            $query->where('is_active', 1);
-        })
-        ->get();
+            ->where('student_grade', 'eight')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 1);
+            })
+            ->get();
         $filterednineStudents = Student::with('user')
-        ->where('student_grade', 'nine')
-        ->whereHas('user', function($query) {
-            $query->where('is_active', 1);
-        })
-        ->get();
+            ->where('student_grade', 'nine')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 1);
+            })
+            ->get();
 
-        return view('espace_intranet.students-valid-list',  compact('filteredsevenStudents','filteredeightStudents','filterednineStudents'));
+        return view('espace_intranet.students-valid-list', compact('filteredsevenStudents', 'filteredeightStudents', 'filterednineStudents'));
     }
     public function home()
     {
@@ -286,9 +293,9 @@ class MainController extends Controller
     {
         $classes = Classe::all();
         $grades = Grade::all();
+        $students = user::where('role', 'parent')->get();
         $teachers = User::where('role', 'teacher')->get();
-        // dd($teachers, $grades, $classes);
-        return view('espace_intranet.classes', compact('classes', 'grades', 'teachers'));
+        return view('espace_intranet.classes', compact('classes', 'grades', 'teachers', 'students'));
     }
 
     public function store_classes(Request $request)
@@ -299,6 +306,8 @@ class MainController extends Controller
             'grade_id' => 'required',
             'teacher_ids' => 'required|array', // Ensure teacher_ids is an array
             'teacher_ids.*' => 'exists:users,id', // Ensure each teacher ID exists in the users table
+            'student_ids' => 'required|array', // Ensure teacher_ids is an array
+            'student_ids.*' => 'exists:users,id', // Ensure each teacher ID exists in the users table
         ]);
         // dd($request);
         $class = Classe::create([
@@ -307,6 +316,7 @@ class MainController extends Controller
         ]);
 
         $class->teachers()->attach($request->input('teacher_ids'));
+        $class->students()->attach($request->input('student_ids'));
         return redirect()->back()->with('success', 'Class added successfully.');
     }
     public function update_classes(Request $request, $id)
@@ -342,39 +352,97 @@ class MainController extends Controller
     //homework functions
     public function homework_index()
     {
-        $homework = Homework::with('classes')->get();
-        $classes = Classe::all();
-        return view('espace_intranet.homework', compact('homework', 'classes'));
+        $user = Auth::user();
+        $filteredClass = null;
+        $id = null;
+        $studentworks = [];
+        if ($user->role == 'teacher') {
+            $userId = $user->id;
+
+            // Fetch classes taught by the teacher
+            $classes = Classe::whereHas('teachers', function ($query) use ($userId) {
+                $query->where('teacher_id', $userId);
+            })->get();
+
+            // Fetch homework created by the teacher
+            $homework = Homework::where('user_id', $userId)->get();
+            return view('espace_intranet.homework', compact('user', 'homework', 'classes'));
+        } elseif ($user->role == 'parent') {
+
+            $userId = $user->id;
+            $classes = Classe::with('students')->get();
+
+            // Filter the classes where the authenticated user is a student
+            $filteredClass = $classes->filter(function ($class) use ($userId) {
+                return $class->students->contains('id', $userId);
+            })->first();
+
+            if ($filteredClass) {
+                // Get the ID of the filtered class
+                $classId = $filteredClass->id;
+                // Retrieve all homework with the classes relationship loaded
+                $homeworks = Homework::with('classes')->get();
+                foreach ($homeworks as $homework) {
+                    if ($homework->classes) {
+                        foreach ($homework->classes as $class) {
+                            if ($class->id == $classId) {
+                                $studentworks[] = $homework;
+                                break; // Exit the inner loop once a matching class is found
+                            }
+                        }
+                    }
+                }
+
+                // $homework = $homeworks->classes->where('class_id', $classId)->all();
+                Log::info('homework',['homework'=>$studentworks]);
+
+            }
+
+
+            return view('espace_intranet.homework', compact('user', 'studentworks', 'classes'));
+        } else {
+            return view('espace_intranet.home');
+        }
+
     }
 
     public function store_homework(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'description' => 'required',
-            'deadline' => 'required|date',
-            'pdf' => 'nullable|mimes:pdf|max:10000',
-            'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:10000',
-            'video' => 'nullable|mimes:mp4,mov,ogg|max:20000',
-            'classes_ids' => 'required|array',
-            'classes_ids.*' => 'exists:classes,id',
+        // dd($request->all());
+        $userId = Auth::user()->id;
+        // if ($request->hasFile('pdf')) {
+        //     $homework->pdf = $request->file('pdf')->store('homework_files', 'public');
+        // }
+        // if ($request->hasFile('image')) {
+        //     $homework->image = $request->file('image')->store('homework_files', 'public');
+        // }
+        // if ($request->hasFile('video')) {
+        //     $homework->video = $request->file('video')->store('homework_files', 'public');
+        // }
+        // $this->validate($request, [
+        //     'title' => 'required',
+        //     'description' => 'required',
+        //     'deadline' => 'required|date',
+        //     'pdf' => 'nullable|mimes:pdf|max:10000',
+        //     'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:10000',
+        //     'video' => 'nullable|mimes:mp4,mov,ogg|max:20000',
+        //     'classes_ids' => 'required|array',
+        //     'classes_ids.*' => 'exists:classes,id',
+        // ]);
+
+        $homework = Homework::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'deadline' => $request->input('deadline'),
+            'pdf' => $request->input('pdf'),
+            'video' => $request->input('video'),
+            'image' => $request->input('image'),
+            'class_ids' => $request->input('class_ids'),
+            'user_id' => $userId,
         ]);
 
-        $homework = new Homework($request->all());
-        $homework->user_id = auth()->id();
-        if ($request->hasFile('pdf')) {
-            $homework->pdf = $request->file('pdf')->store('homework_files', 'public');
-        }
-        if ($request->hasFile('image')) {
-            $homework->image = $request->file('image')->store('homework_files', 'public');
-        }
-        if ($request->hasFile('video')) {
-            $homework->video = $request->file('video')->store('homework_files', 'public');
-        }
+        $homework->classes()->attach($request->input('class_ids'));
 
-        $homework->save();
-
-        $homework->classes()->attach($request->input('classes_ids'));
         return redirect()->route('homework.index')->with('success', 'Homework created successfully.');
     }
     public function update_homework(Request $request, Homework $homework)
@@ -386,7 +454,7 @@ class MainController extends Controller
             'pdf' => 'nullable|mimes:pdf|max:10000',
             'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:10000',
             'video' => 'nullable|mimes:mp4,mov,ogg|max:20000',
-            'classes' => 'required|array'
+            'classes' => 'required|array',
         ]);
 
         $homework->fill($request->all());
@@ -450,7 +518,7 @@ class MainController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'author' => 'required|string'
+            'author' => 'required|string',
         ]);
 
         $information = new Information();

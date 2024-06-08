@@ -21,15 +21,11 @@ class CreateHomeworksTable extends Migration
             $table->string('pdf')->nullable();
             $table->string('image')->nullable();
             $table->string('video')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
 
-        Schema::create('class_homework', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('classe_id')->constrained()->onDelete('cascade');
-            $table->foreignId('homework_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
+
     }
     /**
      * Reverse the migrations.
@@ -39,6 +35,5 @@ class CreateHomeworksTable extends Migration
     public function down()
     {
         Schema::dropIfExists('class_homework');
-        Schema::dropIfExists('homeworks');
     }
 }
