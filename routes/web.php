@@ -89,14 +89,14 @@ Route::delete('/classes/{class}', [MainController::class, 'destroy_classes'])->n
 
 //homework routes
 Route::get('/homework', [MainController::class, 'homework_index'])->name('homework.index');
-Route::post('/homework', [MainController::class, 'store_homework'])->name('homework.store');
-Route::get('/homework/{homework}', [MainController::class, 'show_homework'])->name('homework.show');
-Route::put('/homework/{homework}', [MainController::class, 'update_homework'])->name('homework.update');
-Route::delete('/homework/{homework}', [MainController::class, 'destroy_homework'])->name('homework.destroy');
+Route::post('/store-homework', [MainController::class, 'store_homework'])->name('homework.store');
+Route::get('/show-homework/{homework}', [MainController::class, 'show_homework'])->name('homework.show');
+Route::put('/update-homework/{homework}', [MainController::class, 'update_homework'])->name('homework.update');
+Route::delete('/destroy-homework/{homework}', [MainController::class, 'destroy_homework'])->name('homework.destroy');
 
 //Info routes
 Route::get('/information', [MainController::class, 'info_index'])->name('info.index');
-Route::post('/information', [MainController::class, 'store_information'])->name('info.store');
+Route::post('/information/store', [MainController::class, 'info_store'])->name('information.store');
 Route::get('/information/{information}', [MainController::class, 'show_information'])->name('info.show');
 Route::put('/information/{information}', [MainController::class, 'update_information'])->name('info.update');
 Route::delete('/information/{information}', [MainController::class, 'destroy_information'])->name('info.destroy');

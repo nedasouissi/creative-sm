@@ -43,7 +43,8 @@
                                             <div class="form-group">
                                                 <label for="teacher_id">Teacher</label>
                                                 <select class="form-control" id="teacher_id" name="teacher_id">
-                                                    <option value="">Select Teacher</option> <!-- Empty state option -->
+                                                    <option value="">Select Teacher</option>
+                                                    <!-- Empty state option -->
                                                     @foreach ($teachers as $teacher)
                                                         <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                                                     @endforeach
@@ -115,7 +116,10 @@
                                                                 Module</th>
                                                             <th
                                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                Teacher</th>
+                                                                Teachers</th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                Classes</th>
                                                             <th
                                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                 Action</th>
@@ -123,12 +127,15 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($subjects as $subject)
-                                                        {{-- @dd($subject); --}}
+                                                            {{-- @dd($subject); --}}
                                                             <tr>
                                                                 <td class="text-center">{{ $subject->name }}</td>
                                                                 <td class="text-center">{{ $subject->module->name }}</td>
                                                                 <td class="text-center">
                                                                     {{ $subject->teacher->name }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $subject->class->name }}
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <a href="#" class="mx-3"

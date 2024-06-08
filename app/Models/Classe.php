@@ -22,8 +22,8 @@ class Classe extends Model
     {
         return $this->belongsToMany(User::class, 'class_teachers', 'class_id', 'teacher_id');
     }
-    // public function homeworks()
-    // {
-    //     return $this->belongsToMany(Homework::class, 'homework_classe', 'classe_id', 'homework_id');
-    // }
+    public function homeworks()
+    {
+        return $this->belongsToMany(Homework::class, 'class_homework', 'classe_id', 'homework_id');
+    }
 }

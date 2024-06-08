@@ -12,7 +12,7 @@
                             </h3>
                         </div>
                         <input type="hidden" id="homeworkId" name="id">
-                        <form id="homeworkForm" method="POST">
+                        <form id="homeworkForm" method="POST" action="/store-homework" enctype="multipart/form-data">
                             @csrf
                             <div class="card">
                                 <div class="card-body">
@@ -36,6 +36,26 @@
                                                     @enderror
                                                 </span>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="pdf">PDF</label>
+                                                <input type="file" class="form-control" name="pdf" id="pdf"
+                                                    accept=".pdf">
+                                                <span class="text-danger">
+                                                    @error('pdf')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="video">Video</label>
+                                                <input type="file" class="form-control" name="video" id="video"
+                                                    accept="video/*">
+                                                <span class="text-danger">
+                                                    @error('video')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -47,19 +67,32 @@
                                                     @enderror
                                                 </span>
                                             </div>
+
                                             <div class="form-group">
-                                                <label for="classe_id">Classes</label>
-                                                <select class="form-control" id="classe_id" name="classes[]" multiple>
+                                                <label for="classe_ids">Classes</label>
+                                                <select class="form-select" id="multiple-select-field" name="classes_ids[]"
+                                                    multiple>
                                                     @foreach ($classes as $classe)
                                                         <option value="{{ $classe->id }}">{{ $classe->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 <span class="text-danger">
-                                                    @error('classes')
+                                                    @error('classes_ids')
                                                         {{ $message }}
                                                     @enderror
                                                 </span>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="image">Image</label>
+                                                <input type="file" class="form-control" name="image" id="image"
+                                                    accept="image/*">
+                                                <span class="text-danger">
+                                                    @error('image')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="text-center">
@@ -90,9 +123,11 @@
                                                 <div>
                                                     <h5 class="mb-0">All Homework</h5>
                                                 </div>
-                                                <a href="#" class="btn bg-gradient-primary btn-sm mb-0"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-homework" type="button"
-                                                    onclick="openAddModal()">+&nbsp; New Homework</a>
+                                                @if (auth()->user()->role == 'teacher')
+                                                    <a href="#" class="btn bg-gradient-primary btn-sm mb-0"
+                                                        data-bs-toggle="modal" data-bs-target="#modal-homework"
+                                                        type="button" onclick="openAddModal()">+&nbsp; New Homework</a>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="card-body px-0 pt-0 pb-2">
@@ -105,13 +140,17 @@
                                                                 Title</th>
                                                             <th
                                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                Description</th>
-                                                            <th
-                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                 Deadline</th>
-                                                            <th
-                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                Classes</th>
+                                                            @if (auth()->user()->role == 'teacher')
+                                                                <th
+                                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                    Classes</th>
+                                                            @endif
+                                                            @if (auth()->user()->role == 'parent')
+                                                                <th
+                                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                    Teacher</th>
+                                                            @endif
                                                             <th
                                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                 Action</th>
@@ -121,30 +160,42 @@
                                                         @foreach ($homework as $Homework)
                                                             <tr>
                                                                 <td class="text-center">{{ $Homework->title }}</td>
-                                                                <td class="text-center">{{ $Homework->description }}</td>
                                                                 <td class="text-center">{{ $Homework->deadline }}</td>
+                                                                @if (auth()->user()->role == 'teacher')
+                                                                    <td class="text-center">
+                                                                        @foreach ($Homework->classes as $Classe)
+                                                                            {{ $Classe->name }}<br>
+                                                                        @endforeach
+                                                                    </td>
+                                                                @endif
+                                                                @if (auth()->user()->role == 'parent')
+                                                                    <td class="text-center">
+                                                                        {{ $Homework->user->role == 'teacher' ? $Homework->user->name : 'No Teacher Assigned' }}
+                                                                    </td>
+                                                                @endif
                                                                 <td class="text-center">
-                                                                    @foreach ($Homework->classes as $Classe)
-                                                                        {{ $Classe->name }}<br>
-                                                                    @endforeach
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    <a href="#" class="mx-3"
-                                                                        data-bs-toggle="tooltip"
-                                                                        data-bs-original-title="Edit homework"
-                                                                        onclick="openEditModal({{ $Homework->id }})">
-                                                                        <i class="fas fa-user-edit text-secondary"></i>
+                                                                    <a href="{{ route('homework.show', $Homework->id) }}">
+                                                                        <i class="fas fa-eye text-secondary"></i>
                                                                     </a>
-                                                                    <span onclick="deleteHomework({{ $Homework->id }})">
-                                                                        <i
-                                                                            class="cursor-pointer fas fa-trash text-secondary"></i>
-                                                                    </span>
-                                                                    <form id="delete-homework-form-{{ $Homework->id }}"
-                                                                        action="{{ route('homework.destroy', $Homework->id) }}"
-                                                                        method="POST" style="display: none;">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                    </form>
+                                                                    @if (auth()->user()->role == 'teacher')
+                                                                        <a href="#" class="mx-3"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-original-title="Edit homework"
+                                                                            onclick="openEditModal({{ $Homework->id }})">
+                                                                            <i class="fas fa-user-edit text-secondary"></i>
+                                                                        </a>
+                                                                        <span
+                                                                            onclick="deleteHomework({{ $Homework->id }})">
+                                                                            <i class="fas fa-trash text-secondary"></i>
+                                                                        </span>
+                                                                        <form
+                                                                            id="delete-homework-form-{{ $Homework->id }}"
+                                                                            action="{{ route('homework.destroy', $Homework->id) }}"
+                                                                            method="POST" style="display: none;">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                        </form>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -162,6 +213,7 @@
         </div>
     </div>
 
+
     <script>
         function deleteHomework(id) {
             if (confirm('Are you sure you want to delete this homework?')) {
@@ -171,11 +223,11 @@
 
         function openAddModal() {
             $('#homeworkModalLabel').text('Add Homework');
-            $('#homeworkForm').attr('action', '{{ route('homework.store') }}');
+            $('#homeworkForm').attr('action', "{{ route('homework.store') }}");
             $('#homeworkForm').trigger("reset");
             $('#homeworkId').val('');
             $('#homeworkForm').find('input[name="_method"]').remove();
-            $('#classe_id').val([]).trigger('change'); // Clear the classes selection
+            $('#classe_id').val([]).trigger('change');
             $('#modal-homework').modal('show');
         }
 

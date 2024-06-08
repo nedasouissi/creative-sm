@@ -26,4 +26,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Student::class, 'user_id');
     }
+
+    public function homeworks()
+    {
+        return $this->hasMany(Homework::class);
+    }
 }

@@ -23,51 +23,96 @@
                                             <!-- Father's Information -->
                                             <div class="form-group">
                                                 <label for="father-name">Father Name</label> <!-- Updated ID -->
-                                                <input type="text" class="form-control" placeholder="" name="father_name" id="father-name">
-                                                <span class="text-danger">@error('father_name'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder="" name="father_name"
+                                                    id="father-name">
+                                                <span class="text-danger">
+                                                    @error('father_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="father-last-name">Father Last name</label> <!-- Updated ID -->
-                                                <input type="text" class="form-control" placeholder="" name="father_last_name" id="father-last-name">
-                                                <span class="text-danger">@error('father_last_name'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="father_last_name" id="father-last-name">
+                                                <span class="text-danger">
+                                                    @error('father_last_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="father-job">Father Job</label> <!-- Updated ID -->
-                                                <input type="text" class="form-control" placeholder="" name="father_job" id="father-job">
-                                                <span class="text-danger">@error('father_job'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder="" name="father_job"
+                                                    id="father-job">
+                                                <span class="text-danger">
+                                                    @error('father_job')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="father-phone">Father Phone Number</label> <!-- Updated ID -->
-                                                <input type="number" class="form-control" placeholder="" name="father_phone" id="father-phone">
-                                                <span class="text-danger">@error('father_phone'){{ $message }}@enderror</span>
+                                                <input type="number" class="form-control" placeholder=""
+                                                    name="father_phone" id="father-phone">
+                                                <span class="text-danger">
+                                                    @error('father_phone')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="parent-email">Parent Email</label> <!-- Updated ID -->
-                                                <input type="email" class="form-control" placeholder="" name="parent_email" id="parent-email">
-                                                <span class="text-danger">@error('parent_email'){{ $message }}@enderror</span>
+                                                <input type="email" class="form-control" placeholder=""
+                                                    name="parent_email" id="parent-email">
+                                                <span class="text-danger">
+                                                    @error('parent_email')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <!-- Mother's Information -->
                                             <div class="form-group">
                                                 <label for="mother-name">Mother Name</label> <!-- Updated ID -->
-                                                <input type="text" class="form-control" placeholder="" name="mother_name" id="mother-name">
-                                                <span class="text-danger">@error('mother_name'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder="" name="mother_name"
+                                                    id="mother-name">
+                                                <span class="text-danger">
+                                                    @error('mother_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="mother-last-name">Mother Last name</label> <!-- Updated ID -->
-                                                <input type="text" class="form-control" placeholder="" name="mother_last_name" id="mother-last-name">
-                                                <span class="text-danger">@error('mother_last_name'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder=""
+                                                    name="mother_last_name" id="mother-last-name">
+                                                <span class="text-danger">
+                                                    @error('mother_last_name')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="mother-job">Mother Job</label> <!-- Updated ID -->
-                                                <input type="text" class="form-control" placeholder="" name="mother_job" id="mother-job">
-                                                <span class="text-danger">@error('mother_job'){{ $message }}@enderror</span>
+                                                <input type="text" class="form-control" placeholder="" name="mother_job"
+                                                    id="mother-job">
+                                                <span class="text-danger">
+                                                    @error('mother_job')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="mother-phone">Mother Phone Number</label> <!-- Updated ID -->
-                                                <input type="number" class="form-control" placeholder="" name="mother_phone" id="mother-phone">
-                                                <span class="text-danger">@error('mother_phone'){{ $message }}@enderror</span>
+                                                <input type="number" class="form-control" placeholder=""
+                                                    name="mother_phone" id="mother-phone">
+                                                <span class="text-danger">
+                                                    @error('mother_phone')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -166,9 +211,11 @@
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm text-dark active text-capitalize" aria-current="page">
                             <h6 class="font-weight-bolder mb-0 text-capitalize">
-                                {{ str_replace('-', ' ', Request::path()) }}
+                                {{ ucwords(str_replace('-', ' ', Request::segment(1))) }}
                             </h6>
                         </li>
+
+
                     </ol>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
@@ -315,7 +362,7 @@
                         <img src="{{ Storage::url(@$user->avatar) }}" class="avatar avatar-sm me-3" alt="user1">
                     </div>
                     <div class=" d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">{{ @$user->name }} &nbsp; {{ @$user->last_name }}</h6>
+                        <h6 class="mb-0 text-sm">{{ @$user->name }} {{ @$user->last_name }}</h6>
                     </div>
                 </div>
                 <div class="mt-3 mb-0 float-start">

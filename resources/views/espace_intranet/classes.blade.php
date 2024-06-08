@@ -27,7 +27,8 @@
                                     <div class="form-group">
                                         <label for="grade_id">Grade</label>
 
-                                        <select class="form-control" id="grade_id" name="grade_id" data-placeholder="Choose one thing">
+                                        <select class="form-control" id="grade_id" name="grade_id"
+                                            data-placeholder="Choose one thing">
                                             <option></option>
                                             @foreach ($grades as $grade)
                                                 <option value="{{ $grade->id }}">{{ $grade->name }}</option>
@@ -44,7 +45,8 @@
                                     @endphp
                                     <div class="form-group">
                                         <label for="teacher_ids">Teacher</label>
-                                        <select class="form-select" id="multiple-select-field" name="teacher_ids[]" data-placeholder="Choose anything" multiple>
+                                        <select class="form-select" id="multiple-select-field" name="teacher_ids[]"
+                                            data-placeholder="Choose teacher" multiple>
                                             @foreach ($teachers as $teacher)
                                                 <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                                             @endforeach
@@ -120,6 +122,7 @@
                                                 <th
                                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     Teachers</th>
+
                                                 <th
                                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     Action
@@ -128,7 +131,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($classes as $classe)
-                                            {{-- @dd($classe->teachers); --}}
+                                                {{-- @dd($classe->teachers); --}}
                                                 <tr>
                                                     <td class="text-center">{{ $classe->name }}</td>
                                                     <td class="text-center">{{ $classe->grade->name }}</td>
