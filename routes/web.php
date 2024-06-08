@@ -48,7 +48,7 @@ Route::post('/parent/{Student}/toggle-status', [ParentsController::class, 'toggl
 //student routes
 Route::get('/students_pending', [MainController::class, 'students_pending_index'])->name('students.pending');
 Route::get('/students_valid', [MainController::class, 'students_valid_index'])->name('students.active');
-Route::post('/activate-user',[MainController::class, 'activateUser'])->name('activateUser');
+Route::post('/activate-user', [MainController::class, 'activateUser'])->name('activateUser');
 
 // Route::post('/students', [MainController::class, 'store'])->name('students.store');
 // Route::get('/students/{student}', [MainController::class, 'show'])->name('students.show');
@@ -92,6 +92,11 @@ Route::put('/classes/{class}', [MainController::class, 'update_classes'])->name(
 Route::delete('/classes/{class}', [MainController::class, 'destroy_classes'])->name('classes.destroy')->middleware('checkRoleAdmin');;
 
 //homework routes
+Route::get('/homework', [MainController::class, 'homework_index'])->name('homework.index');
+Route::post('/store-homework', [MainController::class, 'store_homework'])->name('homework.store');
+Route::get('/show-homework/{homework}', [MainController::class, 'show_homework'])->name('homework.show');
+Route::put('/update-homework/{homework}', [MainController::class, 'update_homework'])->name('homework.update');
+Route::delete('/destroy-homework/{homework}', [MainController::class, 'destroy_homework'])->name('homework.destroy');
 Route::get('/homework', [MainController::class, 'homework_index'])->name('homework.index')->middleware('checkRoleTeacher');
 Route::post('/homework', [MainController::class, 'store_homework'])->name('homework.store')->middleware('checkRoleTeacher');;
 Route::get('/homework/{homework}', [MainController::class, 'show_homework'])->name('homework.show')->middleware('checkRoleTeacher');;
@@ -100,7 +105,7 @@ Route::delete('/homework/{homework}', [MainController::class, 'destroy_homework'
 
 //Info routes
 Route::get('/information', [MainController::class, 'info_index'])->name('info.index');
-Route::post('/information', [MainController::class, 'store_information'])->name('info.store');
+Route::post('/information/store', [MainController::class, 'info_store'])->name('information.store');
 Route::get('/information/{information}', [MainController::class, 'show_information'])->name('info.show');
 Route::put('/information/{information}', [MainController::class, 'update_information'])->name('info.update');
 Route::delete('/information/{information}', [MainController::class, 'destroy_information'])->name('info.destroy');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Information;
 use App\Models\Classe;
 use App\Models\Grade;
 use App\Models\Homework;
@@ -12,6 +13,7 @@ use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MainController extends Controller
 {
@@ -340,44 +342,77 @@ class MainController extends Controller
     //homework functions
     public function homework_index()
     {
-        // $homework = Homework::with('classes')->get();
-        // $classes = Classe::all();
+        $homework = Homework::with('classes')->get();
+        $classes = Classe::all();
         return view('espace_intranet.homework', compact('homework', 'classes'));
     }
 
     public function store_homework(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'title' => 'required',
+            'description' => 'required',
             'deadline' => 'required|date',
-            'classes' => 'required|array',
+            'pdf' => 'nullable|mimes:pdf|max:10000',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:10000',
+            'video' => 'nullable|mimes:mp4,mov,ogg|max:20000',
+            'classes_ids' => 'required|array',
+            'classes_ids.*' => 'exists:classes,id',
         ]);
 
-        $homework = Homework::create($request->only('title', 'description', 'deadline'));
-        $homework->classes()->attach($request->input('classes'));
+        $homework = new Homework($request->all());
+        $homework->user_id = auth()->id();
+        if ($request->hasFile('pdf')) {
+            $homework->pdf = $request->file('pdf')->store('homework_files', 'public');
+        }
+        if ($request->hasFile('image')) {
+            $homework->image = $request->file('image')->store('homework_files', 'public');
+        }
+        if ($request->hasFile('video')) {
+            $homework->video = $request->file('video')->store('homework_files', 'public');
+        }
 
-        return redirect()->back()->with('success', 'Homework added successfully.');
+        $homework->save();
+
+        $homework->classes()->attach($request->input('classes_ids'));
+        return redirect()->route('homework.index')->with('success', 'Homework created successfully.');
     }
-    public function update_homework(Request $request, $id)
+    public function update_homework(Request $request, Homework $homework)
     {
-        $this->validate($request, [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
             'deadline' => 'required|date',
-            'classes' => 'required|array',
+            'pdf' => 'nullable|mimes:pdf|max:10000',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:10000',
+            'video' => 'nullable|mimes:mp4,mov,ogg|max:20000',
+            'classes' => 'required|array'
         ]);
 
-        $homework = Homework::findOrFail($id);
-        $homework->update($request->only('title', 'description', 'deadline'));
+        $homework->fill($request->all());
+
+        if ($request->hasFile('pdf')) {
+            Storage::disk('public')->delete($homework->pdf);
+            $homework->pdf = $request->file('pdf')->store('homework_files', 'public');
+        }
+        if ($request->hasFile('image')) {
+            Storage::disk('public')->delete($homework->image);
+            $homework->image = $request->file('image')->store('homework_files', 'public');
+        }
+        if ($request->hasFile('video')) {
+            Storage::disk('public')->delete($homework->video);
+            $homework->video = $request->file('video')->store('homework_files', 'public');
+        }
+
+        $homework->save();
         $homework->classes()->sync($request->input('classes'));
 
-        return redirect()->back()->with('success', 'Homework updated successfully.');
+        return redirect()->route('homework.index')->with('success', 'Homework updated successfully.');
     }
     public function show_homework($id)
     {
         $homework = Homework::with('classes')->findOrFail($id);
-        return response()->json($homework);
+        return view('espace_intranet.homeworkdetails', compact('homework'));
     }
     public function destroy_homework($id)
     {
@@ -391,21 +426,39 @@ class MainController extends Controller
         return redirect()->back()->with('error', 'Homework not found.');
     }
 
-    // teachers notes routes
+    // teachers notes functions
     public function notes_index()
     {
         return view('espace_intranet.teachersnotes');
     }
 
-    //marks routes
+    //marks functions
     public function marks_index()
     {
         return view('espace_intranet.marks');
     }
 
-    //info
+    //info functions
     public function info_index()
     {
-        return view('espace_intranet.informations');
+        $informations = Information::all();
+        return view('espace_intranet.informations', compact('informations'));
+    }
+
+    public function info_store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'author' => 'required|string'
+        ]);
+
+        $information = new Information();
+        $information->title = $request->title;
+        $information->content = $request->content;
+        $information->author = $request->author;
+        $information->save();
+
+        return redirect()->back()->with('success', 'Information added successfully!');
     }
 }

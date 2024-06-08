@@ -211,9 +211,11 @@
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm text-dark active text-capitalize" aria-current="page">
                             <h6 class="font-weight-bolder mb-0 text-capitalize">
-                                {{ str_replace('-', ' ', Request::path()) }}
+                                {{ ucwords(str_replace('-', ' ', Request::segment(1))) }}
                             </h6>
                         </li>
+
+
                     </ol>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
@@ -360,7 +362,7 @@
                         <img src="{{ Storage::url(@$user->avatar) }}" class="avatar avatar-sm me-3" alt="user1">
                     </div>
                     <div class=" d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">{{ @$user->name }} &nbsp; {{ @$user->last_name }}</h6>
+                        <h6 class="mb-0 text-sm">{{ @$user->name }} {{ @$user->last_name }}</h6>
                     </div>
                 </div>
                 <div class="mt-3 mb-0 float-start">
