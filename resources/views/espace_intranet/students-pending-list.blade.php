@@ -206,7 +206,7 @@
                 <div class="row">
                     <div class="col-12">
                         <h1 class="text-center mb-20 font-size-20">
-                            Students List
+                            Students Pending List
                         </h1>
                         <div>
                             <div class="row">
@@ -244,47 +244,209 @@
                                                                 Phone</th>
                                                             <th
                                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                Birthdate</th>
+                                                                Status</th>
                                                             <th
                                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                 Action</th>
                                                         </tr>
                                                     </thead>
+                                                    <style>
+                                                        .text-center {
+                                                            color: black;
+                                                        }
+                                                    </style>
+                                                    @php
+                                                        // $filteredsevenStudents = $students
+                                                        //     ->where('student_grade', 'seven')
+                                                        //     ->all();
+                                                        // $filteredeightStudents = $students
+                                                        //     ->where('student_grade', 'eight')
+                                                        //     ->all();
+                                                        // $filterednineStudents = $students
+                                                        //     ->where('student_grade', 'nine')
+                                                        //     ->all();
+
+                                                    @endphp
+
+
                                                     <tbody>
-                                                        @foreach ($students as $student)
-                                                            <tr
-                                                                class="{{ $student->studentParent->status ? '' : 'table-inactive' }}">
-                                                                <td class="text-center">
-                                                                    <img src="{{ $student->avatar_url }}"
-                                                                        alt="{{ $student->student_name }}'s Avatar"
-                                                                        class="avatar avatar-sm me-3">
-                                                                </td>
-                                                                <td class="text-center">{{ $student->student_name }}</td>
-                                                                <td class="text-center">{{ $student->student_last_name }}
-                                                                </td>
-                                                                <td class="text-center">{{ $student->student_grade }}</td>
-                                                                <td class="text-center">{{ $student->student_phone }}</td>
-                                                                <td class="text-center">{{ $student->birthdate }}</td>
-                                                                <td class="text-center">
-                                                                    <a href="#" class="mx-3"
-                                                                        data-bs-toggle="tooltip"
-                                                                        data-bs-original-title="Edit student"
-                                                                        onclick="openEditModal({{ $student->id }})">
-                                                                        <i class="fas fa-user-edit text-secondary"></i>
-                                                                    </a>
-                                                                    <span onclick="deleteStudent({{ $student->id }})">
-                                                                        <i
-                                                                            class="cursor-pointer fas fa-trash text-secondary"></i>
-                                                                    </span>
-                                                                    <form id="delete-student-form-{{ $student->id }}"
-                                                                        action="{{ route('student.destroy', $student->id) }}"
-                                                                        method="POST" style="display: none;">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                    </form>
-                                                                </td>
-                                                            </tr>
+
+
+                                                        <tr>
+                                                            <td colspan="7"
+                                                                style="text-align: center; color:red; vertical-align: middle;">
+                                                                <button onclick="toggleSevenStudents()"
+                                                                    class="btn bg-gradient-primary btn-sm mb-0">
+                                                                    Grade Seven Students</button>
+
+                                                            </td>
+                                                        </tr>
+
+                                                        @foreach ($filteredsevenStudents as $student)
+                                                            @if (!$student->user->is_active)
+                                                                <tr id="studentsevenRow{{ $student->id }}"style="display: none;"
+                                                                   >
+                                                                    <td class="text-center">
+                                                                        <img src="{{ Storage::url(@$student->user->avatar) }}"
+                                                                            alt="{{ $student->student_name }}'s Avatar"
+                                                                            class="avatar avatar-sm me-3">
+                                                                    </td>
+                                                                    <td class="text-center">{{ $student->student_name }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        {{ $student->student_last_name }}
+                                                                    </td>
+                                                                    <td class="text-center">{{ $student->student_grade }}
+                                                                    </td>
+                                                                    <td class="text-center">{{ $student->student_phone }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @if ($student->user->is_active)
+                                                                            activ
+                                                                        @else
+                                                                            inactiv
+                                                                        @endif
+
+                                                                    <td class="text-center">
+                                                                        <a href="#" class="mx-3"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-original-title="validate"
+                                                                            onclick="activateUser({{ $student->id }})">
+                                                                            <i class="fas fa-user-edit text-secondary"></i>
+                                                                        </a>
+                                                                        <span
+                                                                            onclick="deleteStudent({{ $student->id }})">
+                                                                            <i
+                                                                                class="cursor-pointer fas fa-trash text-secondary"></i>
+                                                                        </span>
+                                                                        <form id="delete-student-form-{{ $student->id }}"
+                                                                            {{-- action="{{ route('student.destroy', $student->id) }}" --}} method="POST"
+                                                                            style="display: none;">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                         @endforeach
+
+                                                        <tr>
+                                                            <td colspan="7"
+                                                                style="text-align: center; color:red; vertical-align: middle;">
+                                                                <button class="btn bg-gradient-primary btn-sm mb-0"
+                                                                    onclick="toggleEightStudents()">
+                                                                    Grade
+                                                                    Eight Students</button>
+                                                            </td>
+                                                        </tr>
+                                                        @foreach ($filteredeightStudents as $student)
+                                                            @if (!$student->user->is_active)
+                                                                <tr id="studenteightRow{{ $student->id }}"
+                                                                    style="display: none;">
+                                                                    <td class="text-center">
+                                                                        <img src="{{ Storage::url(@$student->user->avatar) }}"
+                                                                            alt="{{ $student->student_name }}'s Avatar"
+                                                                            class="avatar avatar-sm me-3">
+                                                                    </td>
+                                                                    <td class="text-center">{{ $student->student_name }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        {{ $student->student_last_name }}
+                                                                    </td>
+                                                                    <td class="text-center">{{ $student->student_grade }}
+                                                                    </td>
+                                                                    <td class="text-center">{{ $student->student_phone }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @if ($student->user->is_active)
+                                                                            activ
+                                                                        @else
+                                                                            inactiv
+                                                                        @endif
+
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <a href="#" class="mx-3"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-original-title="validate"
+                                                                            onclick="activateUser({{ $student->id }})">
+                                                                            <i class="fas fa-user-edit text-secondary"></i>
+                                                                        </a>
+                                                                        <span
+                                                                            onclick="deleteStudent({{ $student->id }})">
+                                                                            <i
+                                                                                class="cursor-pointer fas fa-trash text-secondary"></i>
+                                                                        </span>
+                                                                        <form id="delete-student-form-{{ $student->id }}"
+                                                                            {{-- action="{{ route('student.destroy', $student->id) }}" --}} method="POST"
+                                                                            style="display: none;">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        @endforeach
+
+                                                        <td colspan="7"
+                                                            style="text-align: center; color:red; vertical-align: middle;">
+                                                            <button
+                                                                class="btn bg-gradient-primary btn-sm mb-0"onclick="toggleNineStudents()">
+                                                                Grade
+                                                                Nine Students</button>
+                                                        </td>
+
+                                                        @foreach ($filterednineStudents as $student)
+                                                            @if (!$student->user->is_active)
+                                                                <tr
+                                                                    id="studentnineRow{{ $student->id }}"style="display: none;">
+                                                                    <td class="text-center">
+                                                                        <img src="{{ Storage::url(@$student->user->avatar) }}"
+                                                                            alt="{{ $student->student_name }}'s Avatar"
+                                                                            class="avatar avatar-sm me-3">
+                                                                    </td>
+                                                                    <td class="text-center">{{ $student->student_name }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        {{ $student->student_last_name }}
+                                                                    </td>
+                                                                    <td class="text-center">{{ $student->student_grade }}
+                                                                    </td>
+                                                                    <td class="text-center">{{ $student->student_phone }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                    <td class="text-center">
+                                                                        @if ($student->user->is_active)
+                                                                            activ
+                                                                        @else
+                                                                            inactiv
+                                                                        @endif
+
+
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <a href="#" class="mx-3"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-original-title="validate"
+                                                                            onclick="activateUser({{ $student->user->id }})">
+                                                                            <i class="fas fa-user-edit text-secondary"></i>
+                                                                        </a>
+                                                                        <span
+                                                                            onclick="deleteStudent({{ $student->id }})">
+                                                                            <i
+                                                                                class="cursor-pointer fas fa-trash text-secondary"></i>
+                                                                        </span>
+                                                                        <form id="delete-student-form-{{ $student->id }}"
+                                                                            {{-- action="{{ route('student.destroy', $student->id) }}" --}} method="POST"
+                                                                            style="display: none;">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        @endforeach
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -299,6 +461,66 @@
         </div>
     </div>
 
+    <script>
+        function activateUser(studentId) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ route('activateUser') }}';
+
+            const token = document.createElement('input');
+            token.type = 'hidden';
+            token.name = '_token';
+            token.value = '{{ csrf_token() }}';
+            form.appendChild(token);
+
+            const idInput = document.createElement('input');
+            idInput.type = 'hidden';
+            idInput.name = 'id';
+            idInput.value = studentId;
+            form.appendChild(idInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+    <script>
+        // Convert PHP data to JavaScript-friendly JSON format
+        const studentSevenData = @json($filteredsevenStudents);
+        const studentEightData = @json($filteredeightStudents);
+        const studentNineData = @json($filterednineStudents);
+        const studentNineArray = Object.values(studentNineData);
+
+        function toggleSevenStudents() {
+            console.log('clicked toggleSevenStudents')
+            // Loop through student data and toggle visibility
+            const studentEightArray = Object.values(studentSevenData);
+            studentEightArray.forEach(function(student) {
+                var studentsevenRow = document.getElementById("studentsevenRow" + student.id);
+                studentsevenRow.style.display = (studentsevenRow.style.display === "none") ? "table-row" : "none";
+            });
+        }
+
+        function toggleEightStudents() {
+
+            const studentEightArray = Object.values(studentEightData);
+            studentEightArray.forEach(function(student) {
+                let studenteightRow = document.getElementById("studenteightRow" + student.id);
+                studenteightRow.style.display = (studenteightRow.style.display === "none") ? "table-row" : "none";
+            });
+        }
+
+        function toggleNineStudents() {
+
+            // Loop through student data and toggle visibility
+            const studentNineArray = Object.values(studentNineData);
+
+            // Loop through the array and toggle visibility
+            studentNineArray.forEach(function(student) {
+                var studentnineRow = document.getElementById("studentnineRow" + student.id);
+                studentnineRow.style.display = (studentnineRow.style.display === "none") ? "table-row" : "none";
+            });
+        }
+    </script>
     <script>
         function deleteStudent(id) {
             if (confirm('Are you sure you want to delete this student?')) {

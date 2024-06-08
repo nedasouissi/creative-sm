@@ -159,11 +159,11 @@
                                                                 <td class="text-center">{{ $teacher->teacher_phone }}</td>
                                                                 <td class="text-center">
                                                                     {{ optional($teacher->subject)->name }}</td>
-                                                                {{-- <td class="text-center">
+                                                                <td class="text-center">
                                                                     @foreach ($teacher->classes as $classe)
                                                                         {{ $classe->name }}<br>
                                                                     @endforeach
-                                                                </td> --}}
+                                                                </td>
                                                                 <td class="text-center">
                                                                     <span class="form-check form-switch">
                                                                         <input class="form-check-input" type="checkbox"

@@ -201,7 +201,7 @@
     </div>
     {{-- modal end here  --}}
 
-    @include('espace_intranet.sidebar')
+    @include('espace_intranet.sidebar', ['user' => $user])
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
@@ -485,43 +485,43 @@
             document.getElementById('student-grade').value = StudentParent.student.student_grade;
             document.getElementById('student-birthdate').value = StudentParent.student.birthdate;
         }
-        document.getElementById('parent-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+        // document.getElementById('parent-form').addEventListener('submit', function(event) {
+        //     event.preventDefault();
 
-            const form = event.target;
-            const formData = new FormData(form);
-            const parentId = formData.get('id');
+        //     const form = event.target;
+        //     const formData = new FormData(form);
+        //     const parentId = formData.get('id');
 
-            let url = form.action;
-            if (parentId) {
-                url = "/parent/" + parentId;
-            }
+        //     let url = form.action;
+        //     if (parentId) {
+        //         url = "/parent/" + parentId;
+        //     }
 
-            fetch(url, {
-                    method: formData.get('_method'),
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        alert('Parent data saved successfully');
-                        location.reload();
-                    } else {
-                        alert('Error saving parent data');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error saving parent data');
-                });
-        });
+        //     fetch(url, {
+        //             method: formData.get('_method'),
+        //             body: formData,
+        //             headers: {
+        //                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        //             },
+        //         })
+        //         .then(response => {
+        //             if (!response.ok) {
+        //                 throw new Error('Network response was not ok');
+        //             }
+        //             return response.json();
+        //         })
+        //         .then(data => {
+        //             if (data.success) {
+        //                 alert('Parent data saved successfully');
+        //                 location.reload();
+        //             } else {
+        //                 alert('Error saving parent data');
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error:', error);
+        //             alert('Error saving parent data');
+        //         });
+        // });
     </script>
 @endsection

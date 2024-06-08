@@ -8,6 +8,7 @@ use App\Models\Classe;
 use App\Models\Grade;
 use App\Models\Homework;
 use App\Models\Module;
+use App\Models\Student;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +17,92 @@ use Illuminate\Support\Facades\Storage;
 
 class MainController extends Controller
 {
+    // public function generate()
+    // {
+    //     // Generate and insert dummy data into the database
+    //     // Example: Insert dummy users
+    //     DB::table('users')->insert([
+    //         [
+    //             'name' => 'John Doe',
+    //             'email' => 'john@example.com',
+    //             'password' => Hash::make('password'),
+    //         ],
+    //         [
+    //             'name' => 'Jane Smith',
+    //             'email' => 'jane@example.com',
+    //             'password' => Hash::make('password'),
+    //         ],
+    //         // Add more dummy data as needed
+    //     ]);
 
+    //     return 'Dummy data generated successfully!';
+    // }
+
+    public function activateUser(Request $request)
+    {
+        $user = User::find($request->id);
+        // dd($request->id);
+        {
+            $user = User::find($request->id);
+            // dd($user);
+            if ($user) {
+                $user->is_active = 1;
+                $user->save();
+                // dd($user);
+
+                return redirect()->back()->with('success', 'User activated successfully.');
+            }
+
+            return redirect()->back()->with('error', 'User not found.');
+        }
+    }
+    public function students_pending_index()
+    {
+        $filteredsevenStudents = Student::with('user')
+        ->where('student_grade', 'seven')
+        ->whereHas('user', function($query) {
+            $query->where('is_active', 0);
+        })
+        ->get();
+        $filteredeightStudents = Student::with('user')
+        ->where('student_grade', 'eight')
+        ->whereHas('user', function($query) {
+            $query->where('is_active', 0);
+        })
+        ->get();
+        $filterednineStudents = Student::with('user')
+        ->where('student_grade', 'nine')
+        ->whereHas('user', function($query) {
+            $query->where('is_active', 0);
+        })
+        ->get();
+
+        // dd($filterednineStudents);
+        return view('espace_intranet.students-pending-list', compact('filteredsevenStudents','filteredeightStudents','filterednineStudents'));
+    }
+    public function students_valid_index()
+    {
+        $filteredsevenStudents = Student::with('user')
+        ->where('student_grade', 'seven')
+        ->whereHas('user', function($query) {
+            $query->where('is_active', 1);
+        })
+        ->get();
+        $filteredeightStudents = Student::with('user')
+        ->where('student_grade', 'eight')
+        ->whereHas('user', function($query) {
+            $query->where('is_active', 1);
+        })
+        ->get();
+        $filterednineStudents = Student::with('user')
+        ->where('student_grade', 'nine')
+        ->whereHas('user', function($query) {
+            $query->where('is_active', 1);
+        })
+        ->get();
+
+        return view('espace_intranet.students-valid-list',  compact('filteredsevenStudents','filteredeightStudents','filterednineStudents'));
+    }
     public function home()
     {
         if (Auth::check()) {
